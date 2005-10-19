@@ -7,7 +7,7 @@
   yield optimal reducions in MSE Risk.  
 }
 \usage{
-RXridge(form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
+  RXridge(form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
               qmax = 5, qmin = -5, omdmin = 9.9e-13)
 }
 \arguments{
@@ -71,17 +71,17 @@ RXridge(form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://www.iquest.net/~softrx/}.
 
-  Obenchain RL. (2005) \emph{RXshrink.PDF}  ../../../library/RXshrink
+  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
 }
 \author{Bob Obenchain <softrx@iquest.net>}
 \seealso{\code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}
 \examples{
-    data(longley2)
-    form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-    rxrobj <- RXridge(form, data=longley2)
-    rxrobj
-    names(rxrobj)
-    plot(rxrobj)
+  data(longley2)
+  form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
+  rxrobj <- RXridge(form, data=longley2)
+  rxrobj
+  names(rxrobj)
+  plot(rxrobj)
 }
 \keyword{regression}
 \keyword{hplot}

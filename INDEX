@@ -1,11 +1,11 @@
 RXlarlso                Maximum Likelihood Shrinkage in Least Angle
                         Regression via Efron/Hastie lars()
-RXridge                 Maximum Likelihood Shrinkage in Regression
+RXridge                 Maximum Likelihood Shrinkage in Generalized
+                        (2-parameter) Ridge Regression
 RXtrisk                 True MSE Risk of Shrinkage Resulting from
-                        Known Regression Parameters
+                        Known Numerical Values for Regression Parameters
 RXtsimu                 True Squared Error LOSS of Shrinkage for a
                         Simulated Response Y-vector Generated using
-                        Specified Numerical Values for Regression
-                        Parameters
+                        Known Numerical Values for Regression Parameters
 RXuclars                Maximum Likelihood Shrinkage of Least Angle 
-                        Regression on X-matrix Uncorrelated Components 
+                        Regression on X-covariate Uncorrelated Components 

@@ -1,13 +1,12 @@
 \name{RXuclars}
 \alias{RXuclars}
 \title{Maximum Likelihood Least Angle Regression on Uncorrelated X-Components}
-\description{
-  Apply least angle regression estimation to the uncorrelated
-  components of a possibly ill-conditioned linear regression model
-  and generate normal-theory maximum likelihood TRACE displays.
+\description{Apply least angle regression estimation to the uncorrelated
+  components of a possibly ill-conditioned linear regression model and
+  generate normal-theory maximum likelihood TRACE displays.
 }
 \usage{
-RXuclars(form, data, rscale = 1, type = "lar", trace = FALSE, Gram, 
+  RXuclars(form, data, rscale = 1, type = "lar", trace = FALSE, Gram, 
     eps = .Machine$double.eps, max.steps, use.Gram = TRUE, omdmin = 9.9e-13) 
 }
 \arguments{
@@ -62,17 +61,16 @@ RXuclars(form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
   Obenchain RL. (1994-2005)
   Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein. \bold{www.iquest.net/~softrx}.
 
-  Obenchain RL. (2005) \emph{RXshrink.PDF}  ../../../library/RXshrink
+  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
 }
 \author{Bob Obenchain <softrx@iquest.net>}
 \seealso{\code{\link{RXlarlso}}.}
 \examples{
-    data(longley2)
-    form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-    rxuobj <- RXuclars(form, data=longley2)
-    rxuobj
-    names(rxuobj)
-    plot(rxuobj)
+  data(longley2)
+  form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
+  rxuobj <- RXuclars(form, data=longley2)
+  rxuobj
+  plot(rxuobj)
 }
 \keyword{regression}
 \keyword{hplot}

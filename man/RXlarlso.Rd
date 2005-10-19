@@ -65,7 +65,7 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://www.iquest.net/~softrx/}
 
-  Obenchain RL. (2005) \emph{RXshrink.PDF}  ../../../library/RXshrink
+  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
 
   Tibshirani R. (1996)
   Regression shrinkage and selection via the lasso.
@@ -74,12 +74,12 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
 \author{Bob Obenchain <softrx@iquest.net>}
 \seealso{\code{\link{RXuclars}}.}
 \examples{
-    data(longley2)
-    form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-    rxlobj <- RXlarlso(form, data=longley2)
-    rxlobj
-    names(rxlobj)
-    plot(rxlobj)
+  data(longley2)
+  form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
+  rxlobj <- RXlarlso(form, data=longley2)
+  rxlobj
+  names(rxlobj)
+  plot(rxlobj)
 }
 \keyword{regression}
 \keyword{hplot}

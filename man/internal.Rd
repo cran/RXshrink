@@ -1,6 +1,6 @@
 \name{RXshrink-internal}
 \title{Internal RXshrink functions, e.g. to calculate constant additive K-factors
-and multiplicative Delta-Factors yielding a specified M-extent-of-shrinkage.}
+ and multiplicative Delta-Factors yielding a specified M-extent-of-shrinkage.}
 \alias{RXshrink-internal}
 \alias{print.RXlarlso}
 \alias{print.RXridge}
@@ -11,7 +11,7 @@ and multiplicative Delta-Factors yielding a specified M-extent-of-shrinkage.}
 \description{These are internal functions; RXmstep() is called by RXridge(), RXtrisk() and RXtsimu().
 }
 \usage{
-RXmstep(mobj, kinc, p, qp, eqm1)
+  RXmstep(mobj, kinc, p, qp, eqm1)
 }
 \arguments{
   \item{mobj}{Newest objective value for the M-extent-of-shrinkage along a path of shape qp.}

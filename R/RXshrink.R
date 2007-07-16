@@ -502,8 +502,8 @@ function (x, ...)
 }
 
 "RXlarlso" <-
-function (form, data, rscale = 1, type = "lar", trace = FALSE, Gram, 
-    eps = .Machine$double.eps, max.steps, use.Gram = TRUE, omdmin = 9.9e-13) 
+function (form, data, rscale = 1, type = "lar", trace = FALSE,
+          eps = .Machine$double.eps, omdmin = 9.9e-13, ...) 
 {
     if (missing(form) || class(form) != "formula") 
         stop("First argument to RXlarlso must be a valid linear regression formula.")
@@ -572,8 +572,7 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
         "TRAT"))
     RXolist <- list(data = dfname, form = form, p = p, n = n, 
         r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
-    larsobj <- lars(crx, cry, type, trace, Gram, eps, max.steps, 
-        use.Gram)
+    larsobj <- lars(crx, cry, type, trace, eps, ...)
     bhat <- as.matrix(larsobj$beta)
     if (p != length(bhat[1, ])) 
         stop("Number of coefficients for LARS and shrinkage must match.")
@@ -1139,8 +1138,8 @@ function (form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
 }
 
 "RXuclars" <-
-function (form, data, rscale = 1, type = "lar", trace = FALSE, Gram, 
-    eps = .Machine$double.eps, max.steps, use.Gram = TRUE, omdmin = 9.9e-13) 
+function (form, data, rscale = 1, type = "lar", trace = FALSE, 
+    eps = .Machine$double.eps, omdmin = 9.9e-13, ...) 
 {
     if (missing(form) || class(form) != "formula") 
         stop("First argument to RXuclars must be a valid linear regression formula.")
@@ -1209,8 +1208,7 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
         "TRAT"))
     RXolist <- list(data = dfname, form = form, p = p, n = n, 
         r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
-    larsobj <- lars(sx$u, cry, type, trace, Gram, eps, max.steps, 
-        use.Gram)
+    larsobj <- lars(sx$u, cry, type, trace, eps, ...) 
     bhat <- as.matrix(larsobj$beta) %*% solve(diag(sx$d, ncol = p)) %*% 
         t(sx$v)
     if (p != length(bhat[1, ])) 

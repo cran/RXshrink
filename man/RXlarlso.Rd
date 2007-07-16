@@ -7,8 +7,8 @@
   that do correspond to ridge shrinkage factors between 0.00 and 0.99.
 }
 \usage{
-RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, Gram, 
-    eps = .Machine$double.eps, max.steps, use.Gram = TRUE, omdmin = 9.9e-13) 
+RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, 
+    eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -20,14 +20,9 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, Gram,
   \item{type}{One of "lasso", "lar" or "forward.stagewise" for function lars(). Names can be
    abbreviated to any unique substring. Default in RXlarlso() is "lar".}
   \item{trace}{If TRUE, lars() function prints out its progress.}
-  \item{Gram}{Specify a fixed X'X matrix to lars(); useful for repeated runs (bootstrap) where
-   a large X'X stays the same.}
   \item{eps}{The effective zero for lars().}
-  \item{max.steps}{lars() upper limit for the number of steps taken; the default is 8 * min(m, n-1),
-   with m the number of variables, and n the number of samples.}
-  \item{use.Gram}{When the number m of variables is larger than N, then you may not want lars()
-   to precompute the Gram matrix. Default is use.Gram=TRUE.}
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
+  \item{\dots}{Optional argument(s) passed on to the lars() function from the lars R-package.}
 }
 \details{RXlarlso() calls the Efron/Hastie lars() function to perform Least Angle Regression on
  X-variables that have been centered and possibly rescaled but which may be (highly) correlated.

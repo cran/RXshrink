@@ -1,12 +1,11 @@
 \name{longley2}
 \alias{longley2}
 \docType{data}
-\title{Art Hoerl's update of the infamous Longley(1967) benchmark data for defining
- ill-conditioned linear regression models.}
+\title{Art Hoerl's update of the infamous Longley(1967) benchmark dataset}
 \description{Data from the "Employment and Training Report of the President, 1976"
  compiled by Art Hoerl, University of Delaware.  Some slightly different numerical
- values than those used by Longley(1967) ...plus the added years of 1963-1975.  Longley(1967)
- used only data from the 16 years of 1947 through 1962.}
+ values than those used by Longley(1967) ...plus the added years of 1963-1975.
+ Longley(1967) used only data from the 16 years of 1947 through 1962.}
 \usage{data(longley2)}
 \format{
   A data frame of 7 variables collected for 29 consecutive years; no NAs.

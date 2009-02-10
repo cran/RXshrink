@@ -18,7 +18,7 @@
   \item{\dots}{Optional argument(s) passed on to plot().}
 }
 \value{NULL}
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed

@@ -1,6 +1,5 @@
 \name{RXshrink-internal}
-\title{Internal RXshrink functions, e.g. to calculate constant additive K-factors
- and multiplicative Delta-Factors yielding a specified M-extent-of-shrinkage.}
+\title{Internal RXshrink functions}
 \alias{RXshrink-internal}
 \alias{print.RXlarlso}
 \alias{print.RXridge}
@@ -8,7 +7,9 @@
 \alias{print.RXtsimu}
 \alias{print.RXuclars}
 \alias{RXmstep}
-\description{These are internal functions; RXmstep() is called by RXridge(), RXtrisk() and RXtsimu().
+\description{These are internal functions for printing and calculating quantities such
+ as additive K-factors and multiplicative Delta-Factors that determine a specified M
+ extent-of-shrinkage.  RXmstep() is called by RXridge(), RXtrisk() and RXtsimu().
 }
 \usage{
   RXmstep(mobj, kinc, p, qp, eqm1)
@@ -25,5 +26,5 @@
   \item{d}{A pxp diagonal matrix of multiplicative shrinkage (delta) factors for the
      uncorrelated components of the regression coefficient vector.}
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \keyword{internal}

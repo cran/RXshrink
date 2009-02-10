@@ -25,7 +25,7 @@
 }
 \details{RXuclars() applies Least Angle Regression to the uncorrelated components of a
  possibly ill-conditioned set of X-variables.  A closed-form expression for the lars/lasso
- shrinkage delta factors exits in this case: Delta(i) = max{0,1-k/abs[PC(i)]}, where PC(i)
+ shrinkage delta factors exits in this case: Delta(i) = max(0,1-k/abs[PC(i)]), where PC(i)
  is the principal correlation between Y and the i-th principal coordinates of X. Note that
  the k-factor in this formulation is limited to a subset of [0,1].  MCAL=0 occurs at k=0,
  while MCAL = P results when k is the maximum absolute principal correlation. 
@@ -50,15 +50,15 @@
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
 \references{
-  Efron B, Hastie T, Johnstone I, Tibshirani R. (2004)
-  Least angle regression. \emph{Ann. Statis.} \bold{32}, 407--499 (with discussion.)
+  Efron B, Hastie T, Johnstone I, Tibshirani R. (2004) Least angle regression.
+  \emph{Ann. Statis.} \bold{32}, 407-499 (with discussion.)
 
-  Obenchain RL. (1994-2005)
-  Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein. \bold{www.iquest.net/~softrx}.
+  Obenchain RL. (1994-2005) Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein.
+  \bold{members.iquest.net/~softrx}.
 
-  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
+  Obenchain RL. (2009) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXlarlso}}.}
 \examples{
   data(longley2)

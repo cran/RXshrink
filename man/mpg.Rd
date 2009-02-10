@@ -1,7 +1,7 @@
 \name{mpg}
 \alias{mpg}
 \docType{data}
-\title{Hocking(1976) Miles Per Gallon benchmark.}
+\title{Hocking(1976) Miles Per Gallon benchmark dataset}
 \description{Performance data on 32 autos from Motor Trends magazine.}
 \usage{data(mpg)}
 \format{

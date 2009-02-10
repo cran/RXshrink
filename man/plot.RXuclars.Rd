@@ -2,11 +2,11 @@
 \alias{plot.RXuclars}
 \title{Plot method for RXuclars objects}
 \description{
-Plot trace displays for RXuclars regression coefficients.  The
-default is to display all five traces on one page with no legends.
+ Plot trace displays for RXuclars regression coefficients.  The
+ default is to display all five traces on one page with no legends.
 }
 \usage{
-  \method{plot}{RXuclars}(x, trace = "all", trkey = FALSE, \dots )
+  \method{plot}{RXuclars}(x, trace = "all", trkey = FALSE, \dots)
 }
 \arguments{
   \item{x}{Output list object of class RXuclars.}
@@ -21,7 +21,7 @@ default is to display all five traces on one page with no legends.
   \item{\dots}{Optional argument(s) passed on to plot().}
 }
 \value{NULL}
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed

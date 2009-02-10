@@ -49,24 +49,22 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
 \references{
-  Breiman L. (1995)
-  Better subset regression using the non-negative garrote.
-  \emph{Technometrics} \bold{37}, 373--384.
+  Breiman L. (1995) Better subset regression using the non-negative garrote.
+  \emph{Technometrics} \bold{37}, 373-384.
 
   Efron B, Hastie T, Johnstone I, Tibshirani R. (2004)
-  Least angle regression. \emph{Ann. Statis.} \bold{32}, 407--499.
+  Least angle regression. \emph{Ann. Statis.} \bold{32}, 407-499.
 
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://www.iquest.net/~softrx/}
+  book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}
 
-  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
+  Obenchain RL. (2009) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink
 
-  Tibshirani R. (1996)
-  Regression shrinkage and selection via the lasso.
-  \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267--288.
+  Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
+  \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXuclars}}.}
 \examples{
   data(longley2)

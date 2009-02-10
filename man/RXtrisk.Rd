@@ -7,8 +7,7 @@
   statistics associated with shrinkage along a given \bold{Q}-shaped path.  
 }
 \usage{
-  RXtrisk(form, data, trug, trus, Q = 0, rscale = 1,
-          steps = 8, qmax = 5, qmin = -5)
+  RXtrisk(form, data, trug, trus, Q = 0, rscale = 1, steps = 8, qmax = 5, qmin = -5)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -51,7 +50,7 @@
   \item{spat}{Matrix of shrinkage pattern delta factors.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXridge}} and \code{\link{RXtsimu}}.}
 \examples{
   data(mpg)  

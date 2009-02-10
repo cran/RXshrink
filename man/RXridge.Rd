@@ -61,19 +61,19 @@
 \references{
   Goldstein M, Smith AFM. (1974)
   Ridge-type estimators for regression analysis. \emph{J. Roy. Stat. Soc. B}
-  \bold{36}, 284--291. (2-parameter shrinkage family.)
+  \bold{36}, 284-291. (2-parameter shrinkage family.)
   
   Burr TL, Fry HA. (2005)
   Biased Regression: The Case for Cautious Application. \emph{Technometrics}
-  \bold{47}, 284--296.
+  \bold{47}, 284-296.
 
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://www.iquest.net/~softrx/}.
+  book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}.
 
-  Obenchain RL. (2005) \emph{RXshrinkExtra.PDF}  ../R\_HOME/library/RXshrink
+  Obenchain RL. (2009) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}
 \examples{
   data(longley2)

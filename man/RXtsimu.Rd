@@ -1,15 +1,13 @@
 \name{RXtsimu}
 \alias{RXtsimu}
-\title{True Squared Error LOSS of Shrinkage for a Simulated Response Y-vector Generated
- using Specified Numerical Values for Regression Parameters}
+\title{True Squared Error LOSS of Shrinkage for a Simulated Response Y-vector}
 \description{
   By specifying numerical values for regression parameters (uncorrelated components and error
   sigma) that usually are unknown, these functions allow the user to simulate response data and
   display the True Squared Error Loss associated with shrinkage along a given \bold{Q}-shaped path.  
 }
 \usage{
-RXtsimu(form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
-              seed = 0123, qmax = 5, qmin = -5)
+RXtsimu(form, data, trug, trus, Q = 0, rscale = 1, steps = 8, seed = 0123, qmax = 5, qmin = -5)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -58,7 +56,7 @@ RXtsimu(form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
-\author{Bob Obenchain <softrx@iquest.net>}
+\author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXridge}} and \code{\link{RXtrisk}}.}
 \examples{
   data(haldport)

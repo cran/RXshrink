@@ -1,7 +1,7 @@
 \name{haldport}
 \alias{haldport}
 \docType{data}
-\title{Portland Cement benchmark of Hald(1952).}
+\title{Portland Cement benchmark of Hald(1952)}
 \description{Heat evolved during setting of 13 cement mixtures of four basic ingredients.  Each
  ingredient percentage appears to be rounded down to a full integer.  The sum of the four mixture
  percentages varies from a maximum of 99\% to a minimum of 95\%.  If all four regressor

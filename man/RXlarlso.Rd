@@ -37,9 +37,8 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \item{r2}{Numerical value of R-square goodness-of-fit statistic.}
   \item{s2}{Numerical value of the residual mean square estimate of error.}
   \item{prinstat}{Listing of principal statistics.}
-  \item{crlqstat}{Listing of criteria for maximum likelihood selection of path Q-shape.}
-  \item{qmse}{Numerical value of Q-shape most likely to be optimal.}
-  \item{qp}{Numerical value of the Q-shape actually used for shrinkage.}
+  \item{gmat}{Orthogonal matrix of direction cosines for regressor principal axes.}
+  \item{lars}{An object of class lars.}
   \item{coef}{Matrix of shrinkage-ridge regression coefficient estimates.}
   \item{risk}{Matrix of MSE risk estimates for fitted coefficients.}
   \item{exev}{Matrix of excess MSE eigenvalues (ordinary least squares minus ridge.)}
@@ -59,7 +58,7 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}
 
-  Obenchain RL. (2009) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink
+  Obenchain RL. (2010) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink/doc
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.

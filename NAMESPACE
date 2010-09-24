@@ -1,0 +1,23 @@
+export(RXridge)
+export(RXtrisk)
+export(RXtsimu)
+export(RXlarlso)
+export(RXuclars)
+S3method(plot, RXridge)
+S3method(plot, RXtrisk)
+S3method(plot, RXtsimu)
+S3method(plot, RXlarlso)
+S3method(plot, RXuclars)
+S3method(print, RXridge)
+S3method(print, RXtrisk)
+S3method(print, RXtsimu)
+S3method(print, RXlarlso)
+S3method(print, RXuclars)
+
+
+
+
+
+
+
+

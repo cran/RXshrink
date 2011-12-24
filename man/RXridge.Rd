@@ -71,7 +71,7 @@
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}.
 
-  Obenchain RL. (2010) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink/doc
+  Obenchain RL. (2011) \emph{shrink.PDF}  RXshrink package vignette.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}

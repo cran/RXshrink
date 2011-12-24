@@ -11,8 +11,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.0-5\cr
-  Date: \tab 2010-09-10\cr
+  Version: \tab 1.0-7\cr
+  Date: \tab 2011-12-24\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -43,7 +43,7 @@
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}.
 
-  Obenchain RL. (2010) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink/doc
+  Obenchain RL. (2011) \emph{shrink.PDF}  RXshrink package vignette.
 }
 \keyword{package}
 \examples{

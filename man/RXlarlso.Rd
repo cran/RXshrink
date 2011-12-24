@@ -58,7 +58,7 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}
 
-  Obenchain RL. (2010) \emph{RXshrink-R.PDF}  ../R\_HOME/library/RXshrink/doc
+  Obenchain RL. (2011) \emph{shrink.PDF}  RXshrink package vignette.
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.

@@ -7,11 +7,6 @@
 \begin{document}
 
 \newread\PDFtoInclude
-\openin\PDFtoInclude=shrink0.pdf
-\ifeof\PDFtoInclude
-\typeout{No file shrink0.pdf}
-\else
-\includepdf[fitpaper=true,pages=-]{shrink0.pdf}
-\fi
+\openin\PDFtoInclude=shrink.pdf
 
 \end{document}

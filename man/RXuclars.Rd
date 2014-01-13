@@ -7,7 +7,7 @@
 }
 \usage{
   RXuclars(form, data, rscale = 1, type = "lar", trace = FALSE, 
-    eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
+           eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -55,7 +55,8 @@
   Obenchain RL. (1994-2005) Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein.
   \bold{members.iquest.net/~softrx}.
 
-  Obenchain RL. (2011) \emph{shrink.PDF}  RXshrink package vignette.
+  Obenchain RL. (2011) \emph{shrink.PDF}  Vignette-like documentation stored in
+  the R library/RXshrink/doc folder. 23 pages.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXlarlso}}.}

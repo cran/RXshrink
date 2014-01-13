@@ -7,7 +7,8 @@
   statistics associated with shrinkage along a given \bold{Q}-shaped path.  
 }
 \usage{
-  RXtrisk(form, data, trug, trus, Q = 0, rscale = 1, steps = 8, qmax = 5, qmin = -5)
+  RXtrisk(form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
+                      qmax = 5, qmin = -5)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}

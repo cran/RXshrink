@@ -29,13 +29,13 @@
   \item{qmin}{Minimum allowed Q-shape (default = -5.)}
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
 }
-\details{Illconditioned and/or nearly multicollinear regression models are unlikely to
+\details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
   close, numerically, to their unknown true values.  Specifically, OLS estimates can then
-  tend to have "wrong" numerical signs and/or unreasable relative magnitudes, while
+  tend to have "wrong" numerical signs and/or unreasonable relative magnitudes, while
   shrunken (generalized ridge) estimates chosen to maximize their likelihood of reducing
   Mean Squared Error (MSE) Risk (expected loss) can be much more stable and reasonable,
-  numerically.  On the other hand, because only OLS estimates are quaranteed to be minimax
+  numerically.  On the other hand, because only OLS estimates are guaranteed to be minimax
   when risk is matrix valued (truly multivariate), no guarantee of an actual reduction in
   MSE Risk is necessarily associated with shrinkage. 
 }
@@ -59,20 +59,23 @@
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
 \references{
-  Goldstein M, Smith AFM. (1974)
-  Ridge-type estimators for regression analysis. \emph{J. Roy. Stat. Soc. B}
-  \bold{36}, 284-291. (2-parameter shrinkage family.)
-  
   Burr TL, Fry HA. (2005)
   Biased Regression: The Case for Cautious Application. \emph{Technometrics}
   \bold{47}, 284-296.
 
+  Goldstein M, Smith AFM. (1974)
+  Ridge-type estimators for regression analysis. \emph{J. Roy. Stat. Soc. B}
+  \bold{36}, 284-291. (The 2-parameter shrinkage family.)
+  
+  Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
+  \bold{6}, 1111-1121.
+
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}.
+  book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2011) \emph{shrink.PDF}  Vignette-like documentation stored in
-  the R library/RXshrink/doc folder. 23 pages.
+  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}

@@ -4,21 +4,26 @@
 \title{Maximum Likelihood Shrinkage via Generalized Ridge or Least Angle Regression}
 \description{The functions in this package augment the basic calculations of Generalized
   Ridge and Least Angle Regression with important visualization tools.  Specifically, they display
-  TRACEs of normal-distribution-theory Maximum Likelihood estimates of the key quantities that
-  completely characterize the effects of shrinkage on the MSE Risk of fitted coefficients.
+  TRACEs of estimates for 5 KEY quantities (fitted coefficients, MSE risks, excess eigenvalues,
+  direction cosines and shrinkage factors) that completely characterize the effects of shrinkage along
+  2-parameter Paths (Q-shape and M-extent) through likelihood space. Most paths start at the Ordinary
+  Least-Squares estimate [M = 0] and end at the origin, (0, 0, ..., 0) where all coefficient estimates
+  have been shrunken to zero [M = rank(X).] Three different types of Likelihood of minimal MSE risk
+  (Classical Normal-Theory, Empirical Bayes, and Random Coefficients) are monitored to suggest an
+  optimal M-extent of shrinkage.  
 }
 \details{
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.0-7\cr
-  Date: \tab 2011-12-24\cr
+  Version: \tab 1.0-9\cr
+  Date: \tab 2018-4-2\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
   RXridge() calculates and displays TRACEs for the \bold{Q}-shaped shrinkage path, including
   the \bold{M}-extent of shrinkage along that path, that are most likely under normal
-  distribution theory to yield optimal reducions in MSE Risk.
+  distribution theory to yield optimal reductions in MSE Risk.
   
   When regression parameters have specified, KNOWN numerical values, RXtrisk() calculates and
   displays the corresponding True MSE Risk profiles and RXtsimu() first simulates Y-outcome data 
@@ -34,17 +39,16 @@
 \author{Bob Obenchain <wizbob@att.net>}
 \references{
   Efron B, Hastie T, Johnstone I, Tibshirani R. (2004) Least angle regression.
-  \emph{Ann. Statis.} \bold{32}, 407-499.
+  \emph{Annals of Statistics} \bold{32}, 407-499.
 
   Goldstein M, Smith AFM. (1974) Ridge-type estimators for regression analysis.
-  \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (2-parameter shrinkage family.)
+  \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (The 2-parameter shrinkage family.)
 
-  Obenchain RL. (2005)
-  \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}.
+  Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and
+  Stein}.  Electronic book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2011) \emph{shrink.PDF}  Vignette-like documentation stored in
-  the R library/RXshrink/doc folder. 23 pages.  
+  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  \url{http://localcontrolstatistics.org}
 }
 \keyword{package}
 \examples{

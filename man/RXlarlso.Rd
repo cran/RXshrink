@@ -8,7 +8,7 @@
 }
 \usage{
 RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, 
-         eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
+    eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -52,14 +52,14 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \emph{Technometrics} \bold{37}, 373-384.
 
   Efron B, Hastie T, Johnstone I, Tibshirani R. (2004)
-  Least angle regression. \emph{Ann. Statis.} \bold{32}, 407-499.
+  Least angle regression. \emph{Annals of Statistics} \bold{32}, 407-499.
 
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://members.iquest.net/~softrx/}
+  book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2011) \emph{shrink.PDF}  Vignette-like documentation stored in
-  the R library/RXshrink/doc folder. 23 pages.
+  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  \url{http://localcontrolstatistics.org}
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.

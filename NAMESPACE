@@ -1,23 +1,25 @@
+importFrom("grDevices", "gray")
+importFrom("graphics", "abline", "legend", "lines", "par", "plot",
+           "title")
+importFrom("stats", "lm", "rnorm", "var")
+importFrom("lars", "lars")
+
 export(RXridge)
-export(RXtrisk)
-export(RXtsimu)
-export(RXlarlso)
-export(RXuclars)
 S3method(plot, RXridge)
-S3method(plot, RXtrisk)
-S3method(plot, RXtsimu)
-S3method(plot, RXlarlso)
-S3method(plot, RXuclars)
 S3method(print, RXridge)
+
+export(RXtrisk)
+S3method(plot, RXtrisk)
 S3method(print, RXtrisk)
+
+export(RXtsimu)
+S3method(plot, RXtsimu)
 S3method(print, RXtsimu)
+
+export(RXlarlso)
+S3method(plot, RXlarlso)
 S3method(print, RXlarlso)
+
+export(RXuclars)
+S3method(plot, RXuclars)
 S3method(print, RXuclars)
-
-
-
-
-
-
-
-

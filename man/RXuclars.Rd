@@ -66,6 +66,6 @@
   rxuobj <- RXuclars(form, data=longley2)
   rxuobj
   plot(rxuobj)
+  str(rxuobj)
 }
 \keyword{regression}
-\keyword{hplot}

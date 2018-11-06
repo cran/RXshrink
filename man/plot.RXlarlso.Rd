@@ -27,5 +27,4 @@
   rxlobj <- RXlarlso(form, data=longley2)
   plot(rxlobj)
 }
-\keyword{hplot}
-\keyword{methods}
+\keyword{trace}

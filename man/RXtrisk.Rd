@@ -62,6 +62,6 @@
   # create true shrinkage MSE risk scenario.
   trumse <- RXtrisk(form, data=mpg, trugam, trusig, Q=-1, steps=4)
   plot(trumse)
+  str(trumse)
 }
 \keyword{regression}
-\keyword{hplot}

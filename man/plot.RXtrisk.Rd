@@ -30,5 +30,4 @@
   rxtobj <- RXtrisk(form, data=longley2, trugam, trusig, Q=-1.5)
   plot(rxtobj)
 }
-\keyword{hplot}
-\keyword{methods}
+\keyword{trace}

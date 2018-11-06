@@ -1,7 +1,7 @@
 importFrom("grDevices", "gray")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot",
            "title")
-importFrom("stats", "lm", "rnorm", "var")
+importFrom("stats", "lm", "rnorm", "var", "cor")
 importFrom("lars", "lars")
 
 export(RXridge)
@@ -23,3 +23,6 @@ S3method(print, RXlarlso)
 export(RXuclars)
 S3method(plot, RXuclars)
 S3method(print, RXuclars)
+
+export(RXsigns)
+S3method(print, RXsigns)

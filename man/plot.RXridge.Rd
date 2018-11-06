@@ -27,5 +27,4 @@
   rxrobj <- RXridge(form, data=longley2)
   plot(rxrobj)
 }
-\keyword{hplot}
-\keyword{methods}
+\keyword{trace}

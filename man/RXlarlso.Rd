@@ -71,8 +71,7 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
   rxlobj <- RXlarlso(form, data=longley2)
   rxlobj
-  names(rxlobj)
   plot(rxlobj)
+  str(rxlobj)
 }
 \keyword{regression}
-\keyword{hplot}

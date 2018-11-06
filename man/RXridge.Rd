@@ -78,14 +78,13 @@
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}
+\seealso{\code{\link{RXsigns}}, \code{\link{RXtrisk}} and \code{\link{RXtsimu}}.}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
   rxrobj <- RXridge(form, data=longley2)
   rxrobj
-  names(rxrobj)
   plot(rxrobj)
+  str(rxrobj)
 }
 \keyword{regression}
-\keyword{hplot}

@@ -28,5 +28,4 @@
   rxsobj <- RXtsimu(form, data=longley2, trugam, trusig, Q=-1.5)
   plot(rxsobj)
 }
-\keyword{hplot}
-\keyword{methods}
+\keyword{trace}

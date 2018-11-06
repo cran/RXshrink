@@ -28,5 +28,4 @@
   rxuobj <- RXuclars(form, data=longley2)
   plot(rxuobj)
 }
-\keyword{hplot}
-\keyword{methods}
+\keyword{trace}

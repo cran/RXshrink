@@ -5,10 +5,10 @@
 \description{The functions in this package augment the basic calculations of Generalized
   Ridge and Least Angle Regression with important visualization tools.  Specifically, they display
   TRACEs of estimates for 5 KEY quantities (fitted coefficients, MSE risks, excess eigenvalues,
-  direction cosines and shrinkage factors) that completely characterize the effects of shrinkage along
-  2-parameter Paths (Q-shape and M-extent) through likelihood space. Most paths start at the Ordinary
-  Least-Squares estimate [M = 0] and end at the origin, (0, 0, ..., 0) where all coefficient estimates
-  have been shrunken to zero [M = rank(X).] Three different types of Likelihood of minimal MSE risk
+  inferior direction cosines and shrinkage factors) that completely characterize the effects of
+  shrinkage along 2-parameter Paths (Q-shape and M-extent) through likelihood space. Most paths
+  start at the Ordinary Least-Squares estimate [M = 0] and end at the origin, (0, 0, ..., 0) where
+  all coefficient estimates have been shrunken to zero [M = rank(X).] Three different types of Likelihood of minimal MSE risk
   (Classical Normal-Theory, Empirical Bayes, and Random Coefficients) are monitored to suggest an
   optimal M-extent of shrinkage.  
 }
@@ -16,8 +16,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.0-9\cr
-  Date: \tab 2018-4-2\cr
+  Version: \tab 1.1\cr
+  Date: \tab 2018-11-06\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -27,7 +27,7 @@
   
   When regression parameters have specified, KNOWN numerical values, RXtrisk() calculates and
   displays the corresponding True MSE Risk profiles and RXtsimu() first simulates Y-outcome data 
-  then calculates true Squared Error Losss associated with \bold{Q}-shape shrinkage.  
+  then calculates true Squared Error Losses associated with \bold{Q}-shape shrinkage.  
   
   RXlarlso() calls the Efron/Hastie lars() R-function to perform Least Angle Regression then
   augments these calculations with Maximum Likelihood TRACE displays like those of RXridge().
@@ -35,6 +35,12 @@
   RXuclars() applies Least Angle Regression to the uncorrelated components of a possibly
   ill-conditioned set of X-variables using a closed-form expression for the lars/lasso
   shrinkage delta factors that exits in this special case.
+  
+  RXsigns() displays the normal-theory maximum likelihood estimate of the \bold{B(=)} regression
+  coefficient vector that minimizes MSE Risk in the unknown direction of p-space PARALLEL to
+  the true Beta vector. This estimate corrects "wrong-sign" problems in the sense that its
+  coefficients have the same relative magnitudes and numerical signs as those of the "Correlation
+  Form" of the X'y vector.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \references{
@@ -45,7 +51,7 @@
   \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (The 2-parameter shrinkage family.)
 
   Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and
-  Stein}.  Electronic book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
+  Stein}.  Electronic book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
 
   Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}

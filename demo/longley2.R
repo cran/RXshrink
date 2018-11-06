@@ -21,3 +21,8 @@
   rxuobj <- RXuclars(form, data=longley2)
   rxuobj
   plot(rxuobj)
+  cat("\n Press ENTER for RXsigns output on Correction of WRONG-SIGNs...")
+  scan()
+  # Show Coefficients with Minimum MSE Risk Parallel to unknown, true Beta...
+  rxsobj <- RXsigns(form, data=longley2)
+  rxsobj

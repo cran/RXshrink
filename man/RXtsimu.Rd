@@ -3,7 +3,7 @@
 \title{True Squared Error LOSS of Shrinkage for a Simulated Response Y-vector}
 \description{
   By specifying numerical values for regression parameters (uncorrelated components and error
-  sigma) that usually are unknown, these functions allow the user to simulate response data and
+  sigma) that usually are unknown, this function allows the user to simulate response data and
   display the True Squared Error Loss associated with shrinkage along a given \bold{Q}-shaped path.  
 }
 \usage{
@@ -31,10 +31,10 @@
   \item{qmax}{Maximum allowed Q-shape (default = +5.)}
   \item{qmin}{Minimum allowed Q-shape (default = -5.)}
 }
-\details{The RXridge() functions calculate maximum likelihood estimates (corrected, if
+\details{The RXridge() function calculates maximum likelihood estimates (corrected, if
   necessary, so as to have correct range) for typical statistical inference situations where
   regression parameters are unknowns.  In sharp contrast with this usual situation, the
-  RXtsimu() functions show exactly how regression coefficient estimates and their true
+  RXtsimu() function shows exactly how regression coefficient estimates and their true
   Squared Error Losses change with shrinkage for a simulated response Y-vector generated
   using given numerical values for regression parameters.  In fact, it is interesting to
   compare the output from RXtrisk() and RXtsimu() for given regression parameters to the
@@ -77,4 +77,3 @@
   plot(rxsobj)
 }
 \keyword{regression}
-\keyword{hplot}

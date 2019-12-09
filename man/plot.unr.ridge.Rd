@@ -1,14 +1,14 @@
-\name{plot.RXlarlso}
-\alias{plot.RXlarlso}
-\title{Plot method for RXlarlso objects}
-\description{Plot trace displays for RXlarlso regression coefficients.  The default
- is to display all five traces on one page with no legends.
+\name{plot.unr.ridge}
+\alias{plot.unr.ridge}
+\title{Plot method for unr.ridge objects}
+\description{Plot TRACE displays for unrestricted ridge shrinkage coefficients.  The
+ default is to display all five traces on one page with no legends.
 }
 \usage{
-  \method{plot}{RXlarlso}(x, trace = "all", trkey = FALSE, \dots)
+  \method{plot}{unr.ridge}(x, trace = "all", trkey = FALSE, \dots )
 }
 \arguments{
-  \item{x}{Output list object of class RXlarlso.}
+  \item{x}{Output list object of class unr.ridge.}
   \item{trace}{One of seven possible options: "all" to display 5 traces in one graph,
    "seq" to display 5 full-sized traces in sequence in response to user prompts,
    "coef" to display only the estimated beta coefficient trace,
@@ -24,7 +24,7 @@
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-  rxlobj <- RXlarlso(form, data=longley2)
-  plot(rxlobj)
+  rxunobj <- unr.ridge(form, data=longley2)
+  plot(rxunobj)
 }
 \keyword{trace}

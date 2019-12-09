@@ -1,13 +1,13 @@
-\name{RXuclars}
-\alias{RXuclars}
+\name{uc.lars}
+\alias{uc.lars}
 \title{Maximum Likelihood Least Angle Regression on Uncorrelated X-Components}
 \description{Apply least angle regression estimation to the uncorrelated
   components of a possibly ill-conditioned linear regression model and
   generate normal-theory maximum likelihood TRACE displays.
 }
 \usage{
-  RXuclars(form, data, rscale = 1, type = "lar", trace = FALSE, 
-    eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
+  uc.lars(form, data, rscale = 1, type = "lar", trace = FALSE, 
+    eps = .Machine$double.eps, omdmin = 9.9e-13) 
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -17,20 +17,19 @@
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{type}{One of "lasso", "lar" or "forward.stagewise" for function lars(). Names can be
-   abbreviated to any unique substring. Default in RXlarlso() is "lar".}
+   abbreviated to any unique substring. Default in uc.lars() is "lar".}
   \item{trace}{If TRUE, lars() function prints out its progress.}
   \item{eps}{The effective zero for lars().}
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
-  \item{\dots}{Optional argument(s) passed to the lars() function in the lars R-package.}
 }
-\details{RXuclars() applies Least Angle Regression to the uncorrelated components of a
+\details{uc.lars() applies Least Angle Regression to the uncorrelated components of a
  possibly ill-conditioned set of X-variables.  A closed-form expression for the lars/lasso
  shrinkage delta factors exits in this case: Delta(i) = max(0,1-k/abs[PC(i)]), where PC(i)
  is the principal correlation between Y and the i-th principal coordinates of X. Note that
  the k-factor in this formulation is limited to a subset of [0,1].  MCAL=0 occurs at k=0,
  while MCAL = P results when k is the maximum absolute principal correlation. 
 }
-\value{ An output list object of class RXuclars:
+\value{ An output list object of class uc.lars:
   \item{form}{The regression formula specified as the first argument.}
   \item{data}{Name of the data.frame object specified as the second argument.}
   \item{p}{Number of regression predictor variables.}
@@ -47,6 +46,8 @@
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of M-extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
+  \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
+  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}
 }
 \references{
   Efron B, Hastie T, Johnstone I, Tibshirani R. (2004) Least angle regression.
@@ -59,13 +60,13 @@
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{RXlarlso}}.}
+\seealso{\code{\link{aug.lars}}.}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-  rxuobj <- RXuclars(form, data=longley2)
-  rxuobj
-  plot(rxuobj)
-  str(rxuobj)
+  rxucobj <- uc.lars(form, data=longley2)
+  rxucobj
+  plot(rxucobj)
+  str(rxucobj)
 }
 \keyword{regression}

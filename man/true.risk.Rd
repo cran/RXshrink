@@ -1,13 +1,13 @@
-\name{RXtrisk}
-\alias{RXtrisk}
+\name{true.risk}
+\alias{true.risk}
 \title{True MSE Risk of Shrinkage Resulting from Known Regression Parameters}
 \description{
   By specifying numerical values for regression parameters (uncorrelated components and error
-  sigma) that usually are unknown, these functions can calculate and display True MSE Risk
+  sigma) that usually are unknown, this function can calculate and display True MSE Risk
   statistics associated with shrinkage along a given \bold{Q}-shaped path.  
 }
 \usage{
-  RXtrisk(form, data, trug, trus, Q = 0, rscale = 1, steps = 8, qmax = 5, qmin = -5)
+  true.risk(form, data, trug, trus, Q = 0, rscale = 1, steps = 8, qmax = 5, qmin = -5)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -27,14 +27,14 @@
   \item{qmax}{Maximum allowed Q-shape (default = +5.)}
   \item{qmin}{Minimum allowed Q-shape (default = -5.)}
 }
-\details{The RXridge() functions calculate maximum likelihood estimates (corrected, if
+\details{Most RXshrink() functions calculate maximum likelihood estimates (corrected, if
   necessary, so as to have correct range) for typical statistical inference situations where
   regression parameters are unknowns.  In sharp contrast with this usual situation, the
-  RXtrisk() functions show exactly how expected regression coefficients and true Mean
+  true.risk() function shows exactly how expected regression coefficients and true Mean
   Squared Error Risk actually do change with shrinkage when regression parameters take on
   specified, KNOWN numerical values.
 }
-\value{ An output list object of class RXtrisk:
+\value{ An output list object of class true.risk:
   \item{form}{The regression formula specified as the first argument.}
   \item{data}{Name of the data.frame object specified as the second argument.}
   \item{trug}{Vector of numerical values for the true uncorrelated gamma components.}
@@ -51,16 +51,16 @@
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{RXridge}} and \code{\link{RXtsimu}}.}
+\seealso{\code{\link{qm.ridge}} and \code{\link{true.simu}}.}
 \examples{
   data(mpg)  
   form <- mpg~cylnds+cubins+hpower+weight
-  rxrobj <- RXridge(form, data=mpg)
+  rxrobj <- qm.ridge(form, data=mpg)
   # define true parameter values.
   trugam <- matrix(c(-.5,-.1,.1,-.6),4,1)
   trusig <- 0.4
   # create true shrinkage MSE risk scenario.
-  trumse <- RXtrisk(form, data=mpg, trugam, trusig, Q=-1, steps=4)
+  trumse <- true.risk(form, data=mpg, trugam, trusig, Q=-1, steps=4)
   plot(trumse)
   str(trumse)
 }

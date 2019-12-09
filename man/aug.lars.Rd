@@ -1,14 +1,15 @@
-\name{RXlarlso}
-\alias{RXlarlso}
+\name{aug.lars}
+\alias{aug.lars}
 \title{Maximum Likelihood Estimation of Effects in Least Angle Regression}
 \description{
-  Identify whether least angle regression estimates are generalized
-  ridge shrinkage estimates and generate TRACE displays for estimates
-  that do correspond to ridge shrinkage factors between 0.00 and 0.99.
+  These functions perform calculations that determine whether least angle and lasso regression
+  estimates correspond to generalized ridge estimates (i.e. whether they use shrinkage delta
+  factors that are both non-negative and strictly less than 1.0), determine the Normal-theory
+  likelihood that they minimize MSE risk, and generate ridge TRACE plots.
 }
 \usage{
-RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE, 
-    eps = .Machine$double.eps, omdmin = 9.9e-13, \dots) 
+aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE, 
+    eps = .Machine$double.eps, omdmin = 9.9e-13) 
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -18,18 +19,17 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{type}{One of "lasso", "lar" or "forward.stagewise" for function lars(). Names can be
-   abbreviated to any unique substring. Default in RXlarlso() is "lar".}
+   abbreviated to any unique substring. Default in aug.lars() is "lar".}
   \item{trace}{If TRUE, lars() function prints out its progress.}
   \item{eps}{The effective zero for lars().}
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
-  \item{\dots}{Optional argument(s) passed on to the lars() function from the lars R-package.}
 }
-\details{RXlarlso() calls the Efron/Hastie lars() function to perform Least Angle Regression on
+\details{aug.lars() calls the Efron/Hastie lars() function to perform Least Angle Regression on
  X-variables that have been centered and possibly rescaled but which may be (highly) correlated.
- Maximum likelihood TRACE displays paralleling those of RXridge are also computed and (optionally)
- plotted. 
+ Maximum likelihood TRACE displays paralleling those of qm.ridge() and unr.ridge() are also
+ computed and (optionally) plotted. 
 }
-\value{ An output list object of class RXlarlso:
+\value{ An output list object of class aug.lars:
   \item{form}{The regression formula specified as the first argument.}
   \item{data}{Name of the data.frame object specified as the second argument.}
   \item{p}{Number of regression predictor variables.}
@@ -46,6 +46,8 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of M-extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
+  \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.}
+  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}    
 }
 \references{
   Breiman L. (1995) Better subset regression using the non-negative garrote.
@@ -65,11 +67,11 @@ RXlarlso(form, data, rscale = 1, type = "lar", trace = FALSE,
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{RXuclars}}.}
+\seealso{\code{\link{uc.lars}}.}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-  rxlobj <- RXlarlso(form, data=longley2)
+  rxlobj <- aug.lars(form, data=longley2)
   rxlobj
   plot(rxlobj)
   str(rxlobj)

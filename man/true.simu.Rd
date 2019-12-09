@@ -1,13 +1,13 @@
-\name{RXtsimu}
-\alias{RXtsimu}
+\name{true.simu}
+\alias{true.simu}
 \title{True Squared Error LOSS of Shrinkage for a Simulated Response Y-vector}
 \description{
   By specifying numerical values for regression parameters (uncorrelated components and error
   sigma) that usually are unknown, this function allows the user to simulate response data and
-  display the True Squared Error Loss associated with shrinkage along a given \bold{Q}-shaped path.  
+  display the True Squared Error Loss associated with shrinkage along a given \bold{Q}-shaped PATH.  
 }
 \usage{
-  RXtsimu(form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
+  true.simu(form, data, trug, trus, Q = 0, rscale = 1, steps = 8,
     seed = 0123, qmax = 5, qmin = -5)
 }
 \arguments{
@@ -26,22 +26,22 @@
    M-extent-of-shrinkage axis where estimates are calculated and displayed in TRACEs
    (default = 8.)}
   \item{seed}{Seed for random number generator.  To get two different simulated response
-   vectors and different sets of coefficients and SE losses, invoke the RXtsimu() function
+   vectors and different sets of coefficients and SE losses, invoke the true.simu() function
    twice with different seed values. (default = 0123.)}
   \item{qmax}{Maximum allowed Q-shape (default = +5.)}
   \item{qmin}{Minimum allowed Q-shape (default = -5.)}
 }
-\details{The RXridge() function calculates maximum likelihood estimates (corrected, if
+\details{The qm.ridge() function calculates maximum likelihood estimates (corrected, if
   necessary, so as to have correct range) for typical statistical inference situations where
   regression parameters are unknowns.  In sharp contrast with this usual situation, the
-  RXtsimu() function shows exactly how regression coefficient estimates and their true
+  true.simu() function shows exactly how regression coefficient estimates and their true
   Squared Error Losses change with shrinkage for a simulated response Y-vector generated
   using given numerical values for regression parameters.  In fact, it is interesting to
-  compare the output from RXtrisk() and RXtsimu() for given regression parameters to the
-  corresponding output from RXridge() on the data.frame in which any original response
-  Y-vector has been replaced by the ydat object from the RXtsimu() output list. 
+  compare the output from true.risk() and true.simu() for given regression parameters to the
+  corresponding output from qm.ridge() on the data.frame in which any original response
+  Y-vector has been replaced by the ydat object from the true.simu() output list. 
 }
-\value{ An output list object of class RXtsimu:
+\value{ An output list object of class true.simu:
   \item{form}{The regression formula specified as the first argument.}
   \item{data}{Name of the data.frame object specified as the second argument.}
   \item{trug}{Vector of numerical values for the true uncorrelated gamma components.}
@@ -58,22 +58,22 @@
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{RXridge}} and \code{\link{RXtrisk}}.}
+\seealso{\code{\link{qm.ridge}} and \code{\link{true.risk}}.}
 \examples{
   data(haldport)
   form <- heat~p3ca+p3cs+p4caf+p2cs
-  rxrobj <- RXridge(form, data=haldport)
+  rxrobj <- qm.ridge(form, data=haldport)
   plot(rxrobj)
   # define true parameter values.
   trugam <- matrix(c(.8,.0,.3,.5),4,1)
   trusig <- 0.2
   # create true shrinkage MSE risk scenario.
-  trumse <- RXtrisk(form, data=haldport, trugam, trusig, Q=-5)
+  trumse <- true.risk(form, data=haldport, trugam, trusig, Q=-5)
   # calculate true shrinkage squared error losses.
-  trusim <- RXtsimu(form, data=haldport, trugam, trusig, Q=-5)
+  trusim <- true.simu(form, data=haldport, trugam, trusig, Q=-5)
   haldpsim <- haldport
   haldpsim[,5] <- trusim$ydat[,1]
-  rxsobj <- RXridge(form, data=haldpsim) # analysis as if parameters unknown
+  rxsobj <- qm.ridge(form, data=haldpsim) # analysis as if parameters unknown
   plot(rxsobj)
 }
 \keyword{regression}

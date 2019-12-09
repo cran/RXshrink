@@ -1,30 +1,40 @@
 \name{RXshrink-internal}
 \title{Internal RXshrink functions}
 \alias{RXshrink-internal}
-\alias{print.RXlarlso}
-\alias{print.RXridge}
-\alias{print.RXtrisk}
-\alias{print.RXtsimu}
-\alias{print.RXuclars}
-\alias{RXmstep}
+\alias{print.qm.ridge}
+\alias{print.unr.ridge}
+\alias{print.aug.lars}
+\alias{print.true.risk}
+\alias{print.true.simu}
+\alias{print.uc.lars}
+\alias{mstep}
+\alias{m.ukd}
+\alias{mofk}
 \description{These are internal functions for printing and calculating quantities such
  as additive K-factors and multiplicative Delta-Factors that determine a specified M
- extent-of-shrinkage.  RXmstep() is called by RXridge(), RXtrisk() and RXtsimu().
+ extent-of-shrinkage. mstep() is called by qm.ridge(), true.risk(), true.simu(), aug.lars()
+ and uc.lars(). m.ukd() and mofk() are called by unr.ridge(),
 }
 \usage{
-  RXmstep(mobj, kinc, p, qp, eqm1)
+  mstep(mobj, kinc, p, qp, eqm1)
+  m.ukd(muobj, p, dMSE)
+  mofk(p, k, dMSE)
 }
 \arguments{
-  \item{mobj}{Newest objective value for the M-extent-of-shrinkage along a path of shape qp.}
+  \item{mobj}{Objective value for the M-extent-of-shrinkage along a path of shape qp.}
   \item{kinc}{Previous additive eigenvalue inflation constant yielding a smaller mobj.}
   \item{p}{Number of elements in the regression coefficient vector.}
   \item{qp}{Shrinkage path \bold{Q}-shape parameter.}
   \item{eqm1}{Vector of X'X eigenvalues raised to the power (qp-1).}
+  \item{muobj}{Objective value for the M-extent-of-shrinkage along the Unrestricted path.}
+  \item{dMSE}{Maximum Likelihood Shrinkage Factors.}
+  \item{k}{Unrestricted Ridge k-factor = non-negative multiplier.}
 }
-\value{An output list consisting of two objects:
-  \item{kinc}{New, increased value of kinc that produces an M-extent-of-shrinkage = mobj.}
+\value{An output list consisting of either two objects (k-factor & d-matrix) or one (m):
+  \item{kinc or k}{New k-factor producing an m-Extent-of-shrinkage of mobj or muobj.}
   \item{d}{A pxp diagonal matrix of multiplicative shrinkage (delta) factors for the
      uncorrelated components of the regression coefficient vector.}
+  \item{m}{New m-Extent for Shrinkage.}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \keyword{internal}

@@ -1,7 +1,7 @@
-"print.RXsigns" <-
+"print.correct.signs" <-
 function (x, ...) 
 {
-    cat("\nRXsigns Object: Eliminate Wrong-Signs due to Ill-Conditioning.")
+    cat("\ncorrect.signs Object: Eliminate Wrong-Signs due to Ill-Conditioning.")
     cat("\n        B(=) Estimate with Minimum Risk Parallel to True Beta.\n\n")
     cat("Data Frame:", x$data, "\n")
     cat("Regression Equation:\n")
@@ -31,16 +31,16 @@ function (x, ...)
     cat("\n")
 }
 
-"RXsigns" <-
+"correct.signs" <-
 function (form, data) 
 {
     if (missing(form) || class(form) != "formula") 
-        stop("First argument to RXsigns must be a valid linear regression formula.")
+        stop("First argument to correct.signs must be a valid linear regression formula.")
     if (missing(data) || !inherits(data, "data.frame")) 
-        stop("Second argument to RXsigns must be an existing Data Frame.")
+        stop("Second argument to correct.signs must be an existing Data Frame.")
     yvar <- deparse(form[[2]])
     if (!is.element(yvar, dimnames(data)[[2]])) 
-        stop("Response variable in the RXsigns formula must be an existing variable.")
+        stop("Response variable in the correct.signs formula must be an existing variable.")
     dfname <- deparse(substitute(data))
     lmobj <- lm(form, data)
     yvec <- as.matrix(lmobj$model[, 1])
@@ -105,6 +105,6 @@ function (form, data)
     stat <- cbind(sqcols, sqcxpy)   # redefine stat matrix
     dimnames(stat) <- list("Rsq", c("OLS", "Bfit"))
     RXolist <- c(RXolist, list(sqcor = stat))
-    class(RXolist) <- "RXsigns"
+    class(RXolist) <- "correct.signs"
     RXolist
 }

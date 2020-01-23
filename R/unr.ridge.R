@@ -1,4 +1,4 @@
-"unr.ridge" <-
+"unr.ridge" <-     # for RXswhrink version 1.3.1.
 function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13) 
 {
     if (missing(form) || class(form) != "formula") 
@@ -55,7 +55,7 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
     ssy <- t(cry) %*% cry
     rho <- (sv * comp)/sqrt(ssy[1, 1])
     arho <- matrix(abs(rho), nrow = 1)
-    r2 <- sum(arho^2)
+    r2 <- sum(arho^2)     # OLS "R^2" statistic....
     if (r2 >= 1) 
         stop(" Maximum Likelihood Shrinkage is not applicable when RSQUARE=1.")
     res <- cry - crx %*% bstar
@@ -64,14 +64,13 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
     tstat <- rho/sqrt(varrho)
     frat <- rho^2/varrho
     stat <- cbind(eigval, sv, comp, rho, tstat)
-    dimnames(stat) <- list(1:p, c("LAMBDA", "SV", "COMP", "RHO", 
-        "TRAT"))
+    dimnames(stat) <- list(1:p, c("LAMBDA", "SV", "COMP", "RHO", "TRAT"))
     RXolist <- list(data = dfname, form = form, p = p, n = n, 
         r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
     OmR2dN <- (1 - r2 )/n
-    dMSE <- rep(1,p)
+    dMSE <- rep(1,p)      # meaningless initial values...
     for( i in 1:p ) {
-        dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN)
+        dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN )    # Maximum-Likelihood estimate...
     }
     mcal <- 0
     kinc <- 1/min(dMSE)  # innitially > 1 but decreasing...
@@ -160,10 +159,15 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
     infd <- t(infd)
     delta <- t(delta)
     sext <- cbind(tsmse, konst, mcal)
-    dimnames(sext) <- list(0:maxinc, c("TSMSE", "KONST", "MCAL"))    mUnr <- mofk(p, k=1.0, dMSE)    minC <- min(mlik[,3])    mClk <- 1/steps    for( i in 1:maxinc ) {        if( mlik[i,3] == minC ) {            mClk <- i/steps            break        }    }
+    dimnames(sext) <- list(0:maxinc, c("TSMSE", "KONST", "MCAL"))    mUnr <- mofk(p, k=1.0, dMSE)    minC <- min(mlik[,3])
+    for( i in 1:maxinc ) {
+        if( mlik[i,3] <= minC ) {       
+            iUnr <- i - 1            break        }    }
+    mClk <- iUnr/steps
     RXolist <- c(RXolist, list(coef = bstar, rmse = risk, 
         exev = exev, infd = infd, spat = delta, mlik = mlik, 
-        sext = sext, mUnr = mUnr, mClk = mClk, minC = minC))
+        sext = sext, mUnr = mUnr, mClk = mClk, minC = minC,
+        dMSE = dMSE))
     class(RXolist) <- "unr.ridge"
     RXolist
 }
@@ -274,9 +278,11 @@ function (x, ...)
     print.default(x$mlik, quote = FALSE)
     cat("\nExtent of Shrinkage Statistics...\n")
     print.default(x$sext, quote = FALSE)  
-    cat("\n    Most Likely UNRestricted Extent, mUnr =", x$mUnr) 	
-    cat("\n    Most Likely Observed MCAL Value, mClk =", x$mClk)  	
-    cat("\n    Minimum Classical -2*log(Like), minCLIK =", x$minC, "\n\n")  
+    cat("\n    Most Likely UNRestricted Shrinkage Extent, mUnr =", x$mUnr)
+    cat("\n    Corresponding -2*log(LikelihoodRatio) statistic = 0.0")  	
+    cat("\n    Most Likely m-Value on the Lattice, mClk =       ", x$mClk)
+    cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC)    	
+    cat("\n    dMSE Estimates =", x$dMSE, "\n\n")	
 } 
 "m.ukd" <-function (muobj, p, dMSE) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]    if (muobj <= 0) {        d <- diag(p)        kinc <- kM[1]        return(list(kinc = kinc, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kinc <- 0        return(list(kinc = kinc, d = d))    }    mVar <- matrix(1,1,p)    # initial values...    for( j in 1:p ) {        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {  # large m (truly small k) cases...        d <- kMin*diag(dMSE)        kinc <- kMin        return(list(kinc = kinc, d = d))    } else {        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kinc <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kinc <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(1,kinc*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kinc = kinc, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}
 

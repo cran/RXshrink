@@ -1,10 +1,10 @@
 0753802740a65d5fa28743e02812f3dc *COPYING
-71cb21c5bebb46bb6d8071718f5f134e *DESCRIPTION
+dcec1bd5ac06351163b950295c9a4782 *DESCRIPTION
 0cd1eedf4b521f09aec7b94f44152f22 *NAMESPACE
 46d881e11d7e9aa959e3685480c0a4bd *R/RXshrink.R
 18cc860270f3909f75103f03aba69b98 *R/correct.signs.R
 d5f382e3087c178203417c63f00dccd8 *R/qm.ridge.R
-eea174085c79fbc870493ec1ed2a5df8 *R/unr.ridge.R
+b5ae4190004b72fa6fe78c8ca9d55086 *R/unr.ridge.R
 73d814b09b5fb448c8acad12aae57754 *data/haldport.rda
 495f8e69f85b3b8e4c518bf8ad155ab7 *data/longley2.rda
 6e5da9ed409de8e04cb10dfaa9f98065 *data/mpg.rda
@@ -12,7 +12,7 @@ d98e2afe65b61e8a807d9ea5f646b833 *demo/00Index
 2efce526a1cbeab166dd9cdbc2a099f4 *demo/haldport.R
 046c115e6f8519b8fe346ff8aaf1d3d8 *demo/longley2.R
 c41a8ddbc24a57550448cc5e53033a3e *demo/mpg.R
-e65d1e7efc2efdd266073b5b1921fdaa *man/RXshrink-package.Rd
+6934e5a458ab7448fb4dd09a66746c2b *man/RXshrink-package.Rd
 8e4d63e3bc4ec4db863894e3dfbb0372 *man/aug.lars.Rd
 8f98e59b361f19246b37b08cf1d2ec52 *man/correct.signs.Rd
 cd26f40703598a7c6eec3f87d41e5214 *man/haldport.Rd

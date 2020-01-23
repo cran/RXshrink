@@ -16,8 +16,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.3\cr
-  Date: \tab 2019-12-10\cr
+  Version: \tab 1.3.1\cr
+  Date: \tab 2020-01-20\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   

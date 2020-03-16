@@ -1,12 +1,12 @@
 \name{correct.signs}
 \alias{correct.signs}
-\title{Normal-theory Maximum Likelihood Estimation of Beta Coefficients with "Correct" Signs}
+\title{Normal-Theory Maximum Likelihood Estimation of Beta Coefficients with "Correct" Signs}
 \description{
-  correct.signs() computes and displays the Beta-coefficient estimator, B(=), that is most likely to
-  have minimum MSE risk in the single UNKNOWN direction PARALLEL to the true Beta. While Shrinkage to
-  ZERO is MSE optimal for all directions strictly ORTHOGONAL to the true Beta, Obenchain(1978) showed
-  that a B(=) is of the form k * X'y, where k is the positive scalar given by equation (4.2) on page
-  1118, implying that the B(=) delta-shrinkage factors are proportional to the observed X-eigenvalues.
+  Obenchain(1978) studied the risk of generalized ridge shrinkage in individual directions of X-space.
+  While shrinkage to ZERO is clearly optimal for all directions strictly ORTHOGONAL to the true BETA,
+  optimal shrinkage in the UNKNOWN direction PARALLEL to the true BETA is of the form k * X'y, where
+  k is the positive scalar given in his equation (4.2), page 1118. The correct.signs() function computes
+  and prints this estimate, B(=), that uses delta-shrinkage factors proportional to the X-eigenvalues.
 }
 \usage{
   correct.signs(form, data)
@@ -50,7 +50,7 @@
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}

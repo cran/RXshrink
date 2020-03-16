@@ -1,23 +1,40 @@
   require(RXshrink)
-  # Input revised Longley dataset of Hoerl(2000).
+  # Input the "revised" Longley dataset of Hoerl(2000)...
+  #
   data(longley2)
-  # Specify form of (linear) regression model...
+  #
+  # Specify the "formula" for a regression model...
+  #
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-  # Fit model of this form using 2-parameter Generalized Ridge Regression...
+  #
+  # Fit this model using 2-parameter Generalized Ridge Regression...
+  #
   rxrobj <- qm.ridge(form, data=longley2)
-  rxrobj
-  names(rxrobj)
-  plot(rxrobj)
-  cat("\n Press ENTER for Unrestricted Shrinkage model fitting...")
+  #
+  # Press ENTER to [1] Print all qm.ridge() Summary Statistics and
+  # [2] Display all 5-types of generalized ridge TRACE plots...
+  #
   scan()
-  # Fit model of same form using the Shrinkage Path that passes through
-  # the Unrestricted Maximum Likelihood estimate... 
+  rxrobj
+  plot(rxrobj)
+  #
+  # Press ENTER again to see the corresponding results for the
+  # Linear Spline PATH passing the Unrestricted Maximum Likelihood
+  # point-estimate of MSE Optimal Regression Coefficients...
+  #
+  scan()
   rxuobj <- unr.ridge(form, data=longley2)
   rxuobj
-  names(rxuobj)
   plot(rxuobj)
-  cat("\n Press ENTER for Coefficients with guarenteed Correct SIGNS...")
+  #
+  # Finally, Press ENTER to display fitted Coefficients with
+  # Guaranteed "Correct" SIGNS...
+  # 
   scan()
-  # Show Coefficients with Minimum MSE Risk Parallel to unknown, true Beta...
+  # These Coefficients have Minimum MSE Risk in the unknown 
+  # direction PARALLEL to true Beta vector...
   rxcsobj <- correct.signs(form, data=longley2)
   rxcsobj
+  #
+  # END of demo(longley2)...
+  #

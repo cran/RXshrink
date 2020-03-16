@@ -60,7 +60,7 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.

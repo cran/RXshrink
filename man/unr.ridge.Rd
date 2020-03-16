@@ -2,7 +2,7 @@
 \alias{unr.ridge}
 \title{Unrestricted Maximum Likelihood Shrinkage using Linear-Spline Patterns}
 \description{
-  Compute and display TRACEs for a 1-paramater Shrinkage PATH passing through the
+  Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
   (classical) Normal-theory point-estimate of Regression Coefficients in p-Space that
   is most likely to yield optimal reducions in MSE Risk.  
 }
@@ -60,13 +60,10 @@
   \bold{6}, 1111-1121.
 
   Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.
-  Electronic book-in-progress; 200+ pages. \url{http://localcontrolstatistics.org}
+  Electronic book-in-progress; 185+ pages. \url{http://localcontrolstatistics.org}
 
   Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}
-  
-  Obenchain RL. (2019) Maximum Likelihood Shrinkage in Regression. Submitted to
-  \emph{Technometrics}. [The unr.ridge() PATH is defined in equation (7.1).]
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{qm.ridge}}, \code{\link{correct.signs}}, \code{\link{true.risk}} 

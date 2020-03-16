@@ -1,4 +1,4 @@
-"unr.ridge" <-     # for RXswhrink version 1.3.1.
+"unr.ridge" <-     # for RXshrink version 1.3.2
 function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13) 
 {
     if (missing(form) || class(form) != "formula") 
@@ -31,7 +31,7 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         xscale <- diag(sqrt(diag(var(crx))))
         crx <- crx %*% solve(xscale)
     }	
-    sx <- svd(crx)
+    sx <- svd(crx) # sx object is Singular Value Decomposition of Centered X-matrix
     eigval <- matrix(sx$d^2, ncol = 1)         # p x 1
     eiginv <- solve(diag(sx$d^2, ncol = p))    # p x p
     cry <- matrix(yvec - mean(yvec), ncol = 1) # n x 1
@@ -73,7 +73,7 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN )    # Maximum-Likelihood estimate...
     }
     mcal <- 0
-    kinc <- 1/min(dMSE)  # innitially > 1 but decreasing...
+    kinc <- 1/min(dMSE)      # innitially > 1 but decreasing...
     konst <- kinc
     const <- (n - p - 3)/(n - p - 1)
     srat <- solve(diag(as.vector(sv), ncol = p)) %*% tstat
@@ -82,19 +82,20 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
     C <- Inf
     E <- Inf
     R <- Inf
-    maxinc <- p * steps   # i.e. total number of steps with "m" strictly > ZERO.
+    maxinc <- p * steps      # Number of Lattice Steps with "m" strictly > ZERO.
     for (inc in 1:maxinc) {
         mobj <- inc/steps
-        iter <- m.ukd(mobj, p, dMSE)  # ...new function
-        kinc <- iter$kinc
-        d <- matrix(iter$d, p, p)
-        dinc <- diag(d)
-        omd <- pmax(1 - dinc, omdmin)
-        ddomd <- dinc/omd
+        iter <- m.ukd(mobj, p, dMSE)  # Function defined below...
+        kinc <- iter$kStar
+        d <- iter$d          # Diagonal Matrix, p x p...
+        dinc <- diag(d)      # Diagonal Elements only...
+        omd <- pmax(1 - dinc, omdmin)   # Strictly Positive values...
+        ddomd <- dinc/omd    # Diagonal Elements...
         rxi <- sum(arho * sqrt(ddomd))
         slik <- 2/(rxi + sqrt(4 * n + rxi^2))
         clik <- 2 * n * log(slik) + sum(ddomd) - (rxi/slik) - 
             n * log((1 - r2)/n)
+        if (clik < omdmin) clik <- omdmin
         ebay <- sum(frat * omd - log(omd))
         sr2d <- sum(dinc * rho^2)
         if( sr2d >= 1 ) rcof <- Inf else {
@@ -107,8 +108,7 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         MCAL <- rbind(MCAL, minc)
         binc <- sx$v %*% d %*% comp
         vecr <- (idty - d) %*% srat
-        compr <- const * vecr %*% t(vecr) + (2 * d - idty) * 
-            eiginv
+        compr <- const * vecr %*% t(vecr) + (2 * d - idty) * eiginv
         diagc <- diag(diag(compr), ncol = p)
         lowr <- eiginv * d^2
         maxd <- matrix(pmax(diagc, lowr), p, p)
@@ -120,14 +120,14 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         tinc <- sum(rinc)
         emse <- eiginv - compr
         sfac <- min(abs(diag(emse)))/100
-        if (sfac < 1e-05) 
+        if (sfac < 1e-05)
             sfac <- 1e-05
         eign <- eigen(emse/sfac)
-        einc <- rev(eign$values) * sfac
+        einc <- sort(eign$values) * sfac         # Increasing order; negative values first...
         cinc <- matrix(0, p, 1)
         if (is.na(einc[1])) 
             einc[1] <- 0
-        if (einc[1] < 0) {
+        if (einc[1] + omdmin < 0) {              # Ver 1.3.2 Correction... 
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
             if (rscale == 2) {
@@ -152,18 +152,17 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         risk <- yscale^2 * solve(xscale^2) %*% risk
     }
     mlik <- cbind(MCAL, KONST, C, E, R)
-    dimnames(mlik) <- list(0:maxinc, c("M", "K", "CLIK", "EBAY", "RCOF"))
+    dimnames(mlik) <- list(0:maxinc, c("M", "Kstar", "CLIK", "EBAY", "RCOF"))
     bstar <- t(bstar)
     risk <- t(risk)
     exev <- t(exev)
     infd <- t(infd)
     delta <- t(delta)
     sext <- cbind(tsmse, konst, mcal)
-    dimnames(sext) <- list(0:maxinc, c("TSMSE", "KONST", "MCAL"))    mUnr <- mofk(p, k=1.0, dMSE)    minC <- min(mlik[,3])
+    dimnames(sext) <- list(0:maxinc, c("TSMSE", "Kstar", "MCAL"))    mUnr <- mofk(p, k=1.0, dMSE)    minC <- min(mlik[,3])
     for( i in 1:maxinc ) {
         if( mlik[i,3] <= minC ) {       
-            iUnr <- i - 1            break        }    }
-    mClk <- iUnr/steps
+            mClk <- (i-1)/steps            break        }    }
     RXolist <- c(RXolist, list(coef = bstar, rmse = risk, 
         exev = exev, infd = infd, spat = delta, mlik = mlik, 
         sext = sext, mUnr = mUnr, mClk = mClk, minC = minC,
@@ -187,8 +186,8 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))  
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n") 
-        abline(v = mV, col = "gray", lty = 2)  		
-        abline(h = 0, col = gray(0.9))  
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)  		
+        abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)  
         title(main = paste("COEFFICIENT TRACE"),
@@ -202,8 +201,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }  
     if (trace == "all" || trace == "seq" || trace == "rmse") {
         plot(mcalp, x$rmse, ann = FALSE, type = "n") 
-        abline(v = mV, col = "gray", lty = 2)  		
-        abline(h = 0, col = gray(0.9))  
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)  		
+        abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)  
         title(main = paste("RELATIVE MEAN SQ. ERROR"),
@@ -217,8 +216,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }  
     if (trace == "all" || trace == "seq" || trace == "exev") {
         plot(mcalp, x$exev, ann = FALSE, type = "n")  
-        abline(v = mV, col = "gray", lty = 2)  
-        abline(h = 0, col = gray(0.9)) 
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)  
+        abline(h = 0, col = gray(0.9), lwd = 2) 
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
             lwd = 2)  
         title(main = paste("EXCESS EIGENVALUES"),
@@ -232,8 +231,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }  
     if (trace == "all" || trace == "seq" || trace == "infd") {
         plot(mcalp, x$infd, ann = FALSE, type = "n")  
-        abline(v = mV, col = "gray", lty = 2)  		
-        abline(h = 0, col = gray(0.9))  
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)  		
+        abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
             lwd = 2)  
         title(main = paste("INFERIOR DIRECTION"), 
@@ -247,8 +246,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }  
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")  
-        abline(v = mV, col = "gray", lty = 2)  		
-        abline(h = 0, col = gray(0.9))  
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)  		
+        abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)  
         title(main = paste("SHRINKAGE PATTERN"), 
@@ -280,9 +279,9 @@ function (x, ...)
     print.default(x$sext, quote = FALSE)  
     cat("\n    Most Likely UNRestricted Shrinkage Extent, mUnr =", x$mUnr)
     cat("\n    Corresponding -2*log(LikelihoodRatio) statistic = 0.0")  	
-    cat("\n    Most Likely m-Value on the Lattice, mClk =       ", x$mClk)
+    cat("\n    Most Likely m-Value on the Lattice,        mClk =", x$mClk)
     cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC)    	
     cat("\n    dMSE Estimates =", x$dMSE, "\n\n")	
 } 
-"m.ukd" <-function (muobj, p, dMSE) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]    if (muobj <= 0) {        d <- diag(p)        kinc <- kM[1]        return(list(kinc = kinc, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kinc <- 0        return(list(kinc = kinc, d = d))    }    mVar <- matrix(1,1,p)    # initial values...    for( j in 1:p ) {        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {  # large m (truly small k) cases...        d <- kMin*diag(dMSE)        kinc <- kMin        return(list(kinc = kinc, d = d))    } else {        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kinc <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kinc <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(1,kinc*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kinc = kinc, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}
+"m.ukd" <-function (muobj, p, dMSE, omdmin = 9.9e-13) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...    if (muobj <= 0) {        d <- diag(1-omdmin, p)         # Matrix with Diagonal Values strictly < 1...        kStar <- kM[1]        return(list(kStar = kStar, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kStar <- 0                     # Terminus of the shrinkage path        return(list(kStar = kStar, d = d))    }    mVar <- matrix(1,1,p)              # Meaningless initial values...    for( j in 1:p ) {                  # 0 < muobj < 1 below here...        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {            # Tail; Large m, small k Cases...        d <- kMin*diag(dMSE)        kStar <- kMin        return(list(kStar = kStar, d = d))    } else {                           # Locally Linear cases...        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kStar <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kStar <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(1-omdmin,kStar*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kStar = kStar, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}
 

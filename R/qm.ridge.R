@@ -1,3 +1,4 @@
+
 "plot.qm.ridge" <-
 function (x, trace = "all", trkey = FALSE, ...) 
 {
@@ -15,8 +16,8 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("COEFFICIENT TRACE: Q-shape =", x$qp), 
@@ -30,8 +31,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "rmse") {
         plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("RELATIVE MEAN SQ. ERROR: Q-shape =", 
@@ -46,8 +47,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "exev") {
         plot(mcalp, x$exev, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("EXCESS EIGENVALUES: Q-shape =", x$qp), 
@@ -61,8 +62,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
         plot(mcalp, x$infd, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("INFERIOR DIRECTION: Q-shape =", x$qp), 
@@ -76,8 +77,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
@@ -100,22 +101,32 @@ function (x, ...)
     print.default(x$prinstat, quote = FALSE)
     cat("\n    Residual Mean Square for Error =", x$s2, "\n")
     cat("    Estimate of Residual Std. Error =", sqrt(x$s2), "\n\n")
+    if( x$QS == 1 ) {
     cat("Classical Maximum Likelihood choice of SHAPE(Q) and EXTENT(M) of\n")
     cat("shrinkage in the 2-parameter generalized ridge family...\n")
     print.default(x$crlqstat, quote = FALSE)
     cat("\n Q =", x$qmse, " is the path shape most likely to lead to minimum\n")
     cat("MSE risk because this shape maximizes CRLQ and minimizes CHISQ.\n")
+    }
     cat("\nqm.ridge: Shrinkage PATH Shape =", x$qp, "\n")
     cat("\nThe extent of shrinkage (M value) most likely to be optimal\n")
     cat("in the Q-shape =", x$qp, " 2-parameter ridge family can depend\n")
     cat("upon whether one uses the Classical, Empirical Bayes, or Random\n")
     cat("Coefficient criterion.  In each case, the objective is to\n")
-    cat("minimize the minus-two-log-likelihood statistics listed below:\n")
+    cat("minimize the minus-two-log-likelihood-ratios listed below:\n")
     print.default(x$mlik, quote = FALSE)
     cat("\nExtent of shrinkage statistics...\n")
     print.default(x$sext, quote = FALSE)
-    cat("\n    Most Likely Observed MCAL Value, mClk =", x$mClk)  	
-    cat("\n    Minimum Classical -2*log(Like), minCLIK =", x$minC, "\n\n")
+    if( x$p == 2 ) {
+    cat("Following calculations are possible only when p = r = 2:\n")
+    cat("Most Likely q-Shape:  qML =", x$qML, "\n")
+    cat("Best k-Factor:        kML =", x$kML, "\n")
+    cat("Best m-Extent:        mML =", x$mML, "\n")
+    cat("Best 1st Delta factor     =", x$dML1, "\n")
+    cat("Best 2nd Delta factor     =", x$dML2, "\n")
+    }
+    cat("\n    Most Likely m-Extent on the Lattice,       mClk =", x$mClk)	
+    cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC, "\n\n")
 }
 
 "qm.ridge" <-
@@ -223,22 +234,23 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
         crlqm <- min(crlqm, crlq[it])
         crlqM <- max(crlqM, crlq[it])
     }
-	if ( qmax >= 1 && 1 >= qmin && crlqM - crlqm < 0.001 ) qmse = 1   # Uniform Shrinkage...
-    stat <- cbind(qvec, crlq, mvec, kvec, chisq)
-    dimnames(stat) <- list(1:nqval, c("Q", "CRLQ", "M", "K", 
-        "CHISQ"))
-    RXolist <- c(RXolist, list(crlqstat = stat, qmse = qmse))
-    if (missing(Q) || Q == "qmse") 
+    if ( qmax >= 1 && 1 >= qmin && crlqM - crlqm < 0.001 ) qmse = 1   # Uniform Shrinkage...
+    crlqstat <- cbind(qvec, crlq, mvec, kvec, chisq)
+    dimnames(crlqstat) <- list(1:nqval, c("Q", "CRLQ", "M", "K", "CHISQ"))
+    RXolist <- c(RXolist, list(crlqstat = crlqstat, qmse = qmse))
+    if (missing(Q) || Q == "qmse") { 
         qp <- qmse
+        qsearch <- 1
+    }
     else {
+        qsearch <- 0
         Q <- as.numeric(Q)
-        if (is.na(Q)) 
-            Q <- 0
-        qp <- min(max(Q, qmin), qmax)
+        if (is.na(Q)) Q <- 0
+        qp <- Q        # formerly, qp <- min(max(Q, qmin), qmax)
     }
     qm1 <- qp - 1
     if (qp == 1) 
-        eqm1 <- matrix(1, p, 1)
+        eqm1 <- matrix(1, p, 1)          # Avoid exp(0) calculations when qm1 == 0
     else eqm1 <- exp(qm1 * log(eigval))
     mcal <- 0
     konst <- 0
@@ -328,16 +340,26 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     sext <- cbind(tsmse, konst, mcal)
     dimnames(sext) <- list(0:maxinc, c("TSMSE", "KONST", "MCAL"))
     minC <- min(mlik[,3])
-    mClk <- 1/steps
     for( i in 1:maxinc ) {
-        if( mlik[i,3] == minC ) {
-            mClk <- i/steps
+        if( mlik[i,3] <= minC ) {
+            mClk <- (i-1)/steps
             break
         }
     }
     RXolist <- c(RXolist, list(qp = qp, coef = bstar, rmse = risk, 
         exev = exev, infd = infd, spat = delta, mlik = mlik, 
-        sext = sext, mClk = mClk, minC = minC))
+        sext = sext, mClk = mClk, minC = minC, QS = qsearch))
+    if( p == 2 ) {
+        lam <- stat[,1]
+        gam <- stat[,3]
+        qML <- as.double(log((gam[2]^2)/(gam[1]^2))/log((lam[1])/(lam[2])))
+        eta2 <- as.double((gam[1]^2)*(lam[1])^qML)
+        kML <- as.double(s2/eta2)
+        dML1 <- as.double( 1/(1+kML*lam[1]^(qML-1)) )
+        dML2 <- as.double( 1/(1+kML*lam[2]^(qML-1)) )
+        mML <- as.double( 2 - dML1 - dML2 )
+        RXolist <- c(RXolist, list(qML = qML, kML = kML, dML1 = dML1, dML2 = dML2, mML = mML)) 
+    }
     class(RXolist) <- "qm.ridge"
     RXolist
 }

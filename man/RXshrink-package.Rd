@@ -6,33 +6,37 @@
   Least Angle Regression with important visualization tools.  Specifically, they display TRACEs
   of (biased) estimates for 5 KEY quantities [fitted coefficients, MSE risks, excess eigenvalues,
   inferior direction cosines and shrinkage factors] that completely characterize the effects of
-  shrinkage along PATHS with 2 or more parameters (M-extent plus Q-shape or Unrestricted). All
-  PATHS start at the Ordinary Least-Squares estimate [M = 0] and end at the origin, (0, 0, ..., 0),
-  where all coefficient estimates have been shrunken to zero [M = rank(X).] Three different types
+  shrinkage along PATHS with 2 or more parameters (m-Extent plus q-Shape or Unrestricted). All
+  PATHS start at the Ordinary Least-Squares estimate [m = 0] and end at the origin, (0, 0, ..., 0),
+  where all coefficient estimates have been shrunken to zero [m = rank(X).] Three different types
   of Likelihood of minimal MSE risk (Classical Normal-Theory, Empirical Bayes, and Random
-  Coefficients) can be monitored to suggest an optimal M-extent of shrinkage.  
+  Coefficients) can be monitored to suggest an optimal m-Extent of shrinkage.  
 }
 \details{
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.3.1\cr
-  Date: \tab 2020-01-20\cr
+  Version: \tab 1.3.2\cr
+  Date: \tab 2020-03-20\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
-  qm.ridge() calculates and displays TRACEs for the 2-parameter PATH (i.e. \bold{M}-extent of
-  shrinkage and \bold{Q}-shape) that is most likely under Normal-distribution theory to yield
-  optimal reductions in MSE Risk.
+  unr.ridge() calculates and displays TRACEs for an Unrestricted (p-parameter) PATH that passes
+  through the Unrestricted Maximum Likelihood Coefficient point-Estimate that yields optimal
+  MSE risk reductions under Normal distribution-theory.
   
-  unr.ridge() calculates and displays TRACEs for a "new" 1-parameter PATH that passes through the
-  Unrestricted (p-parameter) Coefficient Estimates most likely to yield optimal MSE reductions.
+  qm.ridge() calculates and displays TRACEs for PATHs defined by 2-parameters: \bold{q}-Shape
+  and \bold{m}-Extent of shrinkage. The restricted PATH of most likely \bold{q}-Shape is found
+  via search on a lattice of 21 values within [-5,+5]. Default lattices for q and m searches are
+  easy to modify using the qmax, qmin, nq and steps arguments to qm.ridge(). The "ordinary" ridge
+  PATH of Hoerl and Kennard has \bold{q}-Shape = 0, while "uniform" shrinkage corresponds to
+  \bold{q}-Shape = +1.  
   
-  When regression parameters have specified (KNOWN) numerical values, true.risk() calculates and
-  displays the corresponding \bold{True} MSE Risk profiles. Similarly, true.simu() simulates
-  Y-outcome data and calculates True Squared Error LOSSES associated with \bold{Q}-shape shrinkage.  
+  When true regression parameters have user-specified (KNOWN) numerical values, true.risk()
+  calculates and displays \bold{True} MSE Risk profiles. Similarly, true.simu() simulates
+  Y-outcome data and calculates True Squared Error LOSSES associated with \bold{q}-Shape shrinkage.  
   
-  aug.lars() augments the Efron/Hastie lars() R-function to perform Least Angle Regression with
+  aug.lars() augments the Efron-Hastie lars() R-function to perform Least Angle Regression with
   MSE risk canculations and Maximum Likelihood TRACE displays ...like those of qm.ridge() and
   unr.ridge().
   
@@ -57,11 +61,8 @@
   Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and
   Stein}.  Electronic book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like document.
   \url{http://localcontrolstatistics.org}
-  
-  Obenchain RL. (2019) Maximum Likelihood Shrinkage in Regression. Submitted to
-  \emph{Technometrics}. [The "new" unr.ridge() PATH is defined in equation (7.1).]
 }
 \keyword{package}
 \examples{

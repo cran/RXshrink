@@ -15,8 +15,8 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("COEFFICIENT TRACE:", x$lars$type), 
@@ -30,8 +30,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "rmse") {
         plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("RELATIVE MEAN SQ. ERROR:", x$lars$type), 
@@ -45,8 +45,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "exev") {
         plot(mcalp, x$exev, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("EXCESS EIGENVALUES:", x$lars$type), 
@@ -60,8 +60,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
         plot(mcalp, x$infd, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("INFERIOR DIRECTION:", x$lars$type), 
@@ -75,8 +75,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SHRINKAGE PATTERN:", x$lars$type), 
@@ -102,7 +102,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("EXPECTED COEFFICIENTS: Q-shape =", 
@@ -117,7 +117,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "rmse") {
         plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("RELATIVE TRUE MeanSqError: Q-shape =", 
@@ -132,7 +132,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "exev") {
         plot(mcalp, x$exev, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("TRUE EXCESS EIGENVALUES: Q-shape =", 
@@ -147,7 +147,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
         plot(mcalp, x$infd, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("TRUE INFERIOR DIRECTION: Q-shape =", 
@@ -162,7 +162,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
@@ -188,7 +188,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SIMULATED COEFFICIENTS: Q-shape =", 
@@ -203,7 +203,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "rsel") {
         plot(mcalp, x$rsel, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rsel[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("RELATIVE SqError LOSS: Q-shape =", 
@@ -218,7 +218,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(h = 0, col = gray(0.9))
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
@@ -245,8 +245,8 @@ function (x, trace = "all", trkey = FALSE, ...)
         par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") {
         plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("COEFFICIENT TRACE:", x$lars$type), 
@@ -260,8 +260,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "rmse") {
         plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("RELATIVE MEAN SQ. ERROR:", x$lars$type), 
@@ -275,8 +275,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "exev") {
         plot(mcalp, x$exev, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("EXCESS EIGENVALUES:", x$lars$type), 
@@ -290,8 +290,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
         plot(mcalp, x$infd, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("INFERIOR DIRECTION:", x$lars$type), 
@@ -305,8 +305,8 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
     if (trace == "all" || trace == "seq" || trace == "spat") {
         plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2)
-        abline(h = 0, col = gray(0.9))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
             lwd = 2)
         title(main = paste("SHRINKAGE PATTERN:", x$lars$type), 

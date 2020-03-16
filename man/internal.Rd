@@ -17,7 +17,7 @@
 }
 \usage{
   mstep(mobj, kinc, p, qp, eqm1)
-  m.ukd(muobj, p, dMSE)
+  m.ukd(muobj, p, dMSE, omdmin)
   mofk(p, k, dMSE)
 }
 \arguments{
@@ -27,6 +27,7 @@
   \item{qp}{Shrinkage path \bold{Q}-shape parameter.}
   \item{eqm1}{Vector of X'X eigenvalues raised to the power (qp-1).}
   \item{muobj}{Objective value for the M-extent-of-shrinkage along the Unrestricted path.}
+  \item{omdmin}{Strictly positive minimum value for one-minus-delta (default = 9.9e-013.)}
   \item{dMSE}{Maximum Likelihood Shrinkage Factors.}
   \item{k}{Unrestricted Ridge k-factor = non-negative multiplier.}
 }

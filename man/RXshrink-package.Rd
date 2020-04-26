@@ -16,14 +16,15 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.3.2\cr
-  Date: \tab 2020-03-20\cr
+  Version: \tab 1.3.3\cr
+  Date: \tab 2020-04-30\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
-  unr.ridge() calculates and displays TRACEs for an Unrestricted (p-parameter) PATH that passes
+  unr.ridge() calculates and displays TRACEs for an Unrestricted (p+1 parameter) PATH that passes
   through the Unrestricted Maximum Likelihood Coefficient point-Estimate that yields optimal
-  MSE risk reductions under Normal distribution-theory.
+  MSE risk reductions under Normal distribution-theory. The path parameters are the p distinct
+  "MSE optimal" Delta Shrinkage-Factor estimates plus the overall m-Extent of shrinkage.
   
   qm.ridge() calculates and displays TRACEs for PATHs defined by 2-parameters: \bold{q}-Shape
   and \bold{m}-Extent of shrinkage. The restricted PATH of most likely \bold{q}-Shape is found
@@ -49,6 +50,10 @@
   the true Beta vector. This estimate corrects "wrong-sign" problems in the sense that its
   coefficients have the same relative magnitudes and numerical signs as those of the "Correlation
   Form" of the X'y vector.
+  
+  RXpredict() makes in-sample predictions (i.e. computes "fitted.values") for all 5 forms of
+  RXshrink estimation at user specified m-Extents of shrinkage or at the normal-theory "ML"
+  m-Extent.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \references{

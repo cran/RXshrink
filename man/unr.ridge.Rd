@@ -7,7 +7,7 @@
   is most likely to yield optimal reducions in MSE Risk.  
 }
 \usage{
-  unr.ridge(form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
+  unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
@@ -19,7 +19,9 @@
   \item{steps}{Number of equally spaced values per unit change along the horizontal
    M-extent-of-shrinkage axis for estimates to be calculated and displayed in TRACES
    (default = 8.)}
-  \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
+  \item{delmax}{Maximum allowed value for Shrinkage delta-factors that is strictly less
+   than 1. (default = 0.999999, which prints as 1 when rounded to fewer than 6 decimal
+   places.)}
 }
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very

@@ -7,17 +7,18 @@
 \alias{print.true.risk}
 \alias{print.true.simu}
 \alias{print.uc.lars}
+\alias{print.RXpredict}
 \alias{mstep}
 \alias{m.ukd}
 \alias{mofk}
 \description{These are internal functions for printing and calculating quantities such
- as additive K-factors and multiplicative Delta-Factors that determine a specified M
- extent-of-shrinkage. mstep() is called by qm.ridge(), true.risk(), true.simu(), aug.lars()
+ as additive K-factors and multiplicative Delta-Factors that determine a specified
+ m-Extent of Shrinkage. mstep() is called by qm.ridge(), true.risk(), true.simu(), aug.lars()
  and uc.lars(). m.ukd() and mofk() are called by unr.ridge(),
 }
 \usage{
   mstep(mobj, kinc, p, qp, eqm1)
-  m.ukd(muobj, p, dMSE, omdmin)
+  m.ukd(muobj, p, dMSE, delmax)
   mofk(p, k, dMSE)
 }
 \arguments{
@@ -27,7 +28,8 @@
   \item{qp}{Shrinkage path \bold{Q}-shape parameter.}
   \item{eqm1}{Vector of X'X eigenvalues raised to the power (qp-1).}
   \item{muobj}{Objective value for the M-extent-of-shrinkage along the Unrestricted path.}
-  \item{omdmin}{Strictly positive minimum value for one-minus-delta (default = 9.9e-013.)}
+  \item{delmax}{Positive maximum value for Shrinkage delta-factors that are strictly less
+    than 1 whenever m-Extent exceeds ZERO (default = 0.999999.)}
   \item{dMSE}{Maximum Likelihood Shrinkage Factors.}
   \item{k}{Unrestricted Ridge k-factor = non-negative multiplier.}
 }

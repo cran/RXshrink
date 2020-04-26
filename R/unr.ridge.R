@@ -1,5 +1,5 @@
-"unr.ridge" <-     # for RXshrink version 1.3.2
-function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13) 
+"unr.ridge" <-  
+function (form, data, rscale = 1, steps = 8, delmax = 0.999999) 
 {
     if (missing(form) || class(form) != "formula") 
         stop("First argument to unr.ridge must be a valid linear regression formula.")
@@ -89,13 +89,13 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         kinc <- iter$kStar
         d <- iter$d          # Diagonal Matrix, p x p...
         dinc <- diag(d)      # Diagonal Elements only...
-        omd <- pmax(1 - dinc, omdmin)   # Strictly Positive values...
+        omd <- pmax(1 - dinc, 1 - delmax)   # Strictly Positive values...
         ddomd <- dinc/omd    # Diagonal Elements...
         rxi <- sum(arho * sqrt(ddomd))
         slik <- 2/(rxi + sqrt(4 * n + rxi^2))
         clik <- 2 * n * log(slik) + sum(ddomd) - (rxi/slik) - 
             n * log((1 - r2)/n)
-        if (clik < omdmin) clik <- omdmin
+        if (clik < 1 - delmax) clik <- 1 - delmax
         ebay <- sum(frat * omd - log(omd))
         sr2d <- sum(dinc * rho^2)
         if( sr2d >= 1 ) rcof <- Inf else {
@@ -127,7 +127,7 @@ function (form, data, rscale = 1, steps = 8, omdmin = 9.9e-13)
         cinc <- matrix(0, p, 1)
         if (is.na(einc[1])) 
             einc[1] <- 0
-        if (einc[1] + omdmin < 0) {              # Ver 1.3.2 Correction... 
+        if (einc[1] + 1 -delmax < 0) {              # New Correction... 
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
             if (rscale == 2) {
@@ -283,5 +283,4 @@ function (x, ...)
     cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC)    	
     cat("\n    dMSE Estimates =", x$dMSE, "\n\n")	
 } 
-"m.ukd" <-function (muobj, p, dMSE, omdmin = 9.9e-13) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...    if (muobj <= 0) {        d <- diag(1-omdmin, p)         # Matrix with Diagonal Values strictly < 1...        kStar <- kM[1]        return(list(kStar = kStar, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kStar <- 0                     # Terminus of the shrinkage path        return(list(kStar = kStar, d = d))    }    mVar <- matrix(1,1,p)              # Meaningless initial values...    for( j in 1:p ) {                  # 0 < muobj < 1 below here...        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {            # Tail; Large m, small k Cases...        d <- kMin*diag(dMSE)        kStar <- kMin        return(list(kStar = kStar, d = d))    } else {                           # Locally Linear cases...        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kStar <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kStar <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(1-omdmin,kStar*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kStar = kStar, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}
-
+"m.ukd" <-function (muobj, p, dMSE, delmax = 0.999999) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...    if (muobj <= 0) {        d <- diag(delmax, p)         # Matrix with Diagonal Values strictly < 1...        kStar <- kM[1]        return(list(kStar = kStar, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kStar <- 0                     # Terminus of the shrinkage path        return(list(kStar = kStar, d = d))    }    mVar <- matrix(1,1,p)              # Meaningless initial values...    for( j in 1:p ) {                  # 0 < muobj < 1 below here...        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {            # Tail; Large m, small k Cases...        d <- kMin*diag(dMSE)        kStar <- kMin        return(list(kStar = kStar, d = d))    } else {                           # Locally Linear cases...        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kStar <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kStar <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(delmax,kStar*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kStar = kStar, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}

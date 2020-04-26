@@ -1,6 +1,6 @@
 importFrom("grDevices", "gray")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot",
-           "title")
+           "points", "title")
 importFrom("stats", "lm", "rnorm", "var", "cor")
 importFrom("lars", "lars")
 
@@ -30,3 +30,7 @@ S3method(print, uc.lars)
 
 export(correct.signs)
 S3method(print, correct.signs)
+
+export(RXpredict)
+S3method(plot, RXpredict)
+S3method(print, RXpredict)

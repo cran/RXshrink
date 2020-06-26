@@ -1,10 +1,10 @@
 \name{unr.ridge}
 \alias{unr.ridge}
-\title{Unrestricted Maximum Likelihood Shrinkage using Linear-Spline Patterns}
+\title{Unrestricted Maximum Likelihood (ML) Shrinkage using a Linear-Spline PATH}
 \description{
   Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
-  (classical) Normal-theory point-estimate of Regression Coefficients in p-Space that
-  is most likely to yield optimal reducions in MSE Risk.  
+  (classical) Normal-theory Maximum Likelihhod (ML) point-estimates of Beta coefficients
+  having minimal MSE Risk.
 }
 \usage{
   unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
@@ -12,8 +12,8 @@
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{Data frame containing observations on all variables in the formula.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for rescaling of variables
-   as they are being "centered" to remove non-essential ill-conditioning:  0 implies no
+  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
+   (after being "centered") to remove all "non-essential" ill-conditioning: 0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{steps}{Number of equally spaced values per unit change along the horizontal
@@ -51,7 +51,8 @@
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
   \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k == 1 on TRACE displays.}  
   \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
-  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}    
+  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}
+  \item{dMSE}{Most Likely to be Optimal-values for Shrinkage Delta-factors [1:p].}  
 }
 \references{
 
@@ -59,20 +60,22 @@
   of the American Statistical Association} \bold{63}, 113-122. (The ``cubic'' estimator.)
   
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121.
+  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
 
   Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.
   Electronic book-in-progress; 185+ pages. \url{http://localcontrolstatistics.org}
+  
+  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{http://arxiv.org/abs/2005.14291}
 
-  Obenchain RL. (2018) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{correct.signs}}, \code{\link{true.risk}} 
-and \code{\link{true.simu}}.}
+\seealso{\code{\link{qm.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
+and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)
-  form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
+  form <- Employed~GNP+GNP.deflator+Unemployed+Armed.Forces+Population+Year
   rxuobj <- unr.ridge(form, data=longley2)
   rxuobj
   plot(rxuobj)

@@ -17,8 +17,8 @@
   \item{m}{Either [i] a "numeric" value >= 0 and <= rank(X) or [ii] the (default) character string
     "ML" to request use of the m-Extent of shrinkage most likely to be MSE optimal under Normal
     distribution-theory.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for rescaling of variables
-   as they are being "centered" to remove non-essential ill-conditioning:  0 implies no
+  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
+   (after being "centered") to remove all "non-essential" ill-conditioning:  0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
 }
@@ -35,7 +35,7 @@
 }
 \references{
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121.
+  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
 
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
@@ -45,7 +45,7 @@
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{true.risk}} and \code{\link{true.simu}}.}
+\seealso{\code{\link{qm.ridge}}, \code{\link{unr.ridge}} and \code{\link{MLtrue}}.}
 \examples{
   data(tycobb)
   form <- batavg~atbats+seasons+CMspl

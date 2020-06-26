@@ -3,9 +3,10 @@
 \title{Maximum Likelihood Estimation of Effects in Least Angle Regression}
 \description{
   These functions perform calculations that determine whether least angle and lasso regression
-  estimates correspond to generalized ridge estimates (i.e. whether they use shrinkage delta
-  factors that are both non-negative and strictly less than 1.0), determine the Normal-theory
-  likelihood that they minimize MSE risk, and generate ridge TRACE plots.
+  estimates correspond to generalized ridge regression (GRR) estimates (i.e. whether they use
+  shrinkage delta-factors that are both non-negative and strictly less than 1.0). They also
+  estimate the Normal-theory likelihood that MSE risk is minimized and compute diagnostics for
+  display in ridge TRACE plots.
 }
 \usage{
 aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE, 
@@ -14,8 +15,8 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{Data frame containing observations on all variables in the formula.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for rescaling of variables
-   as they are being "centered" to remove non-essential ill-conditioning:  0 implies no
+  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
+   (after being "centered") to remove all "non-essential" ill-conditioning:  0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{type}{One of "lasso", "lar" or "forward.stagewise" for function lars(). Names can be
@@ -25,7 +26,7 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
 }
 \details{aug.lars() calls the Efron/Hastie lars() function to perform Least Angle Regression on
- X-variables that have been centered and possibly rescaled but which may be (highly) correlated.
+ x-variables that have been centered and possibly rescaled but which may be (highly) correlated.
  Maximum likelihood TRACE displays paralleling those of qm.ridge() and unr.ridge() are also
  computed and (optionally) plotted. 
 }
@@ -47,7 +48,7 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   \item{mlik}{Listing of criteria for maximum likelihood selection of M-extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
   \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.}
-  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}    
+  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}    
 }
 \references{
   Breiman L. (1995) Better subset regression using the non-negative garrote.
@@ -55,10 +56,13 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
 
   Efron B, Hastie T, Johnstone I, Tibshirani R. (2004)
   Least angle regression. \emph{Annals of Statistics} \bold{32}, 407-499.
+  
+  Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.
+  \url{https://CRAN.R-project.org/package=lars}
 
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (200+ pages.) \url{http://localcontrolstatistics.org}
+  book-in-progress (185 pages.) \url{http://localcontrolstatistics.org}
 
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}

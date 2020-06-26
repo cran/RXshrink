@@ -11,30 +11,31 @@
   #
   rxrobj <- qm.ridge(form, data=longley2)
   #
-  # Press ENTER to [1] Print all qm.ridge() Summary Statistics and
-  # [2] Display all 5-types of generalized ridge TRACE plots...
+  # Now [1] Print all qm.ridge() Summary Statistics
+  # and [2] Display all 5-types of generalized ridge TRACE plots...
   #
-  scan()
   rxrobj
+  # SCROLL ^^^ UP ^^^ to see PRINTED output from qm.ridge()...
+  #
   plot(rxrobj)
   #
-  # Press ENTER again to see the corresponding results for the
-  # Linear Spline PATH passing the Unrestricted Maximum Likelihood
-  # point-estimate of MSE Optimal Regression Coefficients...
+  # Next, see the corresponding results for the Piecewise-Linear
+  # Spline PATH passing through the Unrestricted Maximum Likelihood
+  # point-estimate of "MSE Optimal" Regression Coefficients...
   #
-  scan()
   rxuobj <- unr.ridge(form, data=longley2)
   rxuobj
+  # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge()...
+  #
   plot(rxuobj)
   #
-  # Finally, Press ENTER to display fitted Coefficients with
+  # Finally, print Beta-coefficient estimates with
   # Guaranteed "Correct" SIGNS...
-  # 
-  scan()
-  # These Coefficients have Minimum MSE Risk in the unknown 
+  #
+  # These Coefficients have Minimum MSE Risk in the "Unknown"
   # direction PARALLEL to true Beta vector...
   rxcsobj <- correct.signs(form, data=longley2)
   rxcsobj
   #
-  # END of demo(longley2)...
-  #
+  ################## End of "longley2" DEMO...
+  

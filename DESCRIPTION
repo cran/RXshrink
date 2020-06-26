@@ -1,22 +1,28 @@
 Package: RXshrink
 Title: Maximum Likelihood Shrinkage using Generalized Ridge or Least
         Angle Regression Methods
-Version: 1.3.3
-Date: 2020-04-30
+Version: 1.4
+Date: 2020-06-30
 Author: Bob Obenchain 
 Maintainer: Bob Obenchain <wizbob@att.net>
 Depends: R (>= 3.5.0), lars
 Description: Functions are provided to calculate and display ridge TRACEs for various
-  shrinkage PATHS. They determine the m-Extent of shrinkage most likely, under
-  Normal-distribution theory, to produce biased estimates of regression (beta) coefficients
-  with minimum MSE Risk. An alternative function, correct.signs(), provides beta coefficient
-  estimates when an ill-conditioned (nearly multicollinear) model yields OLS estimates with
-  ("wrong") numerical signs that disagree with the signs of the observed correlations between
-  the Y-outcome and the selected X-predictor variables. In-Sample predictions can be made for
-  all five-types of RXshrink linear regression model estimation.  
+  shrinkage Paths. They determine the m-Extent of shrinkage most likely, under
+  Normal-theory, to produce optimally biased estimates of regression beta-coefficients
+  with minimum MSE Risk. The new unr.ridge() function implements the "Unrestricted
+  Path" introduced in "Ridge TRACE Diagnostics" <arXiv:2005.14291>. This Path appears
+  more efficient than the Paths used by the qm.ridge(), aug.lars() and uc.lars()
+  functions. In-Sample predictions can be made using RXpredict() for all five types of
+  RXshrink linear model TRACE diagnostics. New functions MLboot(), MLcalc(), MLhist()
+  and MLtrue() provide insights into the true bias and MSE risk characteristics of
+  non-linear Shrinkage estimators. The correct.signs() function provides estimates
+  with "correct" numerical signs when ill-conditioned (nearly multicollinear) models
+  yield OLS estimates that disagree with the signs of the observed correlations
+  between the y-outcome and the selected x-predictor variables.
 License: GPL-2
-URL: https://www.R-project.org , http://localcontrolstatistics.org
+URL: https://www.R-project.org , http://localcontrolstatistics.org ,
+        http://arxiv.org/abs/2005.14291
 NeedsCompilation: no
-Packaged: 2020-04-25 22:32:09 UTC; bobo
+Packaged: 2020-06-26 19:13:48 UTC; bobo
 Repository: CRAN
-Date/Publication: 2020-04-26 07:10:02 UTC
+Date/Publication: 2020-06-26 19:40:08 UTC

@@ -46,7 +46,7 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
     comp <- solve(diag(sx$d, ncol = p)) %*% t(sx$u) %*% cry
     bstar <- sx$v %*% comp
     exev <- matrix(0, p, 1)
-    infd <- matrix(0, p, 1)
+    infd <- as.numeric(matrix(NA, p, 1))
     delta <- matrix(1, p, 1)
     idty <- diag(p)
     d <- idty
@@ -69,8 +69,10 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
         r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
     OmR2dN <- (1 - r2 )/n
     dMSE <- rep(1,p)      # meaningless initial values...
+    mMSE <- p             # Maximum possible value...
     for( i in 1:p ) {
         dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN )    # Maximum-Likelihood estimate...
+        mMSE <- mMSE - dMSE[i]
     }
     mcal <- 0
     kinc <- 1/min(dMSE)      # innitially > 1 but decreasing...
@@ -83,9 +85,10 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
     E <- Inf
     R <- Inf
     maxinc <- p * steps      # Number of Lattice Steps with "m" strictly > ZERO.
+    IDhit <- 0
     for (inc in 1:maxinc) {
         mobj <- inc/steps
-        iter <- m.ukd(mobj, p, dMSE)  # Function defined below...
+        iter <- kofm(mobj, p, dMSE)  # Function defined below...
         kinc <- iter$kStar
         d <- iter$d          # Diagonal Matrix, p x p...
         dinc <- diag(d)      # Diagonal Elements only...
@@ -124,18 +127,18 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
             sfac <- 1e-05
         eign <- eigen(emse/sfac)
         einc <- sort(eign$values) * sfac         # Increasing order; negative values first...
-        cinc <- matrix(0, p, 1)
+        cinc <- as.numeric(matrix(NA, p, 1)) 
         if (is.na(einc[1])) 
             einc[1] <- 0
-        if (einc[1] + 1 -delmax < 0) {              # New Correction... 
+        if (einc[1] + 1 - delmax < 0) {          # New Correction... 
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
             if (rscale == 2) {
                 cinc <- cinc %*% xscale
                 cinc <- cinc/sqrt(sum(cinc^2))
             }
-            if (t(cold) %*% cinc < 0) 
-                cinc <- -1 * cinc
+            if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc 
+            IDhit <- 1
             cold <- cinc
         }
         bstar <- cbind(bstar, binc)
@@ -165,7 +168,7 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
             mClk <- (i-1)/steps            break        }    }
     RXolist <- c(RXolist, list(coef = bstar, rmse = risk, 
         exev = exev, infd = infd, spat = delta, mlik = mlik, 
-        sext = sext, mUnr = mUnr, mClk = mClk, minC = minC,
+        sext = sext, mUnr = mUnr, mMSE = mMSE, mClk = mClk, minC = minC,
         dMSE = dMSE))
     class(RXolist) <- "unr.ridge"
     RXolist
@@ -230,7 +233,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         scan()  
     }  
     if (trace == "all" || trace == "seq" || trace == "infd") {
-        plot(mcalp, x$infd, ann = FALSE, type = "n")  
+        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1))  
         abline(v = mV, col = "gray", lty = 2, lwd = 2)  		
         abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
@@ -276,11 +279,71 @@ function (x, ...)
     cat("minimize the minus-two-log-likelihood statistics listed below:\n")
     print.default(x$mlik, quote = FALSE)
     cat("\nExtent of Shrinkage Statistics...\n")
-    print.default(x$sext, quote = FALSE)  
-    cat("\n    Most Likely UNRestricted Shrinkage Extent, mUnr =", x$mUnr)
-    cat("\n    Corresponding -2*log(LikelihoodRatio) statistic = 0.0")  	
-    cat("\n    Most Likely m-Value on the Lattice,        mClk =", x$mClk)
-    cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC)    	
+    print.default(x$sext, quote = FALSE)
+    if (x$r2 > 0.999) {
+        cat("\n\nWARNING! R-squared exceeds 0.999;")
+        cat("  Details of calculations are possibly Misleading...\n")
+    }	
+    cat("\n    Most Likely UNRestricted Shrinkage Extent,  mUnr =", x$mUnr)
+    cat("\n    Corresponding Expected -2*log(Likelihood Ratio)  = 0.0")  	
+    cat("\n    Most Likely m-Value on Observed Lattice,    mClk =", x$mClk)
+    cat("\n    Smallest Observed -2*log(Likelihood Ratio), minC =", x$minC)    	
     cat("\n    dMSE Estimates =", x$dMSE, "\n\n")	
-} 
-"m.ukd" <-function (muobj, p, dMSE, delmax = 0.999999) {    kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...    if (muobj <= 0) {        d <- diag(delmax, p)         # Matrix with Diagonal Values strictly < 1...        kStar <- kM[1]        return(list(kStar = kStar, d = d))    }    if (muobj >= p) {        d <- matrix(0, p, p)        kStar <- 0                     # Terminus of the shrinkage path        return(list(kStar = kStar, d = d))    }    mVar <- matrix(1,1,p)              # Meaningless initial values...    for( j in 1:p ) {                  # 0 < muobj < 1 below here...        mVar[j] <- mofk(p, k=kM[j], dMSE)    }    kMin <- (p-muobj)/sum(dMSE)    if( muobj > mVar[p] ) {            # Tail; Large m, small k Cases...        d <- kMin*diag(dMSE)        kStar <- kMin        return(list(kStar = kStar, d = d))    } else {                           # Locally Linear cases...        for( j in 2:p ) {             if( mVar[j-1] < muobj && muobj <= mVar[j] ) {	            if( muobj == mVar[j] ) {                    kStar <- kM[j]                } else {                    B <- muobj - mVar[j-1]                    D <- mVar[j] - muobj                     kStar <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )                }            }        }        for( j in 1:p ) {            dd <- min(delmax,kStar*dMSE[j])            if( j == 1 ) dp <- dd else dp <- c(dp,dd)        }        d <- diag(dp)        return(list(kStar = kStar, d = d))		    }}"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...{  p <- as.integer(p)  if( k < 0 ) k <- 0  kM <- 1/min(dMSE)  if( k > kM ) k <- kM  m <- as.double(0)  for( j in 1:p ) {    m <- m + 1 - min(1,k*dMSE[j])  }  m}
+}
+
+"kofm" <-
+function (muobj, p, dMSE, delmax = 0.999999) 
+{
+    kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...
+    if (muobj <= 0) {
+        d <- diag(delmax, p)         # Matrix with Diagonal Values strictly < 1...
+        kStar <- kM[1]
+        return(list(kStar = kStar, d = d))
+    }
+    if (muobj >= p) {
+        d <- matrix(0, p, p)
+        kStar <- 0                     # Terminus of the shrinkage path
+        return(list(kStar = kStar, d = d))
+    }
+    mVar <- matrix(1,1,p)              # Meaningless initial values...
+    for( j in 1:p ) {                  # 0 < muobj < 1 below here...
+        mVar[j] <- mofk(p, k=kM[j], dMSE)
+    }
+    kMin <- (p-muobj)/sum(dMSE)
+    if( muobj > mVar[p] ) {            # Tail; Large m, small k Cases...
+        d <- kMin*diag(dMSE)
+        kStar <- kMin
+        return(list(kStar = kStar, d = d))
+    } else {                           # Locally Linear cases...
+        for( j in 2:p ) { 
+            if( mVar[j-1] < muobj && muobj <= mVar[j] ) {
+	            if( muobj == mVar[j] ) {
+                    kStar <- kM[j]
+                } else {
+                    B <- muobj - mVar[j-1]
+                    D <- mVar[j] - muobj 
+                    kStar <- (B*D/(B+D))*( kM[j-1]/B + kM[j]/D )
+                }
+            }
+        }
+        for( j in 1:p ) {
+            dd <- min(delmax,kStar*dMSE[j])
+            if( j == 1 ) dp <- dd else dp <- c(dp,dd)
+        }
+        d <- diag(dp)
+        return(list(kStar = kStar, d = d))		
+    }
+}
+
+"mofk" <- function(p, k, dMSE)  # Many-to-One Function for large k-values...
+{
+  p <- as.integer(p)
+  if( k < 0 ) k <- 0
+  kM <- 1/min(dMSE)
+  if( k > kM ) k <- kM
+  m <- as.double(0)
+  for( j in 1:p ) {
+    m <- m + 1 - min(1,k*dMSE[j])
+  }
+  m
+}

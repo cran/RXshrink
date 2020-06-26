@@ -1,7 +1,7 @@
 importFrom("grDevices", "gray")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot",
-           "points", "title")
-importFrom("stats", "lm", "rnorm", "var", "cor")
+           "points", "title", "hist")
+importFrom("stats", "lm", "rnorm", "runif", "var", "cor")
 importFrom("lars", "lars")
 
 export(qm.ridge)
@@ -12,13 +12,8 @@ export(unr.ridge)
 S3method(plot, unr.ridge)
 S3method(print, unr.ridge)
 
-export(true.risk)
-S3method(plot, true.risk)
-S3method(print, true.risk)
-
-export(true.simu)
-S3method(plot, true.simu)
-S3method(print, true.simu)
+export(MLtrue)
+S3method(print, MLtrue)
 
 export(aug.lars)
 S3method(plot, aug.lars)
@@ -34,3 +29,12 @@ S3method(print, correct.signs)
 export(RXpredict)
 S3method(plot, RXpredict)
 S3method(print, RXpredict)
+
+export(MLcalc)
+S3method(print, MLcalc)
+
+export(MLboot)
+S3method(print, MLboot)
+
+export(MLhist)
+S3method(print, MLhist)

@@ -47,11 +47,11 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
     comp <- solve(diag(sx$d, ncol = p)) %*% t(sx$u) %*% cry
     bstar <- sx$v %*% comp
     exev <- matrix(0, p, 1)
-    infd <- matrix(0, p, 1)
+    infd <- as.numeric(matrix(NA, p, 1))
     delta <- matrix(1, p, 1)
     idty <- diag(p)
     d <- idty
-    cold <- delta
+    cold <- delta            # initial value for line 141...
     sv <- matrix(sx$d, p, 1)
     ssy <- t(cry) %*% cry
     rho <- (sv * comp)/sqrt(ssy[1, 1])
@@ -85,6 +85,7 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
     C <- Inf
     E <- Inf
     R <- Inf
+    IDhit <- 0
     for (inc in 2:steps) {
         binc <- bhat[steps + 1 - inc, ]
         dinc <- (t(sx$v) %*% binc)/comp
@@ -126,8 +127,8 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
         if (sfac < 1e-05) 
             sfac <- 1e-05
         eign <- eigen(emse/sfac)
-        einc <- rev(eign$values) * sfac
-        cinc <- matrix(0, p, 1)
+        einc <- sort(eign$values) * sfac         # Increasing order; negative values first...
+        cinc <- as.numeric(matrix(NA, p, 1))
         if (is.na(einc[1])) 
             einc[1] <- 0
         if (einc[1] < 0) {
@@ -137,8 +138,8 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
                 cinc <- cinc %*% xscale
                 cinc <- cinc/sqrt(sum(cinc^2))
             }
-            if (t(cold) %*% cinc < 0) 
-                cinc <- -1 * cinc
+            if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc
+            IDhit <- 1
             cold <- cinc
         }
         bstar <- cbind(bstar, binc)
@@ -238,11 +239,10 @@ function (x, trace = "all", trkey = FALSE, ...)
         scan()
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
-        plot(mcalp, x$infd, ann = FALSE, type = "n")
+        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1))
         abline(v = mV, col = "gray", lty = 2, lwd = 2)
         abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
-            lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, lwd = 2)
         title(main = paste("INFERIOR DIRECTION:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines")
         if( trkey )

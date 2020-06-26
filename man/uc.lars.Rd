@@ -12,8 +12,8 @@
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{Data frame containing observations on all variables in the formula.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for rescaling of variables
-   as they are being "centered" to remove non-essential ill-conditioning:  0 implies no
+  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
+   (after being "centered") to remove all "non-essential" ill-conditioning: 0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{type}{One of "lasso", "lar" or "forward.stagewise" for function lars(). Names can be
@@ -23,11 +23,11 @@
   \item{omdmin}{Strictly positive minimum allowed value for one-minus-delta (default = 9.9e-013.)}
 }
 \details{uc.lars() applies Least Angle Regression to the uncorrelated components of a
- possibly ill-conditioned set of X-variables.  A closed-form expression for the lars/lasso
+ possibly ill-conditioned set of x-variables.  A closed-form expression for the lars/lasso
  shrinkage delta factors exits in this case: Delta(i) = max(0,1-k/abs[PC(i)]), where PC(i)
- is the principal correlation between Y and the i-th principal coordinates of X. Note that
+ is the principal correlation between y and the i-th principal coordinates of X. Note that
  the k-factor in this formulation is limited to a subset of [0,1].  MCAL=0 occurs at k=0,
- while MCAL = P results when k is the maximum absolute principal correlation. 
+ while MCAL = p results when k is the maximum absolute principal correlation. 
 }
 \value{ An output list object of class uc.lars:
   \item{form}{The regression formula specified as the first argument.}
@@ -50,8 +50,8 @@
   \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}
 }
 \references{
-  Efron B, Hastie T, Johnstone I, Tibshirani R. (2004) Least angle regression.
-  \emph{Annals of Statistics} \bold{32}, 407-499 (with discussion.)
+  Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.
+  \url{https://CRAN.R-project.org/package=lars}
 
   Obenchain RL. (1994-2005) Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein.
   \url{http://localcontrolstatistics.org}

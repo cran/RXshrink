@@ -61,7 +61,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         scan()
     }
     if (trace == "all" || trace == "seq" || trace == "infd") {
-        plot(mcalp, x$infd, ann = FALSE, type = "n")
+        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1))
         abline(v = mV, col = "gray", lty = 2, lwd = 2)
         abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
@@ -181,7 +181,7 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     comp <- solve(diag(sx$d, ncol = p)) %*% t(sx$u) %*% cry
     bstar <- sx$v %*% comp
     exev <- matrix(0, p, 1)
-    infd <- matrix(0, p, 1)
+    infd <- as.numeric(matrix(NA, p, 1))
     delta <- matrix(1, p, 1)
     idty <- diag(p)
     d <- idty
@@ -263,6 +263,7 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     E <- Inf
     R <- Inf
     maxinc <- p * steps
+    IDhit <- 0
     for (inc in 1:maxinc) {
         mobj <- inc/steps
         iter <- mstep(mobj, kinc, p, qp, eqm1)
@@ -302,8 +303,8 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
         if (sfac < 1e-05) 
             sfac <- 1e-05
         eign <- eigen(emse/sfac)
-        einc <- rev(eign$values) * sfac
-        cinc <- matrix(0, p, 1)
+        einc <- sort(eign$values) * sfac         # Increasing order; negative values first...
+        cinc <- as.numeric(matrix(NA, p, 1))
         if (is.na(einc[1])) 
             einc[1] <- 0
         if (einc[1] < 0) {
@@ -313,8 +314,8 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
                 cinc <- cinc %*% xscale
                 cinc <- cinc/sqrt(sum(cinc^2))
             }
-            if (t(cold) %*% cinc < 0) 
-                cinc <- -1 * cinc
+            if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc 
+            IDhir <- 1
             cold <- cinc
         }
         bstar <- cbind(bstar, binc)

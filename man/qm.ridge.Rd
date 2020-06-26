@@ -13,8 +13,8 @@
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{Data frame containing observations on all variables in the formula.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for rescaling of variables
-   as they are being "centered" to remove non-essential ill-conditioning:  0 implies no
+  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
+   (after being "centered") to remove all "non-essential" ill-conditioning: 0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
   \item{Q}{Shape parameter that controls the curvature of the shrinkage path through
@@ -58,37 +58,38 @@
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of m-Extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all m-Extents-of-shrinkage.}
-  \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
-  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}
-  \item{QS}{Mesh Search for Best q-Shape requested? 1 => Yes, 0 => No.}
-  \item{qML}{Computable only when p=r=2: Most Likely q-Shape.}
-  \item{kML}{Computable only when p=r=2: Most Likely k-Factor.}
-  \item{dML1}{Computable only when p=r=2: Most Likely Delta[1]-Factor.}
-  \item{dML2}{Computable only when p=r=2: Most Likely Delta[2]-Factor.}
-  \item{mML}{Computable only when p=r=2: Most Likely m-Extent.}  
+  \item{mClk}{Most-Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
+  \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}
+  \item{QS}{Was a Mesh-Search for Best q-Shape requested? : 1 => Yes, 0 => No.}
+  \item{qML}{Computable only when p=rank=2: True Most-Likely q-Shape.}
+  \item{kML}{Computable only when p=rank=2: True Most-Likely k-Factor.}
+  \item{dML1}{Computable only when p=rank=2: True Most-Likely Delta[1]-Factor.}
+  \item{dML2}{Computable only when p=rank=2: True Most-Likely Delta[2]-Factor.}
+  \item{mML}{Computable only when p=rank=2: True Most-Likely m-Extent.}  
 }
 \references{
-  Burr TL, Fry HA. (2005)
-  Biased Regression: The Case for Cautious Application. \emph{Technometrics}
-  \bold{47}, 284-296.
+  Burr TL, Fry HA. (2005) Biased Regression: The Case for Cautious Application.
+  \emph{Technometrics} \bold{47}, 284-296.
 
-  Goldstein M, Smith AFM. (1974)
-  Ridge-type estimators for regression analysis. \emph{J. Roy. Stat. Soc. B}
-  \bold{36}, 284-291. (The 2-parameter shrinkage family.)
+  Goldstein M, Smith AFM. (1974) Ridge-type estimators for regression analysis.
+  \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (The 2-parameter shrinkage family.)
+  
+  Obenchain RL. (1975) Ridge Analysis Following a Preliminary Test of the Shrunken
+  Hypothesis. \emph{Technometrics} \bold{17}, 431-441.
+  <doi:10.1080/00401706.1975.10489369>
   
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121.
+  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
 
-  Obenchain RL. (2005)
-  \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.
+  Electronic book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
 
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like document.
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}, \code{\link{true.risk}} 
-and \code{\link{true.simu}}.}
+\seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
+and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed

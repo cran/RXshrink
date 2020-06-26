@@ -1,24 +1,27 @@
 \name{RXshrink-internal}
 \title{Internal RXshrink functions}
 \alias{RXshrink-internal}
-\alias{print.qm.ridge}
-\alias{print.unr.ridge}
 \alias{print.aug.lars}
-\alias{print.true.risk}
-\alias{print.true.simu}
-\alias{print.uc.lars}
+\alias{print.correct.signs}
+\alias{print.MLboot}
+\alias{print.MLcalc}
+\alias{print.MLhist}
+\alias{print.MLtrue}
+\alias{print.qm.ridge}
 \alias{print.RXpredict}
+\alias{print.uc.lars}
+\alias{print.unr.ridge}
 \alias{mstep}
-\alias{m.ukd}
+\alias{kofm}
 \alias{mofk}
 \description{These are internal functions for printing and calculating quantities such
  as additive K-factors and multiplicative Delta-Factors that determine a specified
  m-Extent of Shrinkage. mstep() is called by qm.ridge(), true.risk(), true.simu(), aug.lars()
- and uc.lars(). m.ukd() and mofk() are called by unr.ridge(),
+ and uc.lars(). kofm() and mofk() are called by unr.ridge(),
 }
 \usage{
   mstep(mobj, kinc, p, qp, eqm1)
-  m.ukd(muobj, p, dMSE, delmax)
+  kofm(muobj, p, dMSE, delmax)
   mofk(p, k, dMSE)
 }
 \arguments{

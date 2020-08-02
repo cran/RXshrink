@@ -1,7 +1,7 @@
 \name{tycobb}
 \alias{tycobb}
 \docType{data}
-\title{Ty Cobb batting statistics for 1905--1928 with Carl Morris' Spline-term.}
+\title{Ty Cobb batting statistics for 1905--1928 with Carl Morris' 2-piece Spline term.}
 \description{Linear Regression models can be used to predict Ty Cobb's Expected true
 yearly batting averages from his observed yearly "batavg" and the 5 other variables
 stored in the "tycobb" data.frame. Predictions from such "models" can address the

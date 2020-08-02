@@ -1,134 +1,3 @@
-
-"plot.qm.ridge" <-
-function (x, trace = "all", trkey = FALSE, ...) 
-{
-    mcal <- x$sext[, 3]
-    mcalp <- rep(mcal, times = x$p)
-    if (trace != "coef" && trace != "rmse" && trace != "exev" && 
-        trace != "infd" && trace != "spat" && trace != "seq")
-        trace <- "all"
-    mV <- x$mClk    # m-extent with min Classical -2*log(Like)  
-    opar <- par(no.readonly = TRUE)
-    on.exit(par(opar))
-    if (trace == "all")
-        par(mfrow=c(3,2))
-    else
-        par(mfrow=c(1,1))
-    if (trace == "all" || trace == "seq" || trace == "coef") {
-        plot(mcalp, x$coef, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
-            lwd = 2)
-        title(main = paste("COEFFICIENT TRACE: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients")
-        if( trkey )
-            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-    if (trace == "seq") {
-        cat("\nPress the Enter key to view the RMSE trace...")
-        scan()
-    }
-    if (trace == "all" || trace == "seq" || trace == "rmse") {
-        plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
-            lwd = 2)
-        title(main = paste("RELATIVE MEAN SQ. ERROR: Q-shape =", 
-            x$qp), xlab = "m = Multicollinearity Allowance", 
-            ylab = "Scaled MSE Risk")
-        if( trkey )
-            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-    if (trace == "seq") {
-        cat("\nPress the Enter key to view the EXEV trace...")
-        scan()
-    }
-    if (trace == "all" || trace == "seq" || trace == "exev") {
-        plot(mcalp, x$exev, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
-            lwd = 2)
-        title(main = paste("EXCESS EIGENVALUES: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus Ridge")
-        if( trkey )
-            legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-    if (trace == "seq") {
-        cat("\nPress the Enter key to view the INFD trace...")
-        scan()
-    }
-    if (trace == "all" || trace == "seq" || trace == "infd") {
-        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1))
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
-            lwd = 2)
-        title(main = paste("INFERIOR DIRECTION: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines")
-        if( trkey )
-            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-    if (trace == "seq") {
-        cat("\nPress the Enter key to view the SPAT trace...")
-        scan()
-    }
-    if (trace == "all" || trace == "seq" || trace == "spat") {
-        plot(mcalp, x$spat, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
-            lwd = 2)
-        title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Ridge Delta Factors")
-        if( trkey )
-            legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-}
-
-"print.qm.ridge" <-
-function (x, ...) 
-{
-    cat("\nqm.ridge Object: Shrinkage-Ridge Regression Model Specification\n")
-    cat("Data Frame:", x$data, "\n")
-    cat("Regression Equation:\n")
-    print(x$form)
-    cat("\n    Number of Regressor Variables, p =", x$p, "\n")
-    cat("    Number of Observations, n =", x$n, "\n")
-    cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n")
-    print.default(x$prinstat, quote = FALSE)
-    cat("\n    Residual Mean Square for Error =", x$s2, "\n")
-    cat("    Estimate of Residual Std. Error =", sqrt(x$s2), "\n\n")
-    if( x$QS == 1 ) {
-    cat("Classical Maximum Likelihood choice of SHAPE(Q) and EXTENT(M) of\n")
-    cat("shrinkage in the 2-parameter generalized ridge family...\n")
-    print.default(x$crlqstat, quote = FALSE)
-    cat("\n Q =", x$qmse, " is the path shape most likely to lead to minimum\n")
-    cat("MSE risk because this shape maximizes CRLQ and minimizes CHISQ.\n")
-    }
-    cat("\nqm.ridge: Shrinkage PATH Shape =", x$qp, "\n")
-    cat("\nThe extent of shrinkage (M value) most likely to be optimal\n")
-    cat("in the Q-shape =", x$qp, " 2-parameter ridge family can depend\n")
-    cat("upon whether one uses the Classical, Empirical Bayes, or Random\n")
-    cat("Coefficient criterion.  In each case, the objective is to\n")
-    cat("minimize the minus-two-log-likelihood-ratios listed below:\n")
-    print.default(x$mlik, quote = FALSE)
-    cat("\nExtent of shrinkage statistics...\n")
-    print.default(x$sext, quote = FALSE)
-    if( x$p == 2 ) {
-    cat("Following calculations are possible only when p = r = 2:\n")
-    cat("Most Likely q-Shape:  qML =", x$qML, "\n")
-    cat("Best k-Factor:        kML =", x$kML, "\n")
-    cat("Best m-Extent:        mML =", x$mML, "\n")
-    cat("Best 1st Delta factor     =", x$dML1, "\n")
-    cat("Best 2nd Delta factor     =", x$dML2, "\n")
-    }
-    cat("\n    Most Likely m-Extent on the Lattice,       mClk =", x$mClk)	
-    cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC, "\n\n")
-}
-
 "qm.ridge" <-
 function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21, 
     qmax = 5, qmin = -5, omdmin = 9.9e-13) 
@@ -263,7 +132,7 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     E <- Inf
     R <- Inf
     maxinc <- p * steps
-    IDhit <- 0
+    IDhit <- 0               # Inferior Direction "hit" switch...
     for (inc in 1:maxinc) {
         mobj <- inc/steps
         iter <- mstep(mobj, kinc, p, qp, eqm1)
@@ -304,9 +173,8 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
             sfac <- 1e-05
         eign <- eigen(emse/sfac)
         einc <- sort(eign$values) * sfac         # Increasing order; negative values first...
-        cinc <- as.numeric(matrix(NA, p, 1))
-        if (is.na(einc[1])) 
-            einc[1] <- 0
+        cinc <- as.numeric(matrix(NA, p, 1))     # Nothing to plot when No "ID" exists...
+        if (is.na(einc[1])) einc[1] <- 0         # Avoid NAs here...
         if (einc[1] < 0) {
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
@@ -315,7 +183,7 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
                 cinc <- cinc/sqrt(sum(cinc^2))
             }
             if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc 
-            IDhir <- 1
+            IDhit <- 1
             cold <- cinc
         }
         bstar <- cbind(bstar, binc)
@@ -363,6 +231,136 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     }
     class(RXolist) <- "qm.ridge"
     RXolist
+}
+
+"plot.qm.ridge" <-
+function (x, trace = "all", trkey = FALSE, ...) 
+{
+    mcal <- x$sext[, 3]
+    mcalp <- rep(mcal, times = x$p)
+    if (trace != "coef" && trace != "rmse" && trace != "exev" && 
+        trace != "infd" && trace != "spat" && trace != "seq")
+        trace <- "all"
+    mV <- x$mClk    # m-extent with min Classical -2*log(Like)  
+    opar <- par(no.readonly = TRUE)
+    on.exit(par(opar))
+    if (trace == "all")
+        par(mfrow=c(3,2))
+    else
+        par(mfrow=c(1,1))
+    if (trace == "all" || trace == "seq" || trace == "coef") {
+        plot(mcalp, x$coef, ann = FALSE, type = "n")
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
+            lwd = 2)
+        title(main = paste("COEFFICIENT TRACE: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients")
+        if( trkey )
+            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
+    }
+    if (trace == "seq") {
+        cat("\nPress the Enter key to view the RMSE trace...")
+        scan()
+    }
+    if (trace == "all" || trace == "seq" || trace == "rmse") {
+        plot(mcalp, x$rmse, ann = FALSE, type = "n")
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
+            lwd = 2)
+        title(main = paste("RELATIVE MSE: Q-shape =", 
+            x$qp), xlab = "m = Multicollinearity Allowance", 
+            ylab = "Scaled MSE Risk")
+        if( trkey )
+            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
+    }
+    if (trace == "seq") {
+        cat("\nPress the Enter key to view the EXEV trace...")
+        scan()
+    }
+    if (trace == "all" || trace == "seq" || trace == "exev") {
+        plot(mcalp, x$exev, ann = FALSE, type = "n")
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
+            lwd = 2)
+        title(main = paste("EXCESS EIGENVALUES: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus Ridge")
+        if( trkey )
+            legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2)
+    }
+    if (trace == "seq") {
+        cat("\nPress the Enter key to view the INFD trace...")
+        scan()
+    }
+    if (trace == "all" || trace == "seq" || trace == "infd") {
+        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1))
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, 
+            lwd = 2)
+        title(main = paste("INFERIOR DIRECTION: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines")
+        if( trkey )
+            legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)
+    }
+    if (trace == "seq") {
+        cat("\nPress the Enter key to view the SPAT trace...")
+        scan()
+    }
+    if (trace == "all" || trace == "seq" || trace == "spat") {
+        plot(mcalp, x$spat, ann = FALSE, type = "n")
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
+            lwd = 2)
+        title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Ridge Delta Factors")
+        if( trkey )
+            legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2)
+    }
+}
+
+"print.qm.ridge" <-
+function (x, ...) 
+{
+    cat("\nqm.ridge Object: Shrinkage-Ridge Regression Model Specification\n")
+    cat("Data Frame:", x$data, "\n")
+    cat("Regression Equation:\n")
+    print(x$form)
+    cat("\n    Number of Regressor Variables, p =", x$p, "\n")
+    cat("    Number of Observations, n =", x$n, "\n")
+    cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n")
+    print.default(x$prinstat, quote = FALSE)
+    cat("\n    Residual Mean Square for Error =", x$s2, "\n")
+    cat("    Estimate of Residual Std. Error =", sqrt(x$s2), "\n\n")
+    if( x$QS == 1 ) {
+    cat("Classical Maximum Likelihood choice of SHAPE(Q) and EXTENT(M) of\n")
+    cat("shrinkage in the 2-parameter generalized ridge family...\n")
+    print.default(x$crlqstat, quote = FALSE)
+    cat("\n Q =", x$qmse, " is the path shape most likely to lead to minimum\n")
+    cat("MSE risk because this shape maximizes CRLQ and minimizes CHISQ.\n")
+    }
+    cat("\nqm.ridge: Shrinkage PATH Shape =", x$qp, "\n")
+    cat("\nThe extent of shrinkage (M value) most likely to be optimal\n")
+    cat("in the Q-shape =", x$qp, " 2-parameter ridge family can depend\n")
+    cat("upon whether one uses the Classical, Empirical Bayes, or Random\n")
+    cat("Coefficient criterion.  In each case, the objective is to\n")
+    cat("minimize the minus-two-log-likelihood-ratios listed below:\n")
+    print.default(x$mlik, quote = FALSE)
+    cat("\nExtent of shrinkage statistics...\n")
+    print.default(x$sext, quote = FALSE)
+    if( x$p == 2 ) {
+    cat("Following calculations are possible only when p = r = 2:\n")
+    cat("Most Likely q-Shape:  qML =", x$qML, "\n")
+    cat("Best k-Factor:        kML =", x$kML, "\n")
+    cat("Best m-Extent:        mML =", x$mML, "\n")
+    cat("Best 1st Delta factor     =", x$dML1, "\n")
+    cat("Best 2nd Delta factor     =", x$dML2, "\n")
+    }
+    cat("\n    Most Likely m-Extent on the Lattice,       mClk =", x$mClk)	
+    cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC, "\n\n")
 }
 
 "mstep" <-

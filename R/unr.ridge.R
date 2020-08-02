@@ -85,7 +85,7 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
     E <- Inf
     R <- Inf
     maxinc <- p * steps      # Number of Lattice Steps with "m" strictly > ZERO.
-    IDhit <- 0
+    IDhit <- 0               # Inferior Direction "hit" switch...
     for (inc in 1:maxinc) {
         mobj <- inc/steps
         iter <- kofm(mobj, p, dMSE)  # Function defined below...
@@ -182,7 +182,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     if (trace != "coef" && trace != "rmse" && trace != "exev" && 
         trace != "infd" && trace != "spat" && trace != "seq") 
         trace <- "all" 
-    mV <- x$mClk    # m-extent with min Classical -2*log(Like)  		
+    mV <- x$mUnr    # m-extent with min k*==1 in unr.ridge()...   		
     opar <- par(no.readonly = TRUE)  
     on.exit(par(opar))  
     if (trace == "all") par(mfrow=c(3,2)) else
@@ -208,7 +208,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         abline(h = 0, col = gray(0.9), lwd = 2)  
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)  
-        title(main = paste("RELATIVE MEAN SQ. ERROR"),
+        title(main = paste("RELATIVE MSE"),
             xlab = "m = Multicollinearity Allowance", ylab = "Scaled MSE Risk")  
         if( trkey )
             legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)  

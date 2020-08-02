@@ -20,7 +20,7 @@
    reported in the MLtrue output.list to enable reproducible research.}
   \item{go}{Logical value: go=TRUE starts the simulation using OLS estimates or the
    numerical values from the (optional) truv, trub and truc arguments to define the
-   "Yhat" and "Yvec" variagles; go=FALSE causes MLtrue() to compute OLS estimates
+   "Yhat" and "Yvec" variables; go=FALSE causes MLtrue() to compute OLS estimates
    that ignore the truv, trueb and truc arguments. Thus, go=FALSE provides a
    convenient way for users to Print and Examine the MLtrue() output.list before
    deciding which parameter-settings they wish to actually USE or MODIFY before

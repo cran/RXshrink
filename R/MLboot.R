@@ -10,10 +10,8 @@ function (form, data, reps=100, seed, rscale=1)
     if (!is.element(yvar, dimnames(data)[[2]])) 
         stop("Response variable in the MLboot formula must be an existing variable.")
     if (reps < 10) reps <- 10
-    if (reps > 10000) {
-        cat("\nThis MLboot is inefficient. Do not request more than 10,000 replications...")
-        reps <- 10000
-        }
+    if (reps > 10000)
+        cat("\nMore than 10,000 MLboot replications are NOT recommended...")
     if (missing(seed)) seed <- 1 + floor(1000 * runif(1))
     set.seed(seed)
     if (rscale != 1) rscale <- 2
@@ -102,10 +100,10 @@ function(x, comp="opt.beta", xvar=1, npct=95, bins=50)
   noin <- round(xlng * npct / 100)     # chosen number of order-statistics
   nlo <- 1 + round((xlng-noin)/2)
   nup <- xlng - nlo + 1
-  hist(xost[nlo:nup], breaks=bins, main = paste("Histogram of a MLboot Distribution"),
+  hst <- hist(xost[nlo:nup], breaks=bins, main = paste("Histogram of a MLboot Distribution"),
     xlab = paste(npct, "% of MLboot order-statistics"))
   abline(v=xv[1], col="blue", lwd=2, lty=2)  # Add location of observed sample estimate...
-  RXolist <- list(x = xout, npct = npct, bins = bins, ntot = xlng, p = x$p,
+  RXolist <- list(x = xout, npct = npct, rbins = bins, dbins=hst$breaks, ntot = xlng, p = x$p,
     nlo = nlo, nup = nup, noin = noin, xmn = xv[1])
   class(RXolist) <- "MLhist"
   RXolist
@@ -117,7 +115,8 @@ function (x, ...)
     cat("\nMLhist Object: Characteristics of the displayed MLboot() Distribution...\n")
     cat("\n    MLboot() Distribution x$comp[,xvar]        : ", x$x, "\n")
     cat("\n    Percentage of Distribution Displayed, npct =", x$npct, "\n")
-    cat("    Number of Histogram Bins requested,   bins =", x$bins, "\n")
+    cat("    Number of Histogram Bins requested,  rbins =", x$rbins, "\n")
+    cat("    Number of Histogram Bins displayed,  dbins =", x$dbins, "\n")
     cat("    Total Number of Estimates available,  ntot =", x$ntot, "\n")
     cat("    First Order-Statistic Included,        nlo =", x$nlo, "\n")
     cat("    Last Order-Statistic Included,         nup =", x$nup, "\n")

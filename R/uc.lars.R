@@ -214,7 +214,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         abline(h = 0, col = gray(0.9), lwd = 2)
         for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
             lwd = 2)
-        title(main = paste("RELATIVE MEAN SQ. ERROR:", x$lars$type), 
+        title(main = paste("RELATIVE MSE:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Scaled MSE Risk")
         if( trkey )
             legend("bottom",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=1:(x$p), lwd=2)

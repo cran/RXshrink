@@ -10,7 +10,9 @@
 \arguments{
   \item{form}{Regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{data.frame containing observations on all variables in the formula.}
-  \item{reps}{Number of Bootstrap replications between 10 and 10000; default = 100.}
+  \item{reps}{Number of Bootstrap replications: Minimum reps = 10, Default is reps = 100.
+   While reps = 10000 is reasonable for bivariate (p=2) linear models, even that many
+   reps could be excessive for models with p >> 2.}
   \item{seed}{Either an Integer between 1 and 999 or else missing to generate a random seed.}
   \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
    (after being "centered") to remove all "non-essential" ill-conditioning:  0 implies no

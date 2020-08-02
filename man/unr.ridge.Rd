@@ -66,12 +66,15 @@
   Electronic book-in-progress; 185+ pages. \url{http://localcontrolstatistics.org}
   
   Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{http://arxiv.org/abs/2005.14291}
-
+  
+  Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
+  \url{http://localcontrolstatistics.org}
+  
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
+\seealso{\code{\link{mofk}}, \code{\link{kofm}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
 and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)

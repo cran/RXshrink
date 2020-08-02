@@ -11,6 +11,8 @@ S3method(print, qm.ridge)
 export(unr.ridge)
 S3method(plot, unr.ridge)
 S3method(print, unr.ridge)
+export(kofm)
+export(mofk)
 
 export(MLtrue)
 S3method(print, MLtrue)

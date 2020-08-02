@@ -10,7 +10,7 @@
   \item{x}{An Output-list object of class "MLboot".}
   \item{comp}{One of five possible choices of MLboot() resampled estimates: "ols.beta",
     "ols.rmse", "opt.dmse", "opt.beta" or "opt.rmse".} 
-  \item{xvar}{Column number of estimates are to be displayed: 1 <= xvar <= x$p.}  
+  \item{xvar}{Column number of estimates to be displayed: 1 <= xvar <= x$p.}  
   \item{npct}{An integer percentage of the simulated scalar estimates to be displayed.
     This percentage should be at least 66 and at most 100.}
   \item{bins}{This proposed number of histogram "breaks" is only a suggestion;
@@ -21,7 +21,8 @@
   \item{form}{The regression formula specifying the linear model in MLboot().}	
   \item{reps}{Number of Bootstrap replications performed.}
   \item{npct}{An integer percentage of the simulated scalar estimates displayed.}
-  \item{bins}{Requested number of histogram "breaks".}
+  \item{rbins}{Number of histogram Bins requested.}
+  \item{dbins}{Number of histogram Bins actually displayed.}
   \item{ntot}{Total number of rows of scalar estimates.}
   \item{p}{Total number of columns of scalar estimates.}
   \item{nlo}{First (smallest) order statistic displayed in Histogram.}

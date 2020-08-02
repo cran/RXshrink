@@ -8,17 +8,17 @@
   inferior direction cosines and shrinkage factors] that completely characterize the effects of
   shrinkage along Paths with 2 or more parameters: (m-Extent plus q-Shape or Unrestricted). All
   Paths start at the Ordinary Least-Squares estimate [m = 0] and end at the origin, (0, 0, ..., 0),
-  where all coefficient estimates have been shrunken to zero [m = rank(X).] Three different types
-  of Likelihood of minimal MSE risk (Classical Normal-Theory, Empirical Bayes, and Random
+  where all coefficient estimates have been shrunken to zero [m = p = rank(X).] Three different
+  types of Likelihood of minimal MSE risk (Classical Normal-Theory, Empirical Bayes, and Random
   Coefficients) can be monitored to suggest an optimal m-Extent of shrinkage for the given
-  matrix of x-variables and the observed y-outcome vector.  
+  matrix of X-variables and the observed y-outcome vector.  
 }
 \details{
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.4\cr
-  Date: \tab 2020-06-30\cr
+  Version: \tab 1.4.1\cr
+  Date: \tab 2020-08-01\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -27,13 +27,13 @@
   optimal MSE risk reductions under Normal distribution-theory.
   
   MLboot(), MLcalc() and MLhist() support use of Bootstrap resampling to study the bias and MSE
-  risk characeristics of non-linear (unrestricted) generalized ridge regression (GRR) estimators.
+  risk characeristics of non-linear (unrestricted) Generalized Ridge Regression (GRR) estimators.
   
-  When true regression parameters have user-specified (KNOWN) numerical values, MLtrue() uses these
-  settings and generates a new data.frame that contains a y-outcome vector of the expected form
+  When true regression parameters have user-specified (KNOWN) numerical values, MLtrue() uses this
+  information and generates a new data.frame that contains a y-outcome vector of the expected form
   with "disturbance" terms that are IID Normal errors-in-measurement. Arguments to MLtrue() must
   include the "formula" for a desired linear model and a data.frame containing the specified
-  x-variables.
+  X-variables.
   
   qm.ridge() calculates and displays TRACEs for Paths defined by 2-parameters: \bold{q}-Shape
   and \bold{m}-Extent of shrinkage. The restricted Path of most likely \bold{q}-Shape is found
@@ -48,7 +48,7 @@
   unr.ridge().
   
   uc.lars() applies Least Angle Regression methods to the Uncorrelated Components of a possibly
-  ill-conditioned set of X-variables. Calculations use a closed-form expression for lars/lasso
+  ill-conditioned set of x-variables. Calculations use a closed-form expression for lars/lasso
   shrinkage delta-factors that apply because NO Ill-Conditioning is present in these "uc" cases.
   
   correct.signs() displays the Normal-theory maximum likelihood estimate of the regression
@@ -57,9 +57,9 @@
   coefficients have the same relative magnitudes and numerical signs as those of the "Correlation
   Form" of the X'y vector.
   
-  RXpredict() makes in-sample predictions (i.e. computes "fitted.values") for all 5 types of
-  RXshrink estimation either at a user-specified m-Extent of Shrinkage or at the Normal-theory
-  "ML" m-Extent.
+  RXpredict() makes predictions (i.e. computes "fitted.values") for all 5 types of RXshrink
+  estimation ...either at a user-specified m-Extent of Shrinkage or at the Normal-theory "ML"
+  m-Extent.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \references{

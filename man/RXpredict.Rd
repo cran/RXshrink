@@ -52,6 +52,7 @@
   rxuobj <- unr.ridge(form, data=tycobb)
   tycfit <- RXpredict(rxuobj, tycobb, m="ML")
   plot(tycfit)
-  abline(h = 0.400, col = "red", lty = 2, lwd = 2)
+  tycobb$batavg[18]  # Ty Cobb's batavg = 0.401 in 1922
+  abline(h=tycfit$cry[18], lty=2, lwd=3, col="red")
 }
 \keyword{regression}

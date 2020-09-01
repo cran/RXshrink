@@ -1,10 +1,11 @@
 \name{unr.ridge}
 \alias{unr.ridge}
-\title{Unrestricted Maximum Likelihood (ML) Shrinkage using a Linear-Spline PATH}
+\title{Unrestricted Maximum Likelihood (ML) Shrinkage using a Piecewise Linear-Spline PATH}
 \description{
   Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
-  (classical) Normal-theory Maximum Likelihhod (ML) point-estimates of Beta coefficients
-  having minimal MSE Risk.
+  (classical) Normal-theory Maximum Likelihhod (ML) point-estimate of the Beta coefficient
+  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is marked
+  by a vertical dashed-line on all 5-types of unr.ridge TRACE displays.
 }
 \usage{
   unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
@@ -40,7 +41,9 @@
   \item{n}{Number of complete observations after removal of all missing values.}
   \item{r2}{Numerical value of R-square goodness-of-fit statistic.}
   \item{s2}{Numerical value of the residual mean square estimate of error.}
-  \item{prinstat}{Listing of principal statistics.}
+  \item{prinstat}{Listing of principal statistics.}  
+  \item{rscale}{Variable re-scaling code of 0, 1 or 2 used in calculations.}
+  \item{data}{data.frame containing all variables listed in the formula.}
   \item{gmat}{Orthogonal Matrix of Direction Cosines for Principal Axes.}
   \item{coef}{Matrix of shrinkage-ridge regression coefficient estimates.}
   \item{rmse}{Matrix of MSE risk estimates for fitted coefficients.}
@@ -49,7 +52,7 @@
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of M-extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
-  \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k == 1 on TRACE displays.}  
+  \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k* == 1 on TRACE displays.}  
   \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
   \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}
   \item{dMSE}{Most Likely to be Optimal-values for Shrinkage Delta-factors [1:p].}  
@@ -65,7 +68,7 @@
   Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.
   Electronic book-in-progress; 185+ pages. \url{http://localcontrolstatistics.org}
   
-  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{http://arxiv.org/abs/2005.14291}
+  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
   
   Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
   \url{http://localcontrolstatistics.org}

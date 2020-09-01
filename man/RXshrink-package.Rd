@@ -17,8 +17,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.4.1\cr
-  Date: \tab 2020-08-01\cr
+  Version: \tab 1.4.2\cr
+  Date: \tab 2020-09-01\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -35,19 +35,20 @@
   include the "formula" for a desired linear model and a data.frame containing the specified
   X-variables.
   
-  qm.ridge() calculates and displays TRACEs for Paths defined by 2-parameters: \bold{q}-Shape
-  and \bold{m}-Extent of shrinkage. The restricted Path of most likely \bold{q}-Shape is found
-  via search on a lattice of 21 values within [-5,+5]. Default lattices for q and m searches are
-  easy to modify using the qmax, qmin, nq and steps arguments to qm.ridge(). The "ordinary" ridge
-  Path of Hoerl and Kennard has \bold{q}-Shape = 0, while "uniform" shrinkage corresponds to
-  \bold{q}-Shape = +1. None of these qm-Paths generally achieve overall minimum MSE risk when
-  p > 2.  
+  qm.ridge() calculates and displays TRACEs for traditional Paths defined by 2-parameters:
+  \bold{q}-Shape and \bold{m}-Extent of Shrinkage. The restricted Path of most likely
+  \bold{q}-Shape is found via search on a lattice of 21 values within [-5,+5]. Default lattices for
+  both q and m searches are easy to modify using the qmax, qmin, nq and steps arguments to qm.ridge().
+  The "ordinary" ridge Path of Hoerl and Kennard has \bold{q}-Shape = 0, while "uniform" shrinkage
+  corresponds to \bold{q}-Shape = +1. None of these qm-Paths generally achieve overall minimum MSE
+  risk when p > 2 because they restrict attention to Shrinkage-factors that are "monotome" (increasing
+  or decreasing).  
   
   aug.lars() augments the Efron-Hastie lars() R-function to perform Least Angle Regression with
   MSE risk calculations and Maximum Likelihood TRACE displays ...like those of qm.ridge() and
   unr.ridge().
   
-  uc.lars() applies Least Angle Regression methods to the Uncorrelated Components of a possibly
+  uc.lars() applies Least Angle Regression methods to the \bold{Uncorrelated Components} of a possibly
   ill-conditioned set of x-variables. Calculations use a closed-form expression for lars/lasso
   shrinkage delta-factors that apply because NO Ill-Conditioning is present in these "uc" cases.
   
@@ -75,7 +76,7 @@
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
   
-  Obenchain RL. (2020) Ridge TRACE Diagnostics. \url{http://arxiv.org/abs/2005.14291}
+  Obenchain RL. (2020) Ridge TRACE Diagnostics. \url{https://arxiv.org/abs/2005.14291}
   
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like document.
   \url{http://localcontrolstatistics.org}

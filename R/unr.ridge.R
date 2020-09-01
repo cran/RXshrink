@@ -1,5 +1,4 @@
-"unr.ridge" <-  
-function (form, data, rscale = 1, steps = 8, delmax = 0.999999) 
+"unr.ridge" <- function (form, data, rscale = 1, steps = 8, delmax = 0.999999) 
 {
     if (missing(form) || class(form) != "formula") 
         stop("First argument to unr.ridge must be a valid linear regression formula.")
@@ -65,12 +64,12 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
     frat <- rho^2/varrho
     stat <- cbind(eigval, sv, comp, rho, tstat)
     dimnames(stat) <- list(1:p, c("LAMBDA", "SV", "COMP", "RHO", "TRAT"))
-    RXolist <- list(data = dfname, form = form, p = p, n = n, 
-        r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
+    RXolist <- list(dfname = dfname, form = form, p = p, n = n, 
+        r2 = r2, s2 = s2, prinstat = stat, rscale = rscale, data = data, gmat = sx$v)
     OmR2dN <- (1 - r2 )/n
     dMSE <- rep(1,p)      # meaningless initial values...
     mMSE <- p             # Maximum possible value...
-    for( i in 1:p ) {
+    for (i in 1:p) {
         dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN )    # Maximum-Likelihood estimate...
         mMSE <- mMSE - dMSE[i]
     }
@@ -133,10 +132,6 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
         if (einc[1] + 1 - delmax < 0) {          # New Correction... 
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
-            if (rscale == 2) {
-                cinc <- cinc %*% xscale
-                cinc <- cinc/sqrt(sum(cinc^2))
-            }
             if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc 
             IDhit <- 1
             cold <- cinc
@@ -151,8 +146,8 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
         mcal <- rbind(mcal, minc)
     }
     if (rscale == 2) {
-        bstar <- yscale * solve(xscale) %*% bstar
-        risk <- yscale^2 * solve(xscale^2) %*% risk
+        bstar <- yscale[1,1] * solve(xscale) %*% bstar
+        risk <- yscale[1,1]^2 * solve(xscale^2) %*% risk
     }
     mlik <- cbind(MCAL, KONST, C, E, R)
     dimnames(mlik) <- list(0:maxinc, c("M", "Kstar", "CLIK", "EBAY", "RCOF"))
@@ -166,16 +161,14 @@ function (form, data, rscale = 1, steps = 8, delmax = 0.999999)
     for( i in 1:maxinc ) {
         if( mlik[i,3] <= minC ) {       
             mClk <- (i-1)/steps            break        }    }
-    RXolist <- c(RXolist, list(coef = bstar, rmse = risk, 
-        exev = exev, infd = infd, spat = delta, mlik = mlik, 
-        sext = sext, mUnr = mUnr, mMSE = mMSE, mClk = mClk, minC = minC,
-        dMSE = dMSE))
+    RXolist <- c(RXolist, list(coef = bstar, rmse = risk, exev = exev,
+        infd = infd, spat = delta, mlik = mlik, sext = sext, mUnr = mUnr,
+        mMSE = mMSE, mClk = mClk, minC = minC, dMSE = dMSE))
     class(RXolist) <- "unr.ridge"
     RXolist
 }
 
-"plot.unr.ridge" <-
-function (x, trace = "all", trkey = FALSE, ...)
+"plot.unr.ridge" <- function (x, trace = "all", trkey = FALSE, ...)
 { 
     mcal <- x$sext[, 3]    # MCAL values are in the 3rd column...  
     mcalp <- rep(mcal, times = x$p)  
@@ -260,11 +253,10 @@ function (x, trace = "all", trkey = FALSE, ...)
     }  
 }  
 
-"print.unr.ridge" <-
-function (x, ...) 
+"print.unr.ridge" <- function (x, ...) 
 {
     cat("\nunr.ridge Object: Shrinkage via a PATH of UNRestricted Shape\n")
-    cat("Data Frame:", x$data, "\n")
+    cat("Data Frame:", x$dfname, "\n")
     cat("Regression Equation:\n")
     print(x$form)
     cat("\n    Number of Regressor Variables, p =", x$p, "\n")
@@ -291,8 +283,7 @@ function (x, ...)
     cat("\n    dMSE Estimates =", x$dMSE, "\n\n")	
 }
 
-"kofm" <-
-function (muobj, p, dMSE, delmax = 0.999999) 
+"kofm" <- function (muobj, p, dMSE, delmax = 0.999999) 
 {
     kM <- matrix(1,1,p)/dMSE[order(dMSE)]   # Vector of decreasing (1/dMSE) values...
     if (muobj <= 0) {

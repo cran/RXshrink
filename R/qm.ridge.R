@@ -1,5 +1,4 @@
-"qm.ridge" <-
-function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21, 
+"qm.ridge" <- function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21, 
     qmax = 5, qmin = -5, omdmin = 9.9e-13) 
 {
     if (missing(form) || class(form) != "formula") 
@@ -178,10 +177,6 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
         if (einc[1] < 0) {
             eign$vectors <- sx$v %*% eign$vectors
             cinc <- eign$vectors[, p]
-            if (rscale == 2) {
-                cinc <- cinc %*% xscale
-                cinc <- cinc/sqrt(sum(cinc^2))
-            }
             if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc 
             IDhit <- 1
             cold <- cinc
@@ -196,8 +191,8 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
         mcal <- rbind(mcal, minc)
     }
     if (rscale == 2) {
-        bstar <- yscale * solve(xscale) %*% bstar
-        risk <- yscale^2 * solve(xscale^2) %*% risk
+        bstar <- yscale[1,1] * solve(xscale) %*% bstar
+        risk <- yscale[1,1]^2 * solve(xscale^2) %*% risk
     }
     mlik <- cbind(MCAL, KONST, C, E, R)
     dimnames(mlik) <- list(0:maxinc, c("M", "K", "CLIK", "EBAY", "RCOF"))
@@ -233,8 +228,7 @@ function (form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
     RXolist
 }
 
-"plot.qm.ridge" <-
-function (x, trace = "all", trkey = FALSE, ...) 
+"plot.qm.ridge" <- function (x, trace = "all", trkey = FALSE, ...) 
 {
     mcal <- x$sext[, 3]
     mcalp <- rep(mcal, times = x$p)
@@ -322,8 +316,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     }
 }
 
-"print.qm.ridge" <-
-function (x, ...) 
+"print.qm.ridge" <- function (x, ...) 
 {
     cat("\nqm.ridge Object: Shrinkage-Ridge Regression Model Specification\n")
     cat("Data Frame:", x$data, "\n")
@@ -363,8 +356,7 @@ function (x, ...)
     cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC, "\n\n")
 }
 
-"mstep" <-
-function (mobj, kinc, p, qp, eqm1) 
+"mstep" <- function (mobj, kinc, p, qp, eqm1) 
 {
     if (mobj <= 0) {
         d <- diag(p)

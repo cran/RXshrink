@@ -23,7 +23,7 @@
   \item{m}{The computed m-Extent of Shrinkage ...a scalar within [0, p].}
 }
 \references{
-  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{http://arxiv.org/abs/2005.14291}
+  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
   
   Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
   \url{http://localcontrolstatistics.org}

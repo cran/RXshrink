@@ -8,7 +8,7 @@
   multiple points along the "Unrestricted" shrinkage-path. MLcalc() restricts attention to
   only 2 points: Unbiased OLS (BLUE) and the optimally Biased estimate with minimum MSE.}
 \usage{
-  MLcalc(form, data, rscale = 1)}
+  MLcalc(form, data, rscale = 1, delmax = 0.999999)}
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...] suitable for use with lm().}
   \item{data}{Data frame containing observations on all variables in the formula.}
@@ -16,6 +16,9 @@
    (after being "centered") to remove all "non-essential" ill-conditioning:  0 implies no
    rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
    in option 1 but re-express answers as in option 0.}
+  \item{delmax}{Maximum allowed value for Shrinkage delta-factors that is strictly less
+   than 1. (default = 0.999999, which prints as 1 when rounded to fewer than 6 decimal
+   places.)}
 }
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
@@ -47,7 +50,7 @@
   Thompson JR. (1968) Some shrinkage techniques for estimating the mean. \emph{Journal
   of the American Statistical Association} \bold{63}, 113-122. (The ``cubic'' estimator.)
   
-  Obenchain RL. (2020) Ridge TRACE Diagnostics. \url{http://arxiv.org/abs/2005.14291}
+  Obenchain RL. (2020) Ridge TRACE Diagnostics. \url{https://arxiv.org/abs/2005.14291}
 
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org}

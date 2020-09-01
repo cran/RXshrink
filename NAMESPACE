@@ -3,6 +3,7 @@ importFrom("graphics", "abline", "legend", "lines", "par", "plot",
            "points", "title", "hist")
 importFrom("stats", "lm", "rnorm", "runif", "var", "cor")
 importFrom("lars", "lars")
+importFrom("ellipse", "ellipse")
 
 export(qm.ridge)
 S3method(plot, qm.ridge)
@@ -40,3 +41,8 @@ S3method(print, MLboot)
 
 export(MLhist)
 S3method(print, MLhist)
+
+export(unr.aug)
+export(unr.biv)
+S3method(plot, unr.biv)
+S3method(print, unr.biv)

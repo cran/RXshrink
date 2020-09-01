@@ -1,10 +1,13 @@
 \name{qm.ridge}
 \alias{qm.ridge}
-\title{Maximum Likelihood Shrinkage in Regression}
+\title{Restricted (2-parameter) Maximum Likelihood Shrinkage in Regression}
 \description{
-  Compute and display TRACEs for the \bold{q}-Shaped shrinkage PATH, including the \bold{m}-Extent
-  of shrinkage along that path, that are most likely under Normal-distribution theory to
-  yield optimal reducions in MSE Risk.  
+  Computes and displays TRACEs for a \bold{q}-Shaped shrinkage PATH, including the \bold{m}-Extent
+  of shrinkage along that path, most likely under Normal-distribution theory to yield optimal
+  reducions in MSE Risk. When rank(X-matrix) = p > 2, the most likely solution on the qm.ridge()
+  path will be less likely to have minimal MSE risk than the optimal solution on the p-parameter
+  unr.ridge() path. The Hoerl-Kennard "ordinary" ridge path has Shape q=0 within the qm.ridge()
+  family.    
 }
 \usage{
   qm.ridge(form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
@@ -29,15 +32,14 @@
   \item{qmin}{Minimum allowed q-Shape (default = -5.)}
   \item{omdmin}{Strictly positive minimum value for one-minus-delta (default = 9.9e-013.)}
 }
-\details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
-  produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
-  close, numerically, to their unknown true values.  Specifically, OLS estimates can then
-  tend to have "wrong" numerical signs and/or unreasonable relative magnitudes, while
-  shrunken (generalized ridge) estimates chosen to maximize their likelihood of reducing
-  Mean Squared Error (MSE) Risk (expected loss) can be much more stable and reasonable,
-  numerically.  On the other hand, because only OLS estimates are guaranteed to be minimax
-  when risk is matrix valued (truly multivariate), no guarantee of an actual reduction in
-  MSE Risk is necessarily associated with shrinkage. 
+\details{Traditional qm.ridge() paths cannot be overall-optimal when p > 2 because they are
+  restricted to using strictly "monotone" (increasing or decreasing) shrinkage factors. Still,
+  the "best" m-Extent of qm-shrinkage is marked by a vertical dashed-line on all 5-types of
+  qm.ridge() TRACE displays. Compared to OLS estimates, these shrunken estimates have higher
+  likelihood of reduced MSE risk and can be much more stable and reasonable, numerically. On
+  the other hand, because only OLS estimates are guaranteed to be minimax when risk is MATRIX
+  valued (truly multivariate), no guarantee of an actual reduction in MSE Risk is necessarily
+  associated with shrinkage. 
 }
 \value{ An output list object of class qm.ridge:
   \item{form}{The regression formula specified as the first argument.}

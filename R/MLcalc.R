@@ -1,5 +1,5 @@
 "MLcalc" <-  
-function (form, data, rscale = 1) 
+function (form, data, rscale = 1, delmax = 0.999999) 
 {
     if (missing(form) || class(form) != "formula") 
         stop("First argument to MLcalc must be a valid linear regression formula.")
@@ -9,7 +9,7 @@ function (form, data, rscale = 1)
     dfname <- deparse(substitute(data))
     if (!is.element(yvar, dimnames(data)[[2]])) 
         stop("Response variable in the MLcalc formula must be an existing variable.")
-    if (rscale != 1) rscale <- 2  # just two rscale options from qm.ridge() & unr.ridge()
+    if (rscale != 1) rscale <- 2  # just two rscale options from unr.ridge()
     lmobj <- lm(form, data)
     yvec <- as.matrix(lmobj$model[, 1])
     xmat <- as.matrix(lmobj$model[, 2:length(lmobj$model)])
@@ -21,7 +21,6 @@ function (form, data, rscale = 1)
         stop("Numbers of observations in XMAT and YVEC must match.")
     if (n < p + 4) 
         stop("Number of observations must exceed number of regressors by at least 4.")
-    delmax <- 0.999999
     mx <- matrix(apply(xmat, 2, "mean"), nrow = 1)
     crx <- xmat - matrix(1, n, 1) %*% mx
     xscale <- diag(sqrt(diag(var(crx))))
@@ -51,7 +50,6 @@ function (form, data, rscale = 1)
     delta <- matrix(1, p, 1)
     idty <- diag(p)
     d <- idty
-    cold <- delta                      # OLS solution...
     sv <- matrix(sx$d, p, 1)
     ssy <- t(cry) %*% cry
     rho <- (sv * comp)/sqrt(ssy[1, 1])
@@ -116,8 +114,6 @@ function (form, data, rscale = 1)
             cinc <- cinc %*% xscale
             cinc <- cinc/sqrt(sum(cinc^2))
         }
-        if (t(cold) %*% cinc < 0) cinc <- -1 * cinc
-        cold <- cinc
     }
     bstar <- t(cbind(betaols, bstar))
     risk <- t(cbind(risk, rinc))

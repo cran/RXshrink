@@ -44,7 +44,7 @@
   of the American Statistical Association} \bold{63}, 113-122. (The "cubic" estimator.)
   
   Obenchain RL. (2020) Ridge TRACE Diagnostics.
-  \url{http://arxiv.org/abs/2005.14291v1 }
+  \url{https://arxiv.org/abs/2005.14291 }
   
   Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
   \url{http://localcontrolstatistics.org } 

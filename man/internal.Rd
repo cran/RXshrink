@@ -11,6 +11,7 @@
 \alias{print.RXpredict}
 \alias{print.uc.lars}
 \alias{print.unr.ridge}
+\alias{print.unr.biv}
 \alias{mstep}
 \description{These are internal functions for printing and calculating quantities such
  as additive K-factors and multiplicative Delta-Factors that determine a specified

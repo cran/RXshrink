@@ -1,8 +1,8 @@
 Package: RXshrink
 Title: Maximum Likelihood Shrinkage using Generalized Ridge or Least
         Angle Regression Methods
-Version: 1.4.2
-Date: 2020-09-01
+Version: 1.4.3
+Date: 2020-11-01
 Author: Bob Obenchain 
 Maintainer: Bob Obenchain <wizbob@att.net>
 Depends: R (>= 3.5.0), lars, ellipse
@@ -12,8 +12,8 @@ Description: Functions are provided to calculate and display ridge TRACE diagnos
   minimum MSE Risk. The unr.ridge() function implements the "Unrestricted Path"
   introduced in Obenchain (2020) <arXiv:2005.14291>. This Shrinkage-Path is more
   efficient than the Paths used by the qm.ridge(), aug.lars() and uc.lars() functions.
-  Optimally biased predictions can be made using RXpredict() for all five types of
-  RXshrink linear model TRACE diagnostics. Functions MLboot(), MLcalc(), MLhist() and
+  Optimally biased predictions can be made using RXpredict() for all six types of
+  RXshrink linear model estimation methods. Functions MLboot(), MLcalc(), MLhist() and
   MLtrue() provide insights into the true bias and MSE risk characteristics of non-linear
   Shrinkage estimators. Functions unr.aug() and unr.biv() augment the calculations made
   by unr.ridge() to provide plots of the bivariate confidence ellipses corresponding to
@@ -24,6 +24,6 @@ Description: Functions are provided to calculate and display ridge TRACE diagnos
 License: GPL-2
 URL: https://www.R-project.org , http://localcontrolstatistics.org
 NeedsCompilation: no
-Packaged: 2020-09-01 14:08:53 UTC; bobo
+Packaged: 2020-10-30 01:06:18 UTC; bobo
 Repository: CRAN
-Date/Publication: 2020-09-01 15:20:03 UTC
+Date/Publication: 2020-11-01 13:30:02 UTC

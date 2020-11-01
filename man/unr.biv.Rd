@@ -21,11 +21,12 @@
 \value{ An output list object of class "unr.biv"...
   \item{p}{Number of regression predictor variables.}
   \item{LMobj}{The lm() output object for the model fitted using unr.ridge().}
-  \item{bstar}{The p by p+1 matrix of shrunken GRR coefficients. The first p correspond to "knots"
-   on piecewise linear splines, and the last column contains minimum MSE risk estimates.}
-  \item{mcal}{p+1 increasing measures of shrinkage "Extent". The first value is 0 for the OLS = BLU
-   estimate, plotted as a Point of color "blue". The last value corresponds to the "Extent" most likely
-   to yield minimum MSE risk, plotted as a Point of color "purple".}
+  \item{bstar}{The p by p+2 matrix of shrunken GRR coefficients. The first p correspond to "knots"
+   on piecewise linear splines, the next to last contains minimum MSE risk estimates, and the last
+   represents the shrinkge terminus.}
+  \item{mcal}{p+2 increasing measures of shrinkage "Extent". The first value is 0 for the OLS = BLU
+   Estimate, plotted as a Point of color "blue". The next to last corresponds to the "Extent" most
+   likely to yield minimum MSE risk is colored "purple", and the last may be outside the plot frame.}
   \item{ellip1}{matrix[100, 2] of points on confidence ellipse 1.}
   \item{conf1}{confidence level of ellipse 1 within [0.05, 0.95].}
   \item{ecor1}{Pearson correlation between x1 and x2 in ellipse 1.}

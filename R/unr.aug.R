@@ -33,14 +33,15 @@
     beta0 <- LMobj$coef[2:(p+1)]       # p OLS estimates..
     cvec <- t(gmat) %*% beta0          # uncorrelated components
     dINC <- dMSE[order(dMSE)]          # dMSE order statistics...
-    kM <- matrix(1,1,p+1)              # dummy starting values...
-    for (j in 1:p) { kM[1,j] <- 1.0/dINC[j] }    # knots at reciprocals
+    kM <- matrix(1,1,p+2)              # dummy starting values...
+    for (j in 1:p) { kM[1,j] <- 1.0/dINC[j] }    # knots at ordered reciprocals
     kM[1,p+1] <- 1.0                   # optimal shrinkage at k-star == 1
-    mM <- matrix(1,1,p+1)              # dummy mcal starting values...
-    for (j in 1:(p+1)) { mM[1,j] <- mofk(p, kM[1,j], dMSE) }
+    kM[1,p+2] <- 0.0                   # complete shrinkage at k-star == 0
+    mM <- matrix(1,1,p+2)              # dummy mcal starting values...
+    for (j in 1:(p+2)) { mM[1,j] <- mofk(p, kM[1,j], dMSE) }
     bstar <- beta0
     mcal <- mM[1,1]
-    for (inc in 2:(p+1)) {
+    for (inc in 2:(p+2)) {
         mobj <- mM[1,inc]
         iter <- kofm(mobj, p, dMSE)
         d <- iter$d          # Diagonal Matrix, p x p...
@@ -114,10 +115,11 @@
         abline(v=0, lty=2, col="lightgray" )
         lines(x$bstar[x$x1,], x$bstar[x$x2,], type = "l", lwd=2, col="red")
         points(x$bstar[x$x1,1], x$bstar[x$x2,1], type = "p", lwd=2, col="blue")
-        pp1 <- 1 + x$p
+        pp1 <- 1 + x$p; pp2 <- 1 + pp1
         points(x$bstar[x$x1,pp1], x$bstar[x$x2,pp1], type = "p", lwd=2, col="purple")
+        points(x$bstar[x$x1,pp2], x$bstar[x$x2,pp2], type = "p", lwd=2, col="black")
         title(sub = sub1, col.sub="darkgreen", cex.sub=1.0) 
-        title(main = "Conf Regions & Path from BLUE to minMSE")
+        title(main = "Confidence Ellipses & BLUE_minMSE_ZERO Path")
     }
     else {
         mcal <- t(x$mcal)
@@ -138,9 +140,9 @@
     cat("\n    Current Horizontal Coefficient Number =", x$x1)
     cat("\n    Current Vertical   Coefficient Number =", x$x2)
     cat("\n    Matrix of Fitted Coefficients and their mcal-Extents:\n\n")
-    pp1 <- 1 + x$p
+    pp1 <- 1 + x$p; pp2 <- 1 + pp1 
     mat <- as.matrix(cbind(t(x$bstar), x$mcal))
-    rownames(mat) <- rep.int(" ", length(x$mcal))
+    rownames(mat) <- c(1:pp2)
     colnames(mat)[pp1] <- c("mcal")
     print(mat)
 }

@@ -54,7 +54,7 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   Breiman L. (1995) Better subset regression using the non-negative garrote.
   \emph{Technometrics} \bold{37}, 373-384.
 
-  Efron B, Hastie T, Johnstone I, Tibshirani R. (2004)
+  Efron B, Hastie T, Johnstone I, Tibshirani R. (2003)
   Least angle regression. \emph{Annals of Statistics} \bold{32}, 407-499.
   
   Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.

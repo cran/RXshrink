@@ -18,8 +18,8 @@ form <- batavg~atbats+seasons+CMspl
 # Fit a generalized linear regression (GRR) model using unr.ridge()...
 tycuobj <- unr.ridge(form, data=tycobb, steps=100)
 # tycuobj
-#     Only the 5 final lines of printed output are listed below...
-# 
+#     Only the 5 final lines of printed output are listed here...
+#     ===========================================================
 #     Most Likely UNRestricted Shrinkage Extent, mUnr = 1.039595
 #     Corresponding -2*log(LikelihoodRatio) statistic = 0.0
 #     Most Likely m-Value on the Lattice,        mClk = 1.04 <note: steps=100 above>
@@ -28,32 +28,32 @@ tycuobj <- unr.ridge(form, data=tycobb, steps=100)
 #
 plot(tycuobj)    # Show all 5 unr.ridge() TRACE Diagnostic plots...
 #
-# Display the first 3 "k-star" values for "knots"; final "knot" at m=4 & "k-star"=0...
+# Display the first 3 "k-star" values for "knots"; final "knot" at m=4 then "k-star"=1...
 rep(1,3)/tycuobj$dMSE
 #
-testLS <- RXpredict(tycuobj, data=tycobb, m=0)     # OLS fit at m == 0
-testML <- RXpredict(tycuobj, data=tycobb)          # ML  fit for tycuobj...
-testSZ <- RXpredict(tycuobj, data=tycobb, m=3)     # All Coefficients Shrunken to Zero...
+OLSpred <- RXpredict(tycuobj, data=tycobb, m="0")   # OLS fit occurs at m == 0
+minMSEpred <- RXpredict(tycuobj, data=tycobb)       # default m="minMSE" fit: i.e. m="1.0396"...
+maxShrink <- RXpredict(tycuobj, data=tycobb, m="3") # Intercept Only: other Coefficients are Zeros...
 #
 ym <- mean(tycobb$batavg)              # 0.3610738
 ys <- sqrt(var(tycobb$batavg))         # 0.03848413
 # Calculate value of batavg == 0.400 on the "cry" scale...
 crx400 <- ( 0.4 - ym )/ys              # 1.011486  ...slightly greater than 1.00...
 #
-plot( tycobb$year, testLS$cry, ann = FALSE, type = "b") 
-lines(tycobb$year, testLS$cryprd, lty=2, lwd=2, col="blue")
+plot( tycobb$year, OLSpred$cry, ann = FALSE, type = "b") 
+lines(tycobb$year, OLSpred$cryprd, lty=2, lwd=2, col="blue")
 title(main="Ty Cobb's Batting Averages and Fitted Values",
   xlab="Year", ylab="Centered and Rescaled Batting Averages")
-lines(tycobb$year, testML$cryprd, lty=3, lwd=2, col="green")
+lines(tycobb$year, minMSEpred$cryprd, lty=3, lwd=2, col="green")
 abline(h = crx400, col = "red", lty = 2, lwd = 2)
 abline(h = 0, col = "gray", lty = 1, lwd = 1)
 # Next, some additional plot() annotation...
 text(x=1907, y=+1.2, labels="400 Batting", col="red")
 text(x=1918, y=-1.5, labels="_o_ Ty Cobb's Season Averages", col="black")
 text(x=1918, y=-1.8, labels="_ _ OLS fitted Averages", col="blue")
-text(x=1918, y=-2.1, labels="... ML optimally biased Averages", col="darkgreen") 
+text(x=1918, y=-2.1, labels="... minMSE optimally biased Averages", col="darkgreen") 
 #
-maxLS <- max(testLS$yvecprd)  # 0.4000915 >> Yes, Ty Cobb was a "True 400-hitter ...in 1911 !!! 
-maxML <- max(testML$yvecprd)  # 0.3994661 >> NO, not even in 1911. Sorry to any Ty Cobb fans out there !!!
+OLSmax <- max(OLSpred$yvecprd) # = 0.4000915 >> Yes, Ty Cobb was a "True 400-hitter in 1911... 
+minMSEmax <- max(minMSEpred$yvecprd) # = 0.3994661 >> NO, not even in 1911 !!!
 #
 ################## End of "tycobb" DEMO...

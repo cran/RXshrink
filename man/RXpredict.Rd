@@ -1,37 +1,38 @@
 \name{RXpredict}
 \alias{RXpredict}
-\title{Predictions from Models Fit using RXshrink Generalized Ridge Estimation Methods.}
+\title{Predictions from Models fit using RXshrink Generalized Ridge Estimation Methods.}
 \description{
-  RXpredict() makes in-sample predictions (i.e. computes "fitted.values") for all 5 forms of
-  RXshrink estimation either at user specified m-Extents of shrinkage or at the normal-theory
-  Maximum Lilelihood (ML) m-Extent.
+  RXpredict() makes in-sample predictions (i.e. computes "fitted.values") for all 6 forms of
+  RXshrink estimation either at some user-specified m-Extent of Shrinkage, such as m=0.963,
+  or at the Normal distribution-theory m-Extent most likely to achieve minimum Risk (minMSE).
 }
 \usage{
-  RXpredict(x, data, m="ML", rscale=1)
+  RXpredict(x, data, m="minMSE", rscale=1)
 }
 \arguments{
-  \item{x}{An object output by one of the 5 RXshrink estimation functions. Thus class(x) must
-    be "qm.ridge", "unr.ridge", "aug.lars", "uc.lars" or "correct.signs".}
-  \item{data}{Data frame containing observations on all variables used by the RXshrink function
-    used in estimation.}
-  \item{m}{Either [i] a "numeric" value >= 0 and <= rank(X) or [ii] the (default) character string
-    "ML" to request use of the m-Extent of shrinkage most likely to be MSE optimal under Normal
-    distribution-theory.}
-  \item{rscale}{One of three possible choices (0, 1 or 2) for "rescaling" of variables
-   (after being "centered") to remove all "non-essential" ill-conditioning:  0 implies no
-   rescaling; 1 implies divide each variable by its standard error; 2 implies rescale as
-   in option 1 but re-express answers as in option 0.}
+  \item{x}{An object output by one of the 6 RXshrink estimation functions. Thus class(x) must
+    be "qm.ridge", "unr.ridge", "aug.lars", "uc.lars", "MLcalc" or "correct.signs".}
+  \item{data}{Existing data.frame containing observations on all variables used by the RXshrink
+    function for estimation of regression coefficients.}
+  \item{m}{The m argument can be either [i] a single "numeric" value that is non-negative and
+    does not exceed rank(X) or [ii] the (default) string "minMSE" to request use of the observed
+	m-Extent of shrinkage most likely to be MSE optimal under Normal distribution-theory. For
+	example, m="0.0" requests use of the (unbaised) OLS estimate [BLUE].}
+  \item{rscale}{One of two possible choices (0 or 1) for "rescaling" of variables (after being
+   "centered") to remove all "non-essential" ill-conditioning. Use "rscale=0" only when the RXshrink
+   estimation function that computed the x-object also used "rscale=0". The default of "rscale=1"
+   should be used in all other cases.}
 }
 \value{ An output list object of class RXpredict:
-  \item{cryprd}{Predicted values for the "centered" and possibly "rescaled" outcome y-vector, cry.
+  \item{cryprd}{Predicted values for the "centered" and POSSIBLY "rescaled" outcome y-vector, cry.
     These values correspond, for example, to the default "predicted.values" from lm().}
-  \item{cry}{This the "centered" and possibly "rescaled" outcome y-vector from the input data.frame.}
+  \item{cry}{This the "centered" and POSSIBLY "rescaled" outcome y-vector from the input data.frame.}
   \item{yvecprd}{Predicted values for the Y-outcome variable, yvec.}
   \item{yvec}{The Y-outcome vector from the input data.frame specified by the "data" argument.}
-  \item{m}{"numeric" Value of m-Extent requested in the call to RXpredict(), possibly via a default
-    call with m="ML". Restriction: 0 <= m <= rank(X).} 
-  \item{mobs}{Observed m-Extent most close to the above m, yet is on the lattice of m-Extents stored
-    within the x-object.}
+  \item{m}{"numeric" Value of m-Extent implied by the call to RXpredict(), possibly via a default
+    call with m="minMSE". Restriction: 0 <= m <= rank(X).} 
+  \item{mobs}{Observed m-Extent most close to the requested m-Extent AND is on the lattice of
+    observed m-Extents stored within the given x-object.}
 }
 \references{
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
@@ -50,7 +51,7 @@
   data(tycobb)
   form <- batavg~atbats+seasons+CMspl
   rxuobj <- unr.ridge(form, data=tycobb)
-  tycfit <- RXpredict(rxuobj, tycobb, m="ML")
+  tycfit <- RXpredict(rxuobj, tycobb, m="minMSE")
   plot(tycfit)
   tycobb$batavg[18]  # Ty Cobb's batavg = 0.401 in 1922
   abline(h=tycfit$cry[18], lty=2, lwd=3, col="red")

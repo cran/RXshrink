@@ -5,8 +5,9 @@
 \description{
   This function makes classical (rather than Bayesian) Normal distribution-theory calculations of the
   form proposed in Obenchain(1977). Instead of providing "new" confidence regions for estimable linear 
-  functions, Generalized Ridge Regression (GRR) can focus interest on estimates that are within traditional
-  confidence intervals and regions but which deviate reasonably from the interval or region centroid.
+  functions, Generalized Ridge Regression (GRR) can focus interest on estimates that are within
+  traditional confidence intervals and regions but which deviate reasonably from the centroid of that
+  interval or region.
 }
 \usage{
   unr.aug(urobj)
@@ -17,11 +18,12 @@
 \value{ An output list object of class "unr.aug"...
   \item{p}{Number of regression predictor variables.}
   \item{LMobj}{The lm() output object for the model fitted using unr.ridge().}
-  \item{bstar}{The p by p+1 matrix of shrunken GRR coefficients. The first p correspond to "knots"
+  \item{bstar}{The p by p+2 matrix of shrunken GRR coefficients. The first p correspond to "knots"
    on piecewise linear splines, and the last column contains minimum MSE risk estimates.}
-  \item{mcal}{p+1 increasing measures of shrinkage "Extent". The first is 0 for the OLS (BLUE)
-   estimate, while the last denotes the "Extent" most likely to yield minimum MSE risk.}
-  \item{vnams}{All p+1 names for variables used in the GRR model.} 
+  \item{mcal}{p+2 increasing measures of shrinkage "Extent". The first is 0 for the OLS (BLUE)
+   estimate, the next to last denotes the "Extent" most likely to yield minimum MSE risk, and
+   the last is p [this shrinkage terminus is frequently outside of the unr.biv() plot frame].}
+  \item{vnams}{Names of variables used in the GRR model.} 
 }
 \references{
   

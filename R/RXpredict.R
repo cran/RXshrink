@@ -1,18 +1,49 @@
-"RXpredict" <- function (x, data, m="ML", rscale=1)
+"RXpredict" <- function (x, data, m="minMSE", rscale=1)
 {
-    cond <- class(x) %in% c("qm.ridge", "unr.ridge", "aug.lars", "uc.lars", "correct.signs" )
+    cond <- class(x) %in% c("qm.ridge", "unr.ridge", "aug.lars", "uc.lars", "MLcalc", "correct.signs" )
     if (missing(x) || cond == FALSE) {
-        cat("\nFirst argument to RXpredict() should be an output object from one of Five\n")
-        stop("RXshrink functions: qm.ridge, unr.ridge, aug.lars, uc.lars or correct.signs")
-    }		
-    mMax <- as.double(x$p)
-    if (class(x) == "correct.signs") {tsteps <- 1} else {tsteps <- nrow(x$coef)-1}
-    if (missing(m) || is.logical(m) || is.character(m)) {
-        if (class(x) == "correct.signs") {m <- 0} else {m <- x$mClk}
+        cat("The First argument to RXpredict() must be an output object from one of Six RXshrink\n")
+        cat("functions: qm.ridge, unr.ridge, aug.lars, uc.lars, MLcalc or correct.signs ...\n")
+        stop()
     }
-    if (m < 0) m <- 0
-    if (m > mMax) m <- mMax
-    if (class(x) == "correct.signs") {bstar <- x$signs[,5]} else {bstar <- x$coef}
+    if (missing(data) || !inherits(data, "data.frame")) {
+        cat("The Second argument to RXpredict must be an existing Data Frame.\n")
+        stop()
+    }
+    if (is.character(m) && m != "minMSE") {
+        cat("The Third argument to RXpredict must be either m=\"minMSE\" or a numeric value.\n")
+        stop()
+    }
+    if (rscale >=1) {rscale <- 1} else {rscale <- 0}	
+    mMax <- as.numeric(x$p)
+    tsteps <- 1
+    if (class(x) == "MLcalc") {
+        mReq <- mMax - sum(x$dMSE)
+        if (is.numeric(m) && m != mReq) {        # Return Fitted values for OLS = BLUE. 
+            bstar <- x$beta[1,]; mReq <- 0.0
+            if (m != mReq) cat("The requested m-Extent for MLcalc() has been reset to m = 0.0 for OLS.\n")
+        }   
+        if (m == "minMSE" || m == mReq) bstar <- x$beta[2,]   # Return Optimally Biased Fitted values. 
+        }     
+    else if (class(x) == "correct.signs") {
+        bstar <- x$signs[,5]           # use the rescaled B(=) vector for prediction...
+        mReq <- 1                      # m-Extent is > 0 but otherwise ill-defined here.
+    } else {
+        if (m == "minMSE") {mReq <- x$mClk} else {mReq <- as.numeric(m)}
+        bstar <- x$coef
+        tsteps <- nrow(x$coef) - 1  
+    }
+    m <- mReq      # assure "m" is a numeric scalar...
+    if (m <= 0.0) {
+        cat("While m = 0.0 is a Valid request, all requests for Estimation and Prediction via OLS\n")
+        cat("ideally use the lm() function. Furthermore, predict() offers a \"newdata\" argument.\n")
+        if (m < 0.0) stop("m-Extent cannot be Negative.\n")		
+    }
+    if (m >= mMax) {
+        cat("\nAll Coefficients are Shrunken to ZERO when m-Extent equals the Number of\n")
+        cat("Non-Constant X-Vars. All predictions then equal the Intercept Estimate.\n")
+        if (m > mMax) stop("m-Extent cannot exceed ", mMax, " in this regression model.\n")	
+    }
     stsize <- mMax/tsteps              # Step-Size == 1/steps in unr.ridge()
     midx <- round(m/stsize, 0)         # m-Index: "row" number == midx + 1
     mobs <- stsize*midx                # Nearest "observed" value of of m...
@@ -20,17 +51,17 @@
     yvec <- as.matrix(lmobj$model[, 1])
     n <- nrow(yvec)
     xmat <- as.matrix(lmobj$model[,-1])
-    if (class(x) == "correct.signs") {coef <- bstar} else {coef <- bstar[midx+1,]}
+    if (class(x) == "MLcalc" || class(x) == "correct.signs") {coef <- bstar} else {coef <- bstar[midx+1,]}
     # bstar coefficients for specified m-extent
     mx <- matrix(apply(xmat, 2, "mean"), nrow = 1)
     cx <- xmat - matrix(1, n, 1) %*% mx          # Centering is always applied (implicit intercept)...
-    if (rscale >= 1) {
+    if (rscale == 1) {
         xscale <- diag(sqrt(diag(var(cx))))      # Rescaling to equal variances & std. errors...
         crx <- cx %*% solve(xscale)              # Centered and Rescaled X-matrix...
     }
     cry <- matrix(yvec - mean(yvec), ncol = 1)   # n x 1 ; more Centering...
     yscale <- 1
-    if (rscale >= 1) {
+    if (rscale == 1) {
         yscale <- sqrt(var(cry))
         cry <- cry/yscale[1, 1]
     }
@@ -40,6 +71,7 @@
         mobs <- m
     }	
     yvecprd <- matrix( mean(yvec), n, 1) + cryprd %*% sqrt(var(yvec))
+    if (class(x) == "MLcalc") mobs <- m	
     if (class(x) == "aug.lars" || class(x) == "uc.lars") mobs <- x$mlik[mobs+1,1]	
     RXolist <- list(class=class(x), cryprd = as.vector(cryprd), cry = as.vector(cry),
                     yvecprd = as.vector(yvecprd), yvec = as.vector(yvec), m = m,
@@ -61,7 +93,12 @@ function (x, ...)
     print.default(x$yvec, quote = FALSE)
     cat("\nPredictions of yvec: yvecprd =\n")
     print.default(x$yvecprd, quote = FALSE)
-    cat("\nShrinkage m-Extent requested: m =", x$m, "\n")
+    cat("\nShrinkage m-Extent requested: m =", x$m)
+    if (x$class == "correct.signs") {
+        cat(" ...but m-Extent is NOT well-defined in \"correct.signs\" cases.\n")
+    } else {
+        cat("\n")
+    }
     cat("\nObserved m-Extent most close to the requested m is: mobs =", x$mobs, "\n")
 }
 

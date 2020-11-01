@@ -25,10 +25,10 @@
   close, numerically, to their unknown true values.  Specifically, OLS estimates can then
   tend to have "wrong" numerical signs and/or unreasonable relative magnitudes, while
   shrunken (generalized ridge) estimates chosen to maximize their likelihood of reducing
-  Mean Squared Error (MSE) Risk (expected loss) can be much more stable and reasonable
+  Mean Squared Error (MSE) Risk (expected squared-error loss) can be much more stable
   numerically.  On the other hand, because only OLS estimates are guaranteed to be minimax
-  when risk is matrix valued (truly multivariate), no guarantee of an actual reduction in
-  MSE Risk is necessarily associated with Generalized RR shrinkage. 
+  when risk is matrix valued (truly multivariate), no guarantee of an expected reduction in
+  MSE Risk is necessarily associated with Generalized Ridge Regression shrinkage. 
 }
 \value{ An output list object of class MLcalc:
   \item{data}{Name of the data.frame object specified as the second argument.}

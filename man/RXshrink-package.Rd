@@ -17,8 +17,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.4.2\cr
-  Date: \tab 2020-09-01\cr
+  Version: \tab 1.4.3\cr
+  Date: \tab 2020-11-01\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -58,13 +58,13 @@
   coefficients have the same relative magnitudes and numerical signs as those of the "Correlation
   Form" of the X'y vector.
   
-  RXpredict() makes predictions (i.e. computes "fitted.values") for all 5 types of RXshrink
-  estimation ...either at a user-specified m-Extent of Shrinkage or at the Normal-theory "ML"
+  RXpredict() makes predictions (i.e. computes "fitted.values") for all 6 types of RXshrink
+  estimation ...either at a user-specified m-Extent of Shrinkage or at the Normal-theory "minMSE"
   m-Extent.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \references{
-  Efron B, Hastie T, Johnstone I, Tibshirani R. (2004) Least angle regression.
+  Efron B, Hastie T, Johnstone I, Tibshirani R. (2003) Least angle regression.
   \emph{Annals of Statistics} \bold{32}, 407-499.
 
   Goldstein M, Smith AFM. (1974) Ridge-type estimators for regression analysis.

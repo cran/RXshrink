@@ -73,7 +73,6 @@ function (form, data, rscale = 1, delmax = 0.999999)
     for( i in 1:p ) {
         dMSE[i] <- (rho[i])^2 / ( (rho[i])^2 + OmR2dN )    # Maximum-Likelihood shrinkage factors...
     }
-    mcal <- 0
     kinc <- 1                          # kinc*dMSE values then have minimum MSE risk...
     dFact <- (n - p - 3)/(n - p - 1)
     srat <- solve(diag(as.vector(sv), ncol = p)) %*% tstat

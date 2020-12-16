@@ -4,8 +4,8 @@
 \description{
   Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
   (classical) Normal-theory Maximum Likelihhod (ML) point-estimate of the Beta coefficient
-  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is marked
-  by a vertical dashed-line on all 5-types of unr.ridge TRACE displays.
+  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is
+  indicated by a vertical dashed-line on all 5-types of unr.ridge TRACE displays.
 }
 \usage{
   unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
@@ -52,8 +52,9 @@
   \item{spat}{Matrix of shrinkage pattern multiplicative delta factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of M-extent-of-shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
-  \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k* == 1 on TRACE displays.}  
-  \item{mClk}{Most Likely Extent of Shrinkage Observed: best multiple of (1/steps) <= p.} 
+  \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k* == 1 on TRACE displays.}
+  \item{mMSE}{Minimum MSE risk estimate.}  
+  \item{mClk}{Most Likely Observed Extent of Shrinkage: best multiple of (1/steps) <= p.} 
   \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}
   \item{dMSE}{Most Likely to be Optimal-values for Shrinkage Delta-factors [1:p].}  
 }

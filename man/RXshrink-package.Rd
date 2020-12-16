@@ -17,8 +17,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.4.3\cr
-  Date: \tab 2020-11-01\cr
+  Version: \tab 1.5\cr
+  Date: \tab 2020-12-15\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -58,7 +58,9 @@
   coefficients have the same relative magnitudes and numerical signs as those of the "Correlation
   Form" of the X'y vector.
   
-  RXpredict() makes predictions (i.e. computes "fitted.values") for all 6 types of RXshrink
+  YonX() displays Shrinkage statistics and graphics for "simple" linear regression (p = 1) models.
+  
+  RXpredict() makes predictions (i.e. computes "fitted.values") for 6 types of RXshrink
   estimation ...either at a user-specified m-Extent of Shrinkage or at the Normal-theory "minMSE"
   m-Extent.
 }

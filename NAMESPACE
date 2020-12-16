@@ -46,3 +46,7 @@ export(unr.aug)
 export(unr.biv)
 S3method(plot, unr.biv)
 S3method(print, unr.biv)
+
+export(YonX)
+S3method(plot, YonX)
+S3method(print, YonX)

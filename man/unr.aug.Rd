@@ -19,10 +19,10 @@
   \item{p}{Number of regression predictor variables.}
   \item{LMobj}{The lm() output object for the model fitted using unr.ridge().}
   \item{bstar}{The p by p+2 matrix of shrunken GRR coefficients. The first p correspond to "knots"
-   on piecewise linear splines, and the last column contains minimum MSE risk estimates.}
+   on piecewise linear splines, and column p+1 contains minimum MSE risk estimates.}
   \item{mcal}{p+2 increasing measures of shrinkage "Extent". The first is 0 for the OLS (BLUE)
    estimate, the next to last denotes the "Extent" most likely to yield minimum MSE risk, and
-   the last is p [this shrinkage terminus is frequently outside of the unr.biv() plot frame].}
+   the last is "p" [this "shrinkage terminus" is frequently outside of the unr.biv() plot frame].}
   \item{vnams}{Names of variables used in the GRR model.} 
 }
 \references{

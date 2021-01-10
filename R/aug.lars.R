@@ -1,7 +1,7 @@
-"aug.lars" <-
-function (form, data, rscale = 1, type = "lar", trace = FALSE,
+"aug.lars" <- 
+function (form, data, rscale = 1, type = "lar", trace = FALSE, 
           eps = .Machine$double.eps, omdmin = 9.9e-13) 
-{
+{ 
     if (missing(form) || class(form) != "formula") 
         stop("First argument to aug.lars must be a valid linear regression formula.")
     yvar <- deparse(form[[2]])
@@ -31,7 +31,7 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
     if (rscale >= 1) {
         xscale <- diag(sqrt(diag(var(crx))))
         crx <- crx %*% solve(xscale)
-    }
+    } 
     sx <- svd(crx)
     eigval <- matrix(sx$d^2, ncol = 1)
     eiginv <- solve(diag(sx$d^2, ncol = p))
@@ -40,7 +40,7 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
     if (rscale >= 1) {
         yscale <- sqrt(var(cry))
         cry <- cry/yscale[1, 1]
-    }
+    } 
     smse <- sx$v %*% eiginv %*% t(sx$v)
     risk <- diag(smse)
     tsmse <- sum(risk)
@@ -66,13 +66,13 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
     frat <- rho^2/varrho
     stat <- cbind(eigval, sv, comp, rho, tstat)
     dimnames(stat) <- list(1:p, c("LAMBDA", "SV", "COMP", "RHO", 
-        "TRAT"))
+        "TRAT")) 
     RXolist <- list(data = dfname, form = form, p = p, n = n, 
-        r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v)
-    larsobj <- lars(crx, cry, type, trace, eps)
-    bhat <- as.matrix(larsobj$beta)
+        r2 = r2, s2 = s2, prinstat = stat, gmat = sx$v) 
+    larsobj <- lars(crx, cry, type, trace, eps) 
+    bhat <- as.matrix(larsobj$beta) 
     if (p != length(bhat[1, ])) 
-        stop("Number of coefficients for LARS and shrinkage must match.")
+        stop("Number of coefficients for LARS and shrinkage must match.") 
     steps <- length(bhat[, 1])
     binc <- bstar - bhat[steps, ]
     if (sum(binc^2) > omdmin) 
@@ -131,11 +131,11 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
             if (rscale == 2) {
                 cinc <- cinc %*% xscale
                 cinc <- cinc/sqrt(sum(cinc^2))
-            }
+            } 
             if (IDhit > 0 && t(cold) %*% cinc < 0) cinc <- -1 * cinc
             IDhit <- 1
             cold <- cinc
-        }
+        } 
         bstar <- cbind(bstar, binc)
         risk <- cbind(risk, rinc)
         exev <- cbind(exev, einc)
@@ -143,11 +143,11 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
         delta <- cbind(delta, dgen)
         tsmse <- rbind(tsmse, tinc)
         mcal <- rbind(mcal, minc)
-    }
+    } 
     if (rscale == 2) {
         bstar <- yscale * solve(xscale) %*% bstar
         risk <- yscale^2 * solve(xscale^2) %*% risk
-    }
+    } 
     mlik <- cbind(MCAL, C, E, R)
     dimnames(mlik) <- list(0:(steps - 1), c("M", "CLIK", "EBAY", "RCOF"))
     bstar <- t(bstar)
@@ -163,16 +163,16 @@ function (form, data, rscale = 1, type = "lar", trace = FALSE,
         if( mlik[i,2] == minC ) {
             rowC <- i
             break
-        }
-    }
+        } 
+    } 
     mClk <- mlik[rowC,1]
     RXolist <- c(RXolist, list(lars = larsobj, coef = bstar, 
         rmse = risk, exev = exev, infd = infd, spat = delta, 
-        mlik = mlik, sext = sext, mClk = mClk, minC = minC))
-    class(RXolist) <- "aug.lars"
+        mlik = mlik, sext = sext, mClk = mClk, minC = minC)) 
+    class(RXolist) <- "aug.lars" 
     RXolist
-}
-
+} 
+  
 "plot.aug.lars" <-
 function (x, trace = "all", trkey = FALSE, ...) 
 {
@@ -258,14 +258,14 @@ function (x, trace = "all", trkey = FALSE, ...)
             xlab = "m = Multicollinearity Allowance", ylab = "larlso Delta Factors")
         if( trkey )
             legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2)
-    }
-}
-
-"print.aug.lars" <-
+    } 
+} 
+  
+"print.aug.lars" <- 
 function (x, ...) 
-{
-    cat("\naug.lars Object: LARS Maximum Likelihood Shrinkage\n")
-    cat("Data Frame:", x$data, "\n")
+{ 
+    cat("\naug.lars Object: LARS Maximum Likelihood Shrinkage\n") 
+    cat("Data Frame:", x$data, "\n") 
     cat("Regression Equation:\n")
     print(x$form)
     cat("\n    Number of Regressor Variables, p =", x$p, "\n")
@@ -285,5 +285,6 @@ function (x, ...)
     cat("\nExtent of shrinkage statistics...\n")
     print.default(x$sext, quote = FALSE)
     cat("\n    Most Likely Observed MCAL Value, mClk =", x$mClk)  	
-    cat("\n    Minimum Classical -2*log(Like), minCLIK =", x$minC, "\n\n")
-}
+    cat("\n    Minimum Classical -2*log(Like), minCLIK =", x$minC, "\n\n") 
+} 
+  

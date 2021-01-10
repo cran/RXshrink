@@ -83,11 +83,8 @@
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
 
-  Obenchain RL. (2005) \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.
-  Electronic book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like document.
-  \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
+  RXshrink package vignette-like document.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 

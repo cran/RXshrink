@@ -1,52 +1,49 @@
-importFrom("grDevices", "gray")
-importFrom("graphics", "abline", "legend", "lines", "par", "plot",
-           "points", "title", "hist")
-importFrom("stats", "lm", "rnorm", "runif", "var", "cor")
-importFrom("lars", "lars")
-importFrom("ellipse", "ellipse")
-
-export(qm.ridge)
-S3method(plot, qm.ridge)
-S3method(print, qm.ridge)
-
-export(unr.ridge)
-S3method(plot, unr.ridge)
-S3method(print, unr.ridge)
-export(kofm)
-export(mofk)
-
-export(MLtrue)
-S3method(print, MLtrue)
-
-export(aug.lars)
-S3method(plot, aug.lars)
-S3method(print, aug.lars)
-
-export(uc.lars)
-S3method(plot, uc.lars)
-S3method(print, uc.lars)
-
-export(correct.signs)
-S3method(print, correct.signs)
-
-export(RXpredict)
-S3method(plot, RXpredict)
-S3method(print, RXpredict)
-
-export(MLcalc)
-S3method(print, MLcalc)
-
-export(MLboot)
-S3method(print, MLboot)
-
-export(MLhist)
-S3method(print, MLhist)
-
-export(unr.aug)
-export(unr.biv)
-S3method(plot, unr.biv)
-S3method(print, unr.biv)
-
-export(YonX)
-S3method(plot, YonX)
-S3method(print, YonX)
+importFrom("grDevices", "gray") 
+importFrom("graphics", "abline", "legend", "lines", "par", "plot", 
+           "points", "title", "hist") 
+importFrom("stats", "lm", "rnorm", "runif", "var", "cor") 
+importFrom("lars", "lars") 
+importFrom("ellipse", "ellipse") 
+ 
+export(aug.lars)  
+S3method(plot, aug.lars)  
+S3method(print, aug.lars)  
+ 
+export(correct.signs)  
+S3method(print, correct.signs)  
+ 
+export(MLboot)  
+S3method(print, MLboot)  
+export(MLcalc)  
+S3method(print, MLcalc) 
+export(MLhist) 
+S3method(print, MLhist) 
+export(MLtrue) 
+S3method(print, MLtrue) 
+ 
+export(qm.ridge) 
+S3method(plot, qm.ridge) 
+S3method(print, qm.ridge) 
+ 
+export(RXpredict) 
+S3method(plot, RXpredict) 
+S3method(print, RXpredict) 
+ 
+export(uc.lars) 
+S3method(plot, uc.lars) 
+S3method(print, uc.lars) 
+ 
+export(unr.ridge) 
+S3method(plot, unr.ridge) 
+S3method(print, unr.ridge) 
+export(unr.aug) 
+export(unr.biv) 
+S3method(plot, unr.biv) 
+S3method(print, unr.biv) 
+export(kofm) 
+export(mofk) 
+ 
+export(YonX) 
+S3method(plot, YonX) 
+S3method(print, YonX) 
+ 

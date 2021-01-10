@@ -31,11 +31,11 @@
 \arguments{
   \item{mobj}{Objective value for the M-extent-of-shrinkage along a path of shape qp.}
   \item{kinc}{Previous additive eigenvalue inflation constant yielding a smaller mobj.}
-  \item{p}{Number of elements in the regression coefficient vector.}
+  \item{p}{Number of estimates in the regression coefficient vector.}
   \item{qp}{Shrinkage path \bold{Q}-shape parameter.}
   \item{eqm1}{Vector of X'X eigenvalues raised to the power (qp-1).}
-  \item{k}{Multiplicative factor that decreases to produce shrinkage.}
-  \item{dMSE}{MSE Optimal shrinkage factor for YonX().}
+  \item{k}{Multiplicative factor that must decrease to increase shrinkage.}
+  \item{dMSE}{MSE Optimal Shrinkage delta-factor for YonX().}
   \item{muobj}{Objective value for M-extent-of-shrinkage in kofm1().}
   \item{delmax}{Scalar value strictly < 1. Default value is delmax = 0.999999.}
   \item{mVal}{Objective M-extent-of-shrinkage in mapp().}
@@ -43,9 +43,9 @@
 }
 \value{An output list consisting of two objects (k-factor & d-matrix):
   \item{kinc}{New k-factor producing an m-Extent-of-shrinkage of mobj.}
-  \item{d}{A pxp diagonal matrix of multiplicative shrinkage (delta) factors for the
+  \item{d}{A pxp diagonal matrix of multiplicative shrinkage delta-factors for the
    uncorrelated components of the regression coefficient vector. p = 1 in mofk1().}
-  \item{m}{M-extent-of-shrinkage output by mofk1() or mapp().}  
+  \item{m}{m-Extent of Shrinkage output by mofk1() or mapp().}  
   \item{kStar}{New k-factor producing an m-Extent-of-shrinkage of muobj.}
 }
 \author{Bob Obenchain <wizbob@att.net>}

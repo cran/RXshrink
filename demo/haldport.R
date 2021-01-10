@@ -7,40 +7,40 @@
   form <- heat~p3ca+p3cs+p4caf+p2cs
   #
   # First, perform QM (2-parameter) generalized Ridge Shrinkage...
-  rxrobj <- qm.ridge(form, data=haldport)
+  rxqmobj <- qm.ridge(form, data=haldport)
   #
   # Display all 5 qm.ridge() TRACE Diagnostics in 1 plot...
-  plot(rxrobj)
+  plot(rxqmobj)
   #
   # Print qm.ridge() Summary Statistics...
-  rxrobj
+  rxqmobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from qm.ridge()...
   #
   # Next, results for (augmented) Least Angle Regression,
   # aug.lars(), will be PLOTTED and PRINTED...
   #
   # Perform Augmented lars() model fitting...  
-  rxaobj <- aug.lars(form, data=haldport)
+  rxlaobj <- aug.lars(form, data=haldport)
   #
   # Display all 5 aug.lars() TRACE Diagnostics in 1 plot...
-  plot(rxaobj)
+  plot(rxlaobj)
   #
   # Print Summary Statistics from aug.lars()...
-  rxaobj
+  rxlaobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from aug.lars()...
   #
-  # Next, results from augmented lars() model fitting to the
+  # Next, results from RX augmented lars() model fitting to the
   # Uncorrelated Components of the haldport data.frame, 
   # uc.lars(), will be PLOTTED and PRINTED...  
   #
   # Perform uc.lars() model fitting...  
-  rxcobj <- uc.lars(form, data=haldport)
+  rxucobj <- uc.lars(form, data=haldport)
   #
   # Display all 5 uc.lars() TRACE Diagnostics in 1 plot...
-  plot(rxcobj)
+  plot(rxucobj)
   #
   # Print Summary Statistics from uc.lars()...
-  rxcobj
+  rxucobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from uc.lars()...
   #
   # Finally, results for UNRESTRICTED (p-parameter)
@@ -48,20 +48,25 @@
   # unr.ridge(), will be PLOTTED and PRINTED...  
   #
   # Perform unr.ridge() model fitting...  
-  rxuobj <- unr.ridge(form, data=haldport)
+  rxunobj <- unr.ridge(form, data=haldport)
   #
   # Display all 5 unr.ridge() TRACE Diagnostics in 1 plot...
-  plot(rxuobj)
+  plot(rxunobj)
   #
   # Print Summary Statistics from unr.ridge()...  
-  rxuobj
+  rxunobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge()...
   #
-  # Did you notice how "different" the FOUR main types of GRR TRACEs
+  # Did you notice how DIFFERENT these FOUR main types of GRR Paths
   # [qm.ridge(), aug.lars() uc.lars() and unr.ridge()] LOOK for the
-  # "haldport" data.frame? These represent 4 DISTINCT Shrinkage-Paths
-  # for almost any data.frame containing ill-conditioned (confounded)
-  # x-variables.
+  # "haldport" data.frame? Any of these 4 DISTINCT types of Shrinkage
+  # "pattern" could be "best" for a given set of ill-conditioned
+  # (confounded) X-variables.
+  #
+  # Since the unr.ridge() PATH is "most flexible" and always contains
+  # the beta-coefficient vector that Maximizes the Normal theory
+  # likelihood of Minimal MSE risk, a good strategy is to explore this
+  # PATH First !!!
   #
   #################### END of "haldport" Demo...
   

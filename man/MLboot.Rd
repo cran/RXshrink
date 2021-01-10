@@ -46,8 +46,8 @@
   Obenchain RL. (2020) Ridge TRACE Diagnostics.
   \url{https://arxiv.org/abs/2005.14291 }
   
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
-  \url{http://localcontrolstatistics.org } 
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org} 
+  RXshrink package vignette-like file.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}}

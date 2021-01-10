@@ -1,12 +1,13 @@
 \name{MLcalc}
 \alias{MLcalc}
 \title{Calculate Unrestricted Maximum Likelihood (ML) point-estimates for a Linear Model that
-  are either Unbiased (OLS) or Optimally Biased under Normal-distribution theory.}
+  are either Unbiased (OLS) or nearly Optimally Biased under Normal-distribution theory.}
 \description{
   Compute MSE risk-optimal point-estimates of Beta-Coefficients and their Relative MSE risks.
   Much of the code for this function is identical to that of unr.ridge(), which computes
   multiple points along the "Unrestricted" shrinkage-path. MLcalc() restricts attention to
-  only 2 points: Unbiased OLS (BLUE) and the optimally Biased estimate with minimum MSE.}
+  only 2 points: Unbiased OLS (BLUE) and the best (nearly optimally) Biased estimate with
+  nearly minimum MSE.}
 \usage{
   MLcalc(form, data, rscale = 1, delmax = 0.999999)}
 \arguments{
@@ -25,7 +26,7 @@
   close, numerically, to their unknown true values.  Specifically, OLS estimates can then
   tend to have "wrong" numerical signs and/or unreasonable relative magnitudes, while
   shrunken (generalized ridge) estimates chosen to maximize their likelihood of reducing
-  Mean Squared Error (MSE) Risk (expected squared-error loss) can be much more stable
+  Mean Squared Error (MSE) Risk (expected squared-error loss) can be more stable
   numerically.  On the other hand, because only OLS estimates are guaranteed to be minimax
   when risk is matrix valued (truly multivariate), no guarantee of an expected reduction in
   MSE Risk is necessarily associated with Generalized Ridge Regression shrinkage. 
@@ -52,8 +53,8 @@
   
   Obenchain RL. (2020) Ridge TRACE Diagnostics. \url{https://arxiv.org/abs/2005.14291}
 
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
-  \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
+  RXshrink package vignette-like file.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{unr.ridge}}, \code{\link{MLboot}}}

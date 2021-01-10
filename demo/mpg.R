@@ -1,4 +1,4 @@
-  require(RXshrink)
+  library(RXshrink)
   #
   # Input the Gasoline Mileage data of Hocking(1976)...
   data(mpg)
@@ -7,12 +7,12 @@
   form <- mpg~cylnds+cubins+hpower+weight
   #
   # Fit this model using unrestricted generalized ridge regression (GRR)...
-  rxuobj <- unr.ridge(form, data=mpg)
+  rxunobj <- unr.ridge(form, data=mpg)
   #
-  rxuobj
+  rxunobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from qm.ridge()...
   #
-  plot(rxuobj)
+  plot(rxunobj)
   #
   # Define true parameter values...
   trugam <- matrix(c(-.5,-.1,.1,-.6),4,1)

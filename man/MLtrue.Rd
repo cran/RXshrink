@@ -41,7 +41,7 @@
   values are KNOWN. This makes it interesting to compare plots and output.lists from
   RXshrink GRR-estimation functions on a "real" data.frame with the corresponding outputs
   from a MLtrue() data.frame with known parameter-setting that are either identical to or 
-  "close" to those estimated from "real" data. WARNING: All output x-variables are
+  "close" to those estimated from "real" data. WARNING: All output X-variables are
   "centered" and "rescaled" to have mean ~0 and variance 1. Yhat expected values are
   "centered" but usually have variance differing from 1. Yvec values are not "centered"
   and have variance determined by either the original data.frame or the "truv" setting.

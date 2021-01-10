@@ -3,12 +3,16 @@
 #
 #  Carl Morris. "Was Ty Cobb ever a TRUE .400 hitter?"  ASA JSM Lecture, August 18, 1982. Cincinnati.
 #
-#  CMspl = Carl Morris' Piecewise Linear Spline term with "knot" at year = 1910 (Cobb's 6th Season.)
-#  seasons = 1, 2, ..., 24 will be a pure linear trend term in the fitted model.
+#  Ty Cobb's largest numbers of "atbats" were 605 in season 3 (1907), 591 in season 7 (1911), and 625
+#     in season 20 (1924).
+#  The "seasons" variable: [1:24] represents a pure "linear trend" effect within the fitted model. Ty
+#     Cobb's highest "batavg" was 0.4196277 in 1911 (season 7.)
+#  CMspl = Carl Morris' Piecewise Linear Spline term stays at 0 for seasons [1:6] then increases linearly [1:18]
+#     in seasons [7:24]. Its three "Knots" thus occur in seasons: 1 (1905), 6 (1910) and 24 (1928).
 #
-#  This RXshrink demo() illustrates use of the RXpredict() function.
+#  This RXshrink demo() illustrates use of the unr.ridge() and RXpredict() functions and plots.
 #
-require(RXshrink)
+library(RXshrink)
 data(tycobb)
 str(tycobb)
 #
@@ -31,9 +35,9 @@ plot(tycuobj)    # Show all 5 unr.ridge() TRACE Diagnostic plots...
 # Display the first 3 "k-star" values for "knots"; final "knot" at m=4 then "k-star"=1...
 rep(1,3)/tycuobj$dMSE
 #
-OLSpred <- RXpredict(tycuobj, data=tycobb, m="0")   # OLS fit occurs at m == 0
-minMSEpred <- RXpredict(tycuobj, data=tycobb)       # default m="minMSE" fit: i.e. m="1.0396"...
-maxShrink <- RXpredict(tycuobj, data=tycobb, m="3") # Intercept Only: other Coefficients are Zeros...
+OLSpred <- RXpredict(tycuobj, data=tycobb, m=0)     # OLS fit occurs at m == 0
+minMSEpred <- RXpredict(tycuobj, data=tycobb)       # m="minMSE" fit occurs here at m="1.0396"...
+maxShrink <- RXpredict(tycuobj, data=tycobb, m=3)   # Intercept Only: other Coefficients are Zeros...
 #
 ym <- mean(tycobb$batavg)              # 0.3610738
 ys <- sqrt(var(tycobb$batavg))         # 0.03848413
@@ -44,14 +48,14 @@ plot( tycobb$year, OLSpred$cry, ann = FALSE, type = "b")
 lines(tycobb$year, OLSpred$cryprd, lty=2, lwd=2, col="blue")
 title(main="Ty Cobb's Batting Averages and Fitted Values",
   xlab="Year", ylab="Centered and Rescaled Batting Averages")
-lines(tycobb$year, minMSEpred$cryprd, lty=3, lwd=2, col="green")
+lines(tycobb$year, minMSEpred$cryprd, lty=3, lwd=2, col="limegreen")
 abline(h = crx400, col = "red", lty = 2, lwd = 2)
 abline(h = 0, col = "gray", lty = 1, lwd = 1)
-# Next, some additional plot() annotation...
+# Additional plot() annotation...
 text(x=1907, y=+1.2, labels="400 Batting", col="red")
-text(x=1918, y=-1.5, labels="_o_ Ty Cobb's Season Averages", col="black")
-text(x=1918, y=-1.8, labels="_ _ OLS fitted Averages", col="blue")
-text(x=1918, y=-2.1, labels="... minMSE optimally biased Averages", col="darkgreen") 
+text(x=1918, y=-1.5, labels="- o - Ty Cobb's Season Averages", col="black")
+text(x=1918, y=-1.8, labels="- - - OLS fitted Averages", col="blue")
+text(x=1918, y=-2.1, labels=". . . minMSE optimally biased Averages", col="limegreen") 
 #
 OLSmax <- max(OLSpred$yvecprd) # = 0.4000915 >> Yes, Ty Cobb was a "True 400-hitter in 1911... 
 minMSEmax <- max(minMSEpred$yvecprd) # = 0.3994661 >> NO, not even in 1911 !!!

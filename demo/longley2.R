@@ -1,5 +1,5 @@
-  require(RXshrink)
-  # Input the "revised" Longley dataset of Hoerl(2000)...
+  library(RXshrink)
+  # Input the "revised" Longley dataset of Art Hoerl(1979)...
   #
   data(longley2)
   #
@@ -9,33 +9,35 @@
   #
   # Fit this model using 2-parameter Generalized Ridge Regression...
   #
-  rxrobj <- qm.ridge(form, data=longley2)
+  rxqmobj <- qm.ridge(form, data=longley2)
   #
   # Now [1] Print all qm.ridge() Summary Statistics
   # and [2] Display all 5-types of generalized ridge TRACE plots...
   #
-  rxrobj
-  # SCROLL ^^^ UP ^^^ to see PRINTED output from qm.ridge()...
+  rxqmobj
+  # SCROLL ^^^ UP ^^^ to see the PRINTED output from qm.ridge()...
   #
-  plot(rxrobj)
+  plot(rxqmobj)
   #
-  # Next, see the corresponding results for the Piecewise-Linear
+  # Next, show the corresponding results for the Piecewise-Linear
   # Spline PATH passing through the Unrestricted Maximum Likelihood
   # point-estimate of "MSE Optimal" Regression Coefficients...
   #
-  rxuobj <- unr.ridge(form, data=longley2)
-  rxuobj
-  # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge()...
+  rxunobj <- unr.ridge(form, data=longley2)
+  rxunobj
+  # SCROLL ^^^ UP ^^^ to see the PRINTED output from unr.ridge()...
   #
-  plot(rxuobj)
+  plot(rxunobj)
   #
-  # Finally, print Beta-coefficient estimates with
+  # Finally, print information about Beta-coefficient estimates with
   # Guaranteed "Correct" SIGNS...
   #
   # These Coefficients have Minimum MSE Risk in the "Unknown"
   # direction PARALLEL to true Beta vector...
   rxcsobj <- correct.signs(form, data=longley2)
   rxcsobj
+  #
+  # The PLOT didn't change, only the above TEXT is NEW...
   #
   ################## End of "longley2" DEMO...
   

@@ -1,39 +1,6 @@
-"print.correct.signs" <-
-function (x, ...) 
-{
-    cat("\ncorrect.signs Object: Eliminate Wrong-Signs due to Ill-Conditioning.")
-    cat("\n        B(=) Estimate with Minimum Risk Parallel to True Beta.\n\n")
-    cat("Data Frame:", x$data, "\n")
-    cat("Regression Equation:\n")
-    print(x$form)
-    cat("\n    Number of Regressor Variables, p =", x$p, "\n")
-    cat("    Number of Observations, n =", x$n, "\n")
-    cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n")
-    print.default(x$prinstat, quote = FALSE)
-    cat("\n    Residual Mean Square for Error =", x$s2, "\n")
-    cat("    Estimate of Residual Std. Error =", sqrt(x$s2), "\n")
-    cat("\nComparison of Beta Coefficient Statistics...\n")
-    print.default(x$signs, quote = FALSE)
-    cat("\n    OLS Beta estimate uses No Shrinkage: Delta = I.\n")
-    cat("    X'y is expressed here as Correlations.\n")
-    cat("    B(=) Delta 'Shrinkage' Factors are proportional to LAMBDAs\n")
-    if( x$signs[2,3] > 1.0)
-	    cat("    Note that B(=) uses 'Shrinkage' Factors > 1 here.\n")
-    if( x$signs[1,3] > 1.0 && x$signs[2,3] <= 1.0)
-	    cat("    Note that B(=) uses a 'Shrinkage' Factor > 1 here.\n")
-    cat("    B(=) also uses a Common Rescaling k-Factor =", x$kpb, "here.\n")
-    cat("    Bfit estimate parallel to B(=) has minimum Residual Sum-of-Squares.\n")
-    cat("    Multiplicative B(=) Factor yielding Bfit estimate =", x$bmf, "\n")
-    cat("\nResidual Sum-of-Squares: Lack-of-Fit...\n")
-    print.default(x$loff, quote = FALSE)
-    cat("\nSquared Correlation between response and its predictions...\n")
-    print.default(x$sqcor, quote = FALSE)
-    cat("\n")
-}
-
-"correct.signs" <-
+"correct.signs" <- 
 function (form, data) 
-{
+{ 
     if (missing(form) || class(form) != "formula") 
         stop("First argument to correct.signs must be a valid linear regression formula.")
     if (missing(data) || !inherits(data, "data.frame")) 
@@ -102,9 +69,43 @@ function (form, data)
     RXolist <- c(RXolist, list(loff = stat))
     sqcols <- cor(cry, crx %*% bstar)^2  # squared correlations
     sqcxpy <- cor(cry, crx %*% cxpy)^2
-    stat <- cbind(sqcols, sqcxpy)   # redefine stat matrix
-    dimnames(stat) <- list("Rsq", c("OLS", "Bfit"))
-    RXolist <- c(RXolist, list(sqcor = stat))
-    class(RXolist) <- "correct.signs"
-    RXolist
-}
+    stat <- cbind(sqcols, sqcxpy)   # redefine stat matrix 
+    dimnames(stat) <- list("Rsq", c("OLS", "Bfit")) 
+    RXolist <- c(RXolist, list(sqcor = stat)) 
+    class(RXolist) <- "correct.signs" 
+    RXolist 
+} 
+  
+"print.correct.signs" <-
+function (x, ...) 
+{ 
+    cat("\ncorrect.signs Object: Eliminate Wrong-Signs due to Ill-Conditioning.") 
+    cat("\n        B(=) Estimate with Minimum Risk Parallel to True Beta.\n\n") 
+    cat("Data Frame:", x$data, "\n") 
+    cat("Regression Equation:\n" )
+    print(x$form) 
+    cat("\n    Number of Regressor Variables, p =", x$p, "\n")
+    cat("    Number of Observations, n =", x$n, "\n")
+    cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n")
+    print.default(x$prinstat, quote = FALSE)
+    cat("\n    Residual Mean Square for Error =", x$s2, "\n")
+    cat("    Estimate of Residual Std. Error =", sqrt(x$s2), "\n")
+    cat("\nComparison of Beta Coefficient Statistics...\n")
+    print.default(x$signs, quote = FALSE)
+    cat("\n    OLS Beta estimate uses No Shrinkage: Delta = I.\n")
+    cat("    X'y is expressed here as Correlations.\n")
+    cat("    B(=) Delta 'Shrinkage' Factors are proportional to LAMBDAs\n")
+    if( x$signs[2,3] > 1.0)
+	    cat("    Note that B(=) uses 'Shrinkage' Factors > 1 here.\n")
+    if( x$signs[1,3] > 1.0 && x$signs[2,3] <= 1.0)
+	    cat("    Note that B(=) uses a 'Shrinkage' Factor > 1 here.\n")
+    cat("    B(=) also uses a Common Rescaling k-Factor =", x$kpb, "here.\n")
+    cat("    Bfit estimate parallel to B(=) has minimum Residual Sum-of-Squares.\n")
+    cat("    Multiplicative B(=) Factor yielding Bfit estimate =", x$bmf, "\n")
+    cat("\nResidual Sum-of-Squares: Lack-of-Fit...\n")
+    print.default(x$loff, quote = FALSE)
+    cat("\nSquared Correlation between response and its predictions...\n")
+    print.default(x$sqcor, quote = FALSE) 
+    cat("\n") 
+} 
+  

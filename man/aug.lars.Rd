@@ -60,12 +60,8 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.
   \url{https://CRAN.R-project.org/package=lars}
 
-  Obenchain RL. (2005)
-  \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
-  book-in-progress (185 pages.) \url{http://localcontrolstatistics.org}
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
-  \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
+  RXshrink package vignette-like file.
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.

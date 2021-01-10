@@ -42,8 +42,8 @@
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
 
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
-  \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
+  RXshrink package vignette-like file.
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{qm.ridge}}, \code{\link{unr.ridge}} and \code{\link{MLtrue}}.}

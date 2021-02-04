@@ -45,7 +45,7 @@
   #
   # Finally, results for UNRESTRICTED (p-parameter)
   # generalized ridge regression (GRR) model-fitting,
-  # unr.ridge(), will be PLOTTED and PRINTED...  
+  # unr.ridge() or eff.ridge() , will be PLOTTED and PRINTED...  
   #
   # Perform unr.ridge() model fitting...  
   rxunobj <- unr.ridge(form, data=haldport)
@@ -55,18 +55,27 @@
   #
   # Print Summary Statistics from unr.ridge()...  
   rxunobj
-  # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge()...
   #
-  # Did you notice how DIFFERENT these FOUR main types of GRR Paths
-  # [qm.ridge(), aug.lars() uc.lars() and unr.ridge()] LOOK for the
-  # "haldport" data.frame? Any of these 4 DISTINCT types of Shrinkage
+  # Perform eff.ridge() model fitting...  
+  rxefobj <- eff.ridge(form, data=haldport)
+  #
+  # Display all 5 unr.ridge() TRACE Diagnostics in 1 plot...
+  plot(rxefobj)
+  #
+  # Print Summary Statistics from unr.ridge()...  
+  rxefobj
+  # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge() and eff.ridge()...
+  #
+  # Did you notice how DIFFERENT these FIVE main types of GRR Paths
+  # [qm.ridge(), aug.lars() uc.lars() and unr.ridge() or eff.ridge()] LOOK
+  # for the "haldport" data.frame? Any of these 5 DISTINCT types of Shrinkage
   # "pattern" could be "best" for a given set of ill-conditioned
   # (confounded) X-variables.
   #
-  # Since the unr.ridge() PATH is "most flexible" and always contains
-  # the beta-coefficient vector that Maximizes the Normal theory
-  # likelihood of Minimal MSE risk, a good strategy is to explore this
-  # PATH First !!!
+  # Since the unr.ridge() and eff.ridge() Paths are "most flexible" and
+  # always contain the beta-coefficient vector with Maximum Overall Normal
+  # theory Likelihood of Minimal MSE risk, a good strategy is to explore
+  # these 2 PATHS First !!!
   #
   #################### END of "haldport" Demo...
   

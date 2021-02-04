@@ -17,14 +17,15 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 1.6\cr
-  Date: \tab 2021-01-10\cr
+  Version: \tab 1.7\cr
+  Date: \tab 2021-02-04\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
-  unr.ridge() calculates and displays TRACEs for an Unrestricted (p-parameter) shrinkage Path
-  that always passes through the Beta coefficient point-estimate that is most likely to achieve
-  optimal MSE risk reductions under Normal distribution-theory.
+  eff.ridge() and unr.ridge() calculate and display TRACEs for Unrestricted (p-parameter) shrinkage
+  Paths that always pass through the Beta coefficient point-estimate that is most likely to achieve
+  optimal MSE risk reductions under Normal distribution-theory. The eff.ridge() Path is the shortest
+  Piecewize Linear-Spline path and has a single "Interior "Knot" at the MSE Optimal m-Extent. 
   
   MLboot(), MLcalc() and MLhist() support use of Bootstrap resampling to study the bias and MSE
   risk characeristics of non-linear (unrestricted) Generalized Ridge Regression (GRR) estimators.
@@ -45,8 +46,8 @@
   or decreasing) delta-factors.  
   
   aug.lars() augments the Efron-Hastie lars() R-function to perform Least Angle Regression with
-  MSE risk calculations and Maximum Likelihood TRACE displays ...like those of qm.ridge() and
-  unr.ridge().
+  MSE risk calculations and Maximum Likelihood TRACE displays ...like those of eff.ridge(),
+  unr.ridge() and qm.ridge().
   
   uc.lars() applies Least Angle Regression methods to the \bold{Uncorrelated Components} of a possibly
   ill-conditioned set of X-variables. Calculations use a closed-form expression for lars/lasso

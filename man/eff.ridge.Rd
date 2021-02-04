@@ -1,14 +1,14 @@
-\name{unr.ridge}
-\alias{unr.ridge}
-\title{Unrestricted Maximum Likelihood (ML) Shrinkage using a Piecewise Linear-Spline PATH}
+\name{eff.ridge}
+\alias{eff.ridge}
+\title{Efficient Maximum Likelihood (ML) Shrinkage via Shortest Piecewise Linear-Spline PATH}
 \description{
   Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
-  (classical) Normal-theory Maximum Likelihhod (ML) point-estimate of the Beta coefficient
+  (classical) Normal-theory Maximum Likelihood (ML) point-estimate of the Beta coefficient
   vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is
-  indicated by a vertical dashed-line on all 5-types of unr.ridge TRACE displays.
+  indicated by a vertical dashed-line on all 5-types of eff.ridge TRACE displays.
 }
 \usage{
-  unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
+  eff.ridge(form, data, rscale = 1, steps = 8)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...+xp] suitable for use with lm().}
@@ -20,9 +20,6 @@
   \item{steps}{Number of equally spaced values per unit change along the horizontal
    M-extent-of-shrinkage axis for estimates to be calculated and displayed in TRACES
    (default = 8.)}
-  \item{delmax}{Maximum allowed value for Shrinkage delta-factors that is strictly less
-   than 1. (default = 0.999999, which prints as 1 when rounded to fewer than 6 decimal
-   places.)}
 }
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
@@ -34,7 +31,7 @@
   are guaranteed to be minimax when risk is matrix valued (truly multivariate), no guarantee
   of an actual reduction in MSE Risk is necessarily associated with shrinkage. 
 }
-\value{ An output list object of class unr.ridge:
+\value{ An output list object of class eff.ridge:
   \item{data}{Name of the data.frame object specified as the second argument.}
   \item{form}{The regression formula is the first argument.}
   \item{p}{Number of regression x-predictor variables.}
@@ -52,11 +49,11 @@
   \item{spat}{Matrix of shrinkage pattern multiplicative delta-factors.}
   \item{mlik}{Listing of criteria for maximum likelihood selection of an m-Extent for Shrinkage.}
   \item{sext}{Listing of summary statistics for all M-extents-of-shrinkage.}
-  \item{mUnr}{Unrestricted m-Extent of Shrinkage corresponding to k* == 1 on TRACE displays.}
+  \item{mStar}{Optimal m-Extent of Shrinkage with delta[j] = dMSE[j] on TRACE displays.}
   \item{mMSE}{Minimum MSE Risk estimate.}  
   \item{mClk}{Most Likely Observed Extent of Shrinkage: best multiple of (1/steps) <= p.} 
   \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood-Ratio).}
-  \item{dMSE}{Most Likely to be Optimal-values for Shrinkage Delta-factors [1:p].}  
+  \item{dMSE}{Most Likely to be Optimal-values for Shrinkage: dMSE[j] for j in [1:p].}  
 }
 \references{
   Thompson JR. (1968) Some shrinkage techniques for estimating the mean. \emph{Journal
@@ -79,9 +76,9 @@ and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)
   form <- Employed~GNP+GNP.deflator+Unemployed+Armed.Forces+Population+Year
-  rxuobj <- unr.ridge(form, data=longley2)
-  rxuobj    # print summary statistics of shrinkage...
-  plot(rxuobj)
-  str(rxuobj)
+  rxefobj <- eff.ridge(form, data=longley2)
+  rxefobj    # print summary statistics of shrinkage...
+  plot(rxefobj)
+  str(rxefobj)
 }
 \keyword{regression}

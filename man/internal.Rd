@@ -3,6 +3,7 @@
 \alias{RXshrink-internal}
 \alias{print.aug.lars}
 \alias{print.correct.signs}
+\alias{print.eff.ridge}
 \alias{print.MLboot}
 \alias{print.MLcalc}
 \alias{print.MLhist}
@@ -11,7 +12,7 @@
 \alias{print.RXpredict}
 \alias{print.uc.lars}
 \alias{print.unr.ridge}
-\alias{print.unr.biv}
+\alias{print.eff.biv}
 \alias{print.YonX}
 \alias{mstep}
 \alias{kofm1}

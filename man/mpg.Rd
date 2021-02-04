@@ -4,7 +4,7 @@
 \title{Hocking(1976) Miles Per Gallon data and Multiple Regression Benchmark}
 \description{Performance data for the 1973-74 models of 32 autos from the Road Tests
  Section of \emph{Motor Trends} magazine. NOTE: data(mtcars) loads essentially the
- same data, but variable names may then contain fewer characters.}
+ same data, but most variable names are then different and have fewer characters.}
 \usage{data(mpg)}
 \format{
   A data frame of 11 variables on 32 autos; no NAs.

@@ -1,15 +1,15 @@
-"unr.aug" <- function (urobj) 
+"eff.aug" <- function (efobj) 
 { 
-    if (missing(urobj) || class(urobj) != "unr.ridge") 
-        stop("First argument to unr.aug() must be a valid unr.ridge() output object.") 
-    p <- urobj$p 
-    form <- urobj$form 
+    if (missing(efobj) || class(efobj) != "eff.ridge") 
+        stop("First argument to eff.aug() must be a valid eff.ridge() output object.") 
+    p <- efobj$p 
+    form <- efobj$form 
     vnams <- all.vars(form)            # p+1 variable names in called order...
-    data <- urobj$data                 # data.frame containing all p+1 "vnams"
+    data <- efobj$data                 # data.frame containing all p+1 "vnams"
     lmraw <- lm(form, data)            # preliminary calculations...
     yvec <- as.matrix(lmraw$model[, 1]) 
     xmat <- as.matrix(lmraw$model[, 2:length(lmraw$model)]) 
-    rscale <- urobj$rscale             # rscale = 0, 1 or 2 setting from unr.ridge() 
+    rscale <- efobj$rscale             # rscale = 0, 1 or 2 setting from eff.ridge() 
     n <- nrow(xmat) 
     mx <- matrix(apply(xmat, 2, "mean"), nrow = 1) 
     crx <- xmat - matrix(1, n, 1) %*% mx 
@@ -27,57 +27,52 @@
     crdata <- data.frame(cbind(cry, crx)) 
     names(crdata) <- vnams 
     LMobj <- lm(form, crdata) # centered & rescaled calculations; large object 
-    # Next, calculate p+1 estimates at the p-unr "knots" plus the optimal shrinkage extent...
-    dMSE <- urobj$dMSE 
-    gmat <- urobj$gmat 
+    # Next, calculate p+1 estimates at the MStar "Knot" plus the optimal shrinkage extent...
+    dMSE <- efobj$dMSE 
+    gmat <- efobj$gmat 
     beta0 <- LMobj$coef[2:(p+1)]       # p OLS estimates..
     cvec <- t(gmat) %*% beta0          # uncorrelated components
-    dINC <- dMSE[order(dMSE)]          # dMSE order statistics...
-    kM <- matrix(1,1,p+2)              # dummy starting values...
-    for (j in 1:p) { kM[1,j] <- 1.0/dINC[j] }    # knots at ordered reciprocals
-    kM[1,p+1] <- 1.0                   # optimal shrinkage at k-star == 1
-    kM[1,p+2] <- 0.0                   # complete shrinkage at k-star == 0
-    mM <- matrix(1,1,p+2)              # dummy mcal starting values...
-    for (j in 1:(p+2)) { mM[1,j] <- mofk(p, kM[1,j], dMSE) } 
-    bstar <- beta0 
-    mcal <- mM[1,1] 
-    for (inc in 2:(p+2)) { 
-        mobj <- mM[1,inc] 
-        iter <- kofm(mobj, p, dMSE) 
+    mStar <- p - sum(dMSE)             # Only Knot at mStar...
+    mM <- c(0, mStar, p)               # Three m-Extents of interest...
+    bstar <- beta0                     # Initial OLS estimates...
+    mcal <- 0	
+    for (i in 2:3) { 
+        meobj <- mM[i]
+        iter <- meff(meobj, p, dMSE)		
         d <- iter$d          # Diagonal Matrix, p x p...
         binc <- gmat %*% d %*% cvec 
         bstar <- cbind(bstar, binc) 
-        mcal <- rbind(mcal, mobj) 
+        mcal <- rbind(mcal, meobj) 
     } 
     RXolist <- list(p = p, LMobj = LMobj, bstar = bstar, mcal = mcal, vnams = vnams) 
-    class(RXolist) <- "unr.aug" 
-    RXolist 
+    class(RXolist) <- "eff.aug" 
+    RXolist
 } 
   
-"unr.biv" <- function (uraug, x1 = 1, x2 = 2, conf1 = 0.95, conf2 = 0.50) 
+"eff.biv" <- function (efaug, x1 = 1, x2 = 2, conf1 = 0.95, conf2 = 0.50) 
 { 
-    if (missing(uraug) || class(uraug) != "unr.aug") { 
-        cat("\nNOTE: Call unr.aug() and save its output list before making") 
-        cat("\nAny calls to unr.biv().\n") 
-        stop("First argument to unr.biv() must be a valid unr.aug() output object.") 
+    if (missing(efaug) || class(efaug) != "eff.aug") { 
+        cat("\nNOTE: Call eff.aug() and save its output list before making") 
+        cat("\nAny calls to eff.biv().\n") 
+        stop("First argument to eff.biv() must be a valid eff.aug() output object.") 
     } 
-    p <- uraug$p 
+    p <- efaug$p 
     confOK <- 0 
     if (conf1 >= 0.05 && conf1 <= 0.95) confOK <- 1 
     if (conf2 >= 0.05 && conf2 <= 0.95) confOK <- confOK + 1 
     if (confOK == 1) cat("\nWARNING: Only 1 Confidence Ellipse will be computed.\n\n") 
     if (confOK == 0) stop("Neither Confidence Ellipse can be computed.\n\n") 
     x1 <- as.integer(x1) 
-    if (x1 >= 1 && x1 <= p) { x1var <- uraug$vnams[1+x1] } else { 
-        stop("Variable x1 in unr.biv() Call is Out-of-Range.") 
+    if (x1 >= 1 && x1 <= p) { x1var <- efaug$vnams[1+x1] } else { 
+        stop("Variable x1 in eff.biv() Call is Out-of-Range.") 
     } 
     x2 <- as.integer(x2) 
-    if (x2 >= 1 && x2 <= p && x2 != x1 ) { x2var <- uraug$vnams[1+x2] } else { 
-        stop("Variable x2 in unr.biv() Call is Out-of-Range or Equal to x1.") 
+    if (x2 >= 1 && x2 <= p && x2 != x1 ) { x2var <- efaug$vnams[1+x2] } else { 
+        stop("Variable x2 in eff.biv() Call is Out-of-Range or Equal to x1.") 
     } 
-    LMobj <- uraug$LMobj 
-    bstar <- uraug$bstar 
-    mcal <- uraug$mcal 
+    LMobj <- efaug$LMobj 
+    bstar <- efaug$bstar 
+    mcal <- efaug$mcal 
     RXolist <- list(p = p, LMobj = LMobj, bstar = bstar, mcal = mcal, x1 = x1, x2 = x2) 
     if (conf1 >= 0.05 && conf1 <= 0.95) { 
         ellip1 <- ellipse(LMobj, which = c((x1 + 1), (x2 + 1)), conf1) 
@@ -89,11 +84,11 @@
         corr2 <- cor(ellip2) 
         RXolist <- c(RXolist, list(ellip2 = ellip2, conf2 = conf2, ecor2 = corr2[1,2])) 
     } 
-    class(RXolist) <- "unr.biv" 
+    class(RXolist) <- "eff.biv" 
     RXolist 
 } 
   
-"plot.unr.biv" <- function (x, type = "ellip", ...) 
+"plot.eff.biv" <- function (x, type = "ellip", ...) 
 { 
     if (type != "ellip") type <- "trace" 
     if (type == "ellip") { 
@@ -115,11 +110,10 @@
         abline(v=0, lty=2, col="lightgray" ) 
         lines(x$bstar[x$x1,], x$bstar[x$x2,], type = "l", lwd=2, col="red") 
         points(x$bstar[x$x1,1], x$bstar[x$x2,1], type = "p", lwd=2, col="blue") 
-        pp1 <- 1 + x$p; pp2 <- 1 + pp1 
-        points(x$bstar[x$x1,pp1], x$bstar[x$x2,pp1], type = "p", lwd=2, col="purple") 
-        points(x$bstar[x$x1,pp2], x$bstar[x$x2,pp2], type = "p", lwd=2, col="black") 
+        points(x$bstar[x$x1,2], x$bstar[x$x2,2], type = "p", lwd=2, col="purple") 
+        points(x$bstar[x$x1,3], x$bstar[x$x2,3], type = "p", lwd=2, col="black") 
         title(sub = sub1, col.sub="darkgreen", cex.sub=1.0) 
-        title(main = "Confidence Ellipses & BLUE_minMSE_ZERO Path") 
+        title(main = "Confidence Ellipses: BLUE_minMSE_ZERO Path") 
     } 
     else { 
         mcal <- t(x$mcal) 
@@ -134,16 +128,15 @@
     } 
 } 
   
-"print.unr.biv" <- function (x, ...) 
+"print.eff.biv" <- function (x, ...) 
 { 
-    cat("\nunr.biv Object: Bivariate displays of UNRestricted Shrinkage\n") 
+    cat("\neff.biv Object: Bivariate displays of Efficient Shrinkage\n") 
     cat("\n    Current Horizontal Coefficient Number =", x$x1) 
     cat("\n    Current Vertical   Coefficient Number =", x$x2) 
     cat("\n    Matrix of Fitted Coefficients and their mcal-Extents:\n\n" )
-    pp1 <- 1 + x$p; pp2 <- 1 + pp1 
+    pp1 <- 1 + x$p
     mat <- as.matrix(cbind(t(x$bstar), x$mcal)) 
-    rownames(mat) <- c(1:pp2) 
+    rownames(mat) <- c(1:3) 
     colnames(mat)[pp1] <- c("mcal") 
     print(mat) 
-} 
-  
+}

@@ -42,12 +42,12 @@ export(uc.lars)
 S3method(plot, uc.lars) 
 S3method(print, uc.lars) 
  
+export(YonX) 
+S3method(plot, YonX) 
+S3method(print, YonX) 
+
 export(unr.ridge) 
 S3method(plot, unr.ridge) 
 S3method(print, unr.ridge)
 export(kofm) 
 export(mofk)
- 
-export(YonX) 
-S3method(plot, YonX) 
-S3method(print, YonX) 

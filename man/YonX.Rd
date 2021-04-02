@@ -2,11 +2,12 @@
 \alias{YonX}
 \title{Maximum Likelihood (ML) Shrinkage in Simple Linear Regression}
 \description{
-  Compute and display Normal-theory ML Shrinkage statistics when a Y-variagle is regressed
-  upon a Single X-variable. Since the OLS (BLUE) estimate is a scalar in this case, the
-  MSE optimal Shrinkage factor, dMSE, is also a scalar (less than +1 and greater than 0).  
-  The m-Extent of overall Optimal Shrinkage corresponding to this solution is marked by
-  the "purple" vertical dashed-line on all TRACE displays for YonX() Shrinkage.
+  Compute and display Normal-theory ML Shrinkage statistics when a y-Outcome Variable
+  is regressed upon a SINGLE x-Variable (i.e. p = 1). Since the OLS (BLUE) estimate is
+  a scalar in this case, the MSE optimal Shrinkage factor, dMSE, is a Scalar value that
+  is both less than +1 as well as greater than 0. The m-Extent of overall Optimal
+  Shrinkage corresponding to this solution is marked by the "purple" vertical
+  dashed-line on all TRACE displays for YonX() Shrinkage.
 }
 \usage{
   YonX(form, data, delmax = 0.999999)
@@ -68,8 +69,8 @@
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{correct.signs}} and \code{\link{MLtrue}}}

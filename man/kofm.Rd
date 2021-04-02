@@ -3,8 +3,8 @@
 \title{k-Multipliers and delta-Factors for unr.ridge() Shrinkage.}
 \description{
   The kofm() function computes the "kStar" multipliers and the diagonal "d" Matrices
-  used by the unr.ridge() function. While these calculations are extensive, they are
-  greatly simplified by using interpolation between "knots" on "piecewise
+  used by the Deprecated unr.ridge() function. While these calculations are extensive,
+  they are greatly simplified by using interpolation between "knots" on "piecewise
   linear-spline" functions.
 }
 \usage{
@@ -26,9 +26,6 @@ kofm(muobj, p, dMSE, delmax = 0.999999)
 }
 \references{
   Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
-  
-  Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
-  \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{unr.ridge}} and \code{\link{mofk}}.}

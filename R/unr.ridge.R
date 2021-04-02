@@ -1,5 +1,7 @@
 "unr.ridge" <- function (form, data, rscale = 1, steps = 8, delmax = 0.999999) 
-{ 
+{
+    .Deprecated(new="eff.ridge", package="RXshrink",
+        msg="unr.ridge() is Deprecated; use eff.ridge() for less complex Optimal Shrinkage.")
     if (missing(form) || class(form) != "formula") 
         stop("First argument to unr.ridge must be a valid linear regression formula.") 
     yvar <- deparse(form[[2]])
@@ -174,7 +176,7 @@
 } 
   
 "print.unr.ridge" <- function (x, ...) 
-{ 
+{
     cat("\nunr.ridge Object: Shrinkage via a PATH of UNRestricted Shape\n" )
     cat("Data Frame:", x$dfname, "\n") 
     cat("Regression Equation:\n") 
@@ -204,7 +206,7 @@
 } 
   
 "plot.unr.ridge" <- function (x, trace = "all", trkey = FALSE, ...) 
-{ 
+{
     mcal <- x$sext[, 3]    # MCAL values are in the 3rd column...  
     mcalp <- rep(mcal, times = x$p)  
     if (trace != "coef" && trace != "rmse" && trace != "exev" && 

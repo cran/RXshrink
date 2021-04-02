@@ -43,18 +43,9 @@
   rxucobj
   # SCROLL ^^^ UP ^^^ to see PRINTED output from uc.lars()...
   #
-  # Finally, results for UNRESTRICTED (p-parameter)
+  # Finally, results for EFFICIENT (p-parameter)
   # generalized ridge regression (GRR) model-fitting,
-  # unr.ridge() or eff.ridge() , will be PLOTTED and PRINTED...  
-  #
-  # Perform unr.ridge() model fitting...  
-  rxunobj <- unr.ridge(form, data=haldport)
-  #
-  # Display all 5 unr.ridge() TRACE Diagnostics in 1 plot...
-  plot(rxunobj)
-  #
-  # Print Summary Statistics from unr.ridge()...  
-  rxunobj
+  # using eff.ridge(), will be PLOTTED and PRINTED...  
   #
   # Perform eff.ridge() model fitting...  
   rxefobj <- eff.ridge(form, data=haldport)
@@ -62,20 +53,17 @@
   # Display all 5 unr.ridge() TRACE Diagnostics in 1 plot...
   plot(rxefobj)
   #
-  # Print Summary Statistics from unr.ridge()...  
+  # Print Summary Statistics from eff.ridge()...  
   rxefobj
-  # SCROLL ^^^ UP ^^^ to see PRINTED output from unr.ridge() and eff.ridge()...
+  # SCROLL ^^^ UP ^^^ to see PRINTED output from eff.ridge()...
   #
-  # Did you notice how DIFFERENT these FIVE main types of GRR Paths
-  # [qm.ridge(), aug.lars() uc.lars() and unr.ridge() or eff.ridge()] LOOK
-  # for the "haldport" data.frame? Any of these 5 DISTINCT types of Shrinkage
-  # "pattern" could be "best" for a given set of ill-conditioned
-  # (confounded) X-variables.
+  # Did you notice how DIFFERENT these FOUR Main Types of GRR Paths
+  # [qm.ridge(), aug.lars() uc.lars() and eff.ridge()] LOOK
+  # for the "haldport" data.frame?
   #
-  # Since the unr.ridge() and eff.ridge() Paths are "most flexible" and
-  # always contain the beta-coefficient vector with Maximum Overall Normal
-  # theory Likelihood of Minimal MSE risk, a good strategy is to explore
-  # these 2 PATHS First !!!
+  # Since the eff.ridge() Path is "most flexible" and  always contains the
+  # beta-coefficient vector with Maximum Overall Normal-theory Likelihood
+  # of Minimal MSE risk, a good strategy is to explore this PATH First !!!
   #
   #################### END of "haldport" Demo...
   

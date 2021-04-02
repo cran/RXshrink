@@ -2,7 +2,7 @@
 \alias{plot.qm.ridge}
 \title{Plot method for qm.ridge objects}
 \description{Plot TRACE displays for 2-parameter (q, m) generalized ridge coefficients.  The
- default is to display all five traces on one page with no legends.
+ default is to display all Five TRACEs on one page with no legends.
 }
 \usage{
   \method{plot}{qm.ridge}(x, trace = "all", trkey = FALSE, \dots )

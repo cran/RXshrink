@@ -1,14 +1,15 @@
 \name{eff.ridge}
 \alias{eff.ridge}
-\title{Efficient Maximum Likelihood (ML) Shrinkage via Shortest Piecewise Linear-Spline PATH}
+\title{Efficient Maximum Likelihood (ML) Shrinkage via the Shortest Piecewise Linear-Spline PATH}
 \description{
   Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
   (classical) Normal-theory Maximum Likelihood (ML) point-estimate of the Beta coefficient
-  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is
-  indicated by a vertical dashed-line on all 5-types of eff.ridge TRACE displays.
+  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution occurs
+  at the only "interior" Knot on the Shrinkage Path and is also marked by the vertical
+  dashed-line drawn on all 5-types of eff.ridge TRACE displays.
 }
 \usage{
-  eff.ridge(form, data, rscale = 1, steps = 8)
+  eff.ridge(form, data, rscale = 1, steps = 8, \dots)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...+xp] suitable for use with lm().}
@@ -20,6 +21,7 @@
   \item{steps}{Number of equally spaced values per unit change along the horizontal
    M-extent-of-shrinkage axis for estimates to be calculated and displayed in TRACES
    (default = 8.)}
+  \item{\dots}{Optional argument(s) ...possibly from the Deprecated unr.ridge() function.}
 }
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
@@ -62,23 +64,21 @@
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
   
-  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
-  
-  Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
-  \url{http://localcontrolstatistics.org}
-  
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
+  Risk.} \url{https://arxiv.org/abs/2103.05161}
+
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}  
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{mofk}}, \code{\link{kofm}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
+\seealso{\code{\link{MLcalc}}, \code{\link{meff}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
 and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)
   form <- Employed~GNP+GNP.deflator+Unemployed+Armed.Forces+Population+Year
   rxefobj <- eff.ridge(form, data=longley2)
-  rxefobj    # print summary statistics of shrinkage...
-  plot(rxefobj)
+  rxefobj          # print shrinkage summary statistics...
+  plot(rxefobj)    # 5 TRACEs on 1 plot...
   str(rxefobj)
 }
 \keyword{regression}

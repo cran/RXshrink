@@ -2,7 +2,8 @@
 \alias{plot.unr.ridge}
 \title{Plot method for unr.ridge objects}
 \description{Plot TRACE displays for unrestricted ridge shrinkage coefficients.  The
- default is to display all five traces on one page with no legends.
+ default is to display all five traces on one page with no legends. The unr.ridge()
+ function is currently Deprecated.
 }
 \usage{
   \method{plot}{unr.ridge}(x, trace = "all", trkey = FALSE, \dots )
@@ -24,7 +25,7 @@
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed
-  rxunobj <- unr.ridge(form, data=longley2)
-  plot(rxunobj)
+  rxunrobj <- unr.ridge(form, data=longley2)
+  plot(rxunrobj)   # 5 TRACEs on One plot...
 }
 \keyword{trace}

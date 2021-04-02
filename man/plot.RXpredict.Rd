@@ -12,7 +12,7 @@ methods. The default is to plot Predictions for the y-Outcome variable.
   \item{fit}{One of three possible options:,
    "yvecprd" to display Predictions of the Observed y-Outcomes in a single plot,
    "cryprd" to display Fitted.Values for the Centered and Rescaled y-Outcomes,
-   "both" to display "yvecprd" and "cryprd" plots as rows on one page.}
+   "both" to display "yvecprd" and "cryprd" plots in two rows on one page.}
   \item{\dots}{Optional argument(s) passed on to plot().}
 }
 \value{NULL}
@@ -20,9 +20,9 @@ methods. The default is to plot Predictions for the y-Outcome variable.
 \examples{
   data(longley2)
   form <- Employed~GNP+GNP.deflator+Unemployed+Armed.Forces+Population+Year
-  rxuobj <- unr.ridge(form, longley2)
-  rxuprd <- RXpredict(rxuobj, longley2)
-  plot(rxuprd)
-  # Clearly Biased predictions can still represent "Optimal" Variance-Bias Trade-Offs...
+  rxefobj <- eff.ridge(form, longley2)
+  rxefprd <- RXpredict(rxefobj, longley2)
+  plot(rxefprd)
+  # Clearly Biased predictions can still represent an "Optimal" Variance-Bias Trade-Off...
 }
 \keyword{predict}

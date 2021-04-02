@@ -7,7 +7,7 @@
   strictly ORTHOGONAL to the true BETA, he showed that optimal shrinkage in the UNKNOWN direction
   PARALLEL to the true BETA is possible. This optimal BETA estimate is of the form k * X'y, where
   k is the positive scalar given in equation (4.2), page 1118. The correct.signs() function computes
-  this estimate, B(=), that uses GRR delta-shrinkage factors proportional to X-eigenvalues.
+  this estimate, B(=), that uses GRR delta-shrinkage factors proportional to X-matrix eigenvalues.
 }
 \usage{
   correct.signs(form, data)
@@ -46,12 +46,12 @@
 \references{
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{unr.ridge}} and \code{\link{MLtrue}}.}
+\seealso{\code{\link{eff.ridge}}, \code{\link{qm.ridge}} and \code{\link{MLtrue}}.}
 \examples{
   data(longley2)
   form <- GNP~GNP.deflator+Unemployed+Armed.Forces+Population+Year+Employed

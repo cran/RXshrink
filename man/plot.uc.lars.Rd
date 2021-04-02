@@ -3,7 +3,7 @@
 \title{Plot method for uc.lars objects}
 \description{
  Plot TRACE displays of lars regression coefficients for uncorrelated components.  The
- default is to display all five traces on one page with no legends.
+ default is to display all Five TRACEs on one page with no legends.
 }
 \usage{
   \method{plot}{uc.lars}(x, trace = "all", trkey = FALSE, \dots)

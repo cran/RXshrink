@@ -10,7 +10,7 @@
 #  CMspl = Carl Morris' Piecewise Linear Spline term stays at 0 for seasons [1:6] then increases linearly [1:18]
 #     in seasons [7:24]. Its three "Knots" thus occur in seasons: 1 (1905), 6 (1910) and 24 (1928).
 #
-#  This RXshrink demo() illustrates use of the unr.ridge() and RXpredict() functions and plots.
+#  This RXshrink demo() illustrates use of the eff.ridge() and RXpredict() functions and plots.
 #
 library(RXshrink)
 data(tycobb)
@@ -19,9 +19,9 @@ str(tycobb)
 # formula suitable for use with lm() for p=3 x-variables...
 form <- batavg~atbats+seasons+CMspl
 #
-# Fit a generalized linear regression (GRR) model using unr.ridge()...
-tycuobj <- unr.ridge(form, data=tycobb, steps=100)
-# tycuobj
+# Fit a generalized linear regression (GRR) model using eff.ridge()...
+tyceobj <- eff.ridge(form, data=tycobb, steps=100)
+# tyceobj
 #     Only the 5 final lines of printed output are listed here...
 #     ===========================================================
 #     Most Likely UNRestricted Shrinkage Extent, mUnr = 1.039595
@@ -30,14 +30,14 @@ tycuobj <- unr.ridge(form, data=tycobb, steps=100)
 #     Smallest Observed -2*log(LikelihoodRatio), minC = 0.0003832262
 #     dMSE Estimates = 0.01700621 0.9698978 0.973501 
 #
-plot(tycuobj)    # Show all 5 unr.ridge() TRACE Diagnostic plots...
+plot(tyceobj)    # Show all 5 eff.ridge() TRACE Diagnostic plots...
 #
 # Display the first 3 "k-star" values for "knots"; final "knot" at m=4 then "k-star"=1...
-rep(1,3)/tycuobj$dMSE
+rep(1,3)/tyceobj$dMSE
 #
-OLSpred <- RXpredict(tycuobj, data=tycobb, m=0)     # OLS fit occurs at m == 0
-minMSEpred <- RXpredict(tycuobj, data=tycobb)       # m="minMSE" fit occurs here at m="1.0396"...
-maxShrink <- RXpredict(tycuobj, data=tycobb, m=3)   # Intercept Only: other Coefficients are Zeros...
+OLSpred <- RXpredict(tyceobj, data=tycobb, m=0)     # OLS fit occurs at m == 0
+minMSEpred <- RXpredict(tyceobj, data=tycobb)       # m="minMSE" fit occurs here at m="1.0396"...
+maxShrink <- RXpredict(tyceobj, data=tycobb, m=3)   # Intercept Only: other Coefficients are Zeros...
 #
 ym <- mean(tycobb$batavg)              # 0.3610738
 ys <- sqrt(var(tycobb$batavg))         # 0.03848413

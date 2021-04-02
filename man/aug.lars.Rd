@@ -27,7 +27,7 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
 }
 \details{aug.lars() calls the Efron/Hastie lars() function to perform Least Angle Regression on
  x-variables that have been centered and possibly rescaled but which may be (highly) correlated.
- Maximum likelihood TRACE displays paralleling those of qm.ridge() and unr.ridge() are also
+ Maximum likelihood TRACE displays paralleling those of eff.ridge() and qm.ridge() are also
  computed and (optionally) plotted. 
 }
 \value{ An output list object of class aug.lars:
@@ -59,9 +59,9 @@ aug.lars(form, data, rscale = 1, type = "lar", trace = FALSE,
   
   Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.
   \url{https://CRAN.R-project.org/package=lars}
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 
   Tibshirani R. (1996) Regression shrinkage and selection via the lasso.
   \emph{J. Roy. Stat. Soc. B}  \bold{58}, 267-288.

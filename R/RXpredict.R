@@ -1,9 +1,9 @@
 "RXpredict" <- function (x, data, m="minMSE", rscale=1) 
 { 
-    cond <- class(x) %in% c("qm.ridge", "unr.ridge", "aug.lars", "uc.lars", "MLcalc", "correct.signs" ) 
+    cond <- class(x) %in% c("qm.ridge", "eff.ridge", "aug.lars", "uc.lars", "MLcalc", "correct.signs" ) 
     if (missing(x) || cond == FALSE) { 
         cat("The First argument to RXpredict() must be an output object from one of Six RXshrink\n") 
-        cat("functions: qm.ridge, unr.ridge, aug.lars, uc.lars, MLcalc or correct.signs ...\n") 
+        cat("functions: eff.ridge, qm.ridge, aug.lars, uc.lars, MLcalc or correct.signs ...\n") 
         stop() 
     } 
     if (missing(data) || !inherits(data, "data.frame")) { 
@@ -11,7 +11,7 @@
         stop() 
     } 
     if (is.character(m) && m != "minMSE") { 
-        cat("The Third argument to RXpredict must be either m=\"minMSE\" or a numeric value.\n") 
+        cat("The Third argument to RXpredict must be either m=\"minMSE\" or a numeric m-Extent.\n") 
         stop() 
     } 
     if (rscale >=1) {rscale <- 1} else {rscale <- 0} 
@@ -44,7 +44,7 @@
         cat("Non-Constant X-Vars. All predictions then equal the Intercept Estimate.\n") 
         if (m > mMax) stop("m-Extent cannot exceed ", mMax, " in this regression model.\n") 
     } 
-    stsize <- mMax/tsteps              # Step-Size == 1/steps in unr.ridge()
+    stsize <- mMax/tsteps              # Step-Size == 1/steps in eff.ridge()
     midx <- round(m/stsize, 0)         # m-Index: "row" number == midx + 1
     mobs <- stsize*midx                # Nearest "observed" value of of m...
     lmobj <- lm(x$form, data) 

@@ -32,10 +32,11 @@
   Obenchain RL. (1977) Classical F-Tests and Confidence Regions for Ridge Regression.
   \emph{Technometrics} 19, 429-439. http://doi.org/10.1080/00401706.1977.10489582
   
-  Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
-  
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF}  RXshrink package vignette-like file.
-  \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
+  Risk.} \url{https://arxiv.org/abs/2103.05161}
+
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}  
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{eff.ridge}} and \code{\link{meff}}}

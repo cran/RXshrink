@@ -1,5 +1,5 @@
 "eff.ridge" <-
-function (form, data, rscale = 1, steps = 8) 
+function (form, data, rscale = 1, steps = 8, ...) 
 { 
     if (missing(form) || class(form) != "formula") 
         stop("First argument to eff.ridge must be a valid linear regression formula.") 
@@ -154,9 +154,9 @@ function (form, data, rscale = 1, steps = 8)
     sext <- cbind(tsmse, mcal) 
     dimnames(sext) <- list(0:maxinc, c("TSMSE", "MCAL"))
     mStar <- p - sum(dMSE) 
-    minC <- min(mlik[,3]) 
+    minC <- min(mlik[,2]) 
     for( i in 1:maxinc ) { 
-        if( mlik[i,3] <= minC ) { 
+        if( mlik[i,2] <= minC ) { 
             mClk <- (i-1)/steps 
             break 
         } 

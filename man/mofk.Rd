@@ -4,10 +4,10 @@
 \description{
   The mofk() function computes the numerical m-Extent of Shrinkage corresponding to a given
   value for "k", the scalar that multiplies observed ML estimates of "dMSE"-factors for
-  each of the "p" uncorrelated components in GRR estimation using unr.ridge(). These
-  calculations are quite simple; the function is many-to-one in the sense that all truly
-  large values of k imply that m = 0.0, and k values that are either 0.0 or negative imply
-  that m = p.
+  each of the "p" uncorrelated components in GRR estimation using the Deprecated unr.ridge()
+  function. While these calculations are simple, the function is "many-to-one" in the sense
+  that all truly large values of k imply that m = 0.0, and k values that are either 0.0 or
+  negative imply that m = p.
 }
 \usage{
   mofk(p, k, dMSE)
@@ -24,9 +24,6 @@
 }
 \references{
   Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
-  
-  Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
-  \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{unr.ridge}} and \code{\link{kofm}}.}

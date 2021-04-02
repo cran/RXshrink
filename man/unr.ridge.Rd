@@ -2,10 +2,13 @@
 \alias{unr.ridge}
 \title{Unrestricted Maximum Likelihood (ML) Shrinkage using a Piecewise Linear-Spline PATH}
 \description{
-  Compute and display TRACEs for the p-paramater Shrinkage PATH passing through the
-  (classical) Normal-theory Maximum Likelihhod (ML) point-estimate of the Beta coefficient
-  vector. The m-Extent of overall Optimal Shrinkage corresponding to this solution is
-  indicated by a vertical dashed-line on all 5-types of unr.ridge TRACE displays.
+  This function is Deprecated; its Shrinkage PATH is both longer and more complicated than
+  that of eff.ridge(). Specifically, the unr.ridge() PATH is a piece-wise Linear-Spline
+  containing (p-1) "interior" KNOTs. None of these KNOTs usually correspond to the overall
+  optimal m-Extent of Shrinkage [that minimizes MSE Risk under Normal-theory]. In sharp
+  contrast, the eff.ridge() PATH contains exactly one "interior" KNOT when p > 1, and the
+  overall Optimal m-Extent of Shrinkage does coinside with this KNOT! A vertical dashed-line
+  marks this Optimal m-Extent on all 5-types of ridge TRACE displays.
 }
 \usage{
   unr.ridge(form, data, rscale = 1, steps = 8, delmax = 0.999999)
@@ -27,12 +30,12 @@
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
   close, numerically, to their unknown true values.  Specifically, OLS estimates can have
-  unreasonable relative magnitudes or "wrong" numerical signs when the number of x-variables
-  is 2 or more. Shrunken (Generalized Ridge Regression) estimates chosen to maximize their
+  unreasonable relative magnitudes or "wrong" numerical signs when the number of x-Variables
+  is >= 2. Shrunken (Generalized Ridge Regression) estimates chosen to maximize their
   likelihood of reducing Mean Squared Error (MSE) Risk (expected Squared Error Loss) can be
   more stable and reasonable, numerically.  On the other hand, because only OLS estimates
   are guaranteed to be minimax when risk is matrix valued (truly multivariate), no guarantee
-  of an actual reduction in MSE Risk is necessarily associated with shrinkage. 
+  of an actual reduction in MSE Risk is necessarily associated with Shrinkage. 
 }
 \value{ An output list object of class unr.ridge:
   \item{data}{Name of the data.frame object specified as the second argument.}
@@ -66,12 +69,9 @@
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
   
   Obenchain RL. (2020) \emph{Ridge TRACE Diagnostics.} \url{https://arxiv.org/abs/2005.14291}
-  
-  Obenchain RL. (2020) \emph{The Unrestricted Shrinkage Path: Technical Details.} "unrPath.pdf" 
-  \url{http://localcontrolstatistics.org}
-  
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{mofk}}, \code{\link{kofm}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
@@ -79,9 +79,9 @@ and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)
   form <- Employed~GNP+GNP.deflator+Unemployed+Armed.Forces+Population+Year
-  rxuobj <- unr.ridge(form, data=longley2)
-  rxuobj    # print summary statistics of shrinkage...
-  plot(rxuobj)
-  str(rxuobj)
+  rxunrobj <- unr.ridge(form, data=longley2)
+  rxunrobj         # print shrinkage summary statistics...
+  plot(rxunrobj)   # 5 TRACEs on 1 plot...
+  str(rxunrobj)
 }
 \keyword{regression}

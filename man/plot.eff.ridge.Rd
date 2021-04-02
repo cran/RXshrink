@@ -2,7 +2,7 @@
 \alias{plot.eff.ridge}
 \title{Plot method for eff.ridge objects}
 \description{Plot TRACE displays for the "efficient" Path that is [1]
- as short as possible and [2] consists of Piecewise Linear-Splines with a
+ as short as possible and [2] consists of a Two-Piece Linear-Splines with a
  emph{Single Interior Knot} at the MSE Optimal m-Extent of Shrinkage. The
  default is to display all five Traces on one page with no legends.
 }

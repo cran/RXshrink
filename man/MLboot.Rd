@@ -43,12 +43,9 @@
   Thompson JR. (1968) Some shrinkage techniques for estimating the mean. \emph{Journal
   of the American Statistical Association} \bold{63}, 113-122. (The "cubic" estimator.)
   
-  Obenchain RL. (2020) Ridge TRACE Diagnostics.
-  \url{https://arxiv.org/abs/2005.14291 }
-  
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org} 
-  RXshrink package vignette-like file.
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}}
+\seealso{\code{\link{eff.ridge}}, \code{\link{correct.signs}}}
 \keyword{regression}

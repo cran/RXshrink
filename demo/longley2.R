@@ -19,15 +19,15 @@
   #
   plot(rxqmobj)
   #
-  # Next, show the corresponding results for the Piecewise-Linear
-  # Spline PATH passing through the Unrestricted Maximum Likelihood
+  # Next, show the corresponding results for the Two-Piecewise
+  # Linear Spline PATH passing through the EFFICIENT Maximum Likelihood
   # point-estimate of "MSE Optimal" Regression Coefficients...
   #
-  rxunobj <- unr.ridge(form, data=longley2)
-  rxunobj
-  # SCROLL ^^^ UP ^^^ to see the PRINTED output from unr.ridge()...
+  rxefobj <- eff.ridge(form, data=longley2)
+  rxefobj
+  # SCROLL ^^^ UP ^^^ to see the PRINTED output from eff.ridge()...
   #
-  plot(rxunobj)
+  plot(rxefobj)
   #
   # Finally, print information about Beta-coefficient estimates with
   # Guaranteed "Correct" SIGNS...

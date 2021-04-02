@@ -31,7 +31,7 @@
   \item{truc}{Optional: column vector of numerical values for the true uncorrelated
    components of the regression coefficient vector.}
 }
-\details{RXshrink functions like unr.ridge() and qm.ridge() calculate maximum likelihood
+\details{RXshrink functions like eff.ridge() and qm.ridge() calculate maximum likelihood
   estimates ...either unbiased (BLUE) or "optimally" biased (minimum MSE risk) along a
   specified "path"... for typical statistical inference situations where true regression
   parameters are unknown. Furthermore the specified linear-model may be "incorrect" or
@@ -60,10 +60,10 @@
   \item{data}{The name of the data.frame object specified in the second argument.}  
   \item{form}{The regression formula specified in the first argument. NOTE: The final
    11 output items [p, ..., xs] are identical to those in output lists from RXshrink
-   functions like unr.ridge() and qm.ridge().}
+   functions like eff.ridge() and qm.ridge().}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{unr.ridge}} and \code{\link{MLboot}}.}
+\seealso{\code{\link{eff.ridge}}, \code{\link{qm.ridge}} and \code{\link{MLboot}}.}
 \examples{
   # require(RXshrink)
   data(mpg)
@@ -76,6 +76,6 @@
   formY <- Yhat~cylnds+cubins+hpower+weight   # Formula for true expected Y-outcomes...
   lmobj <- lm(formY, MLout$new)
   max(abs(lmobj$residuals))   # essentially 0 because linear model is "correct"...
-  # unrobj <- unr.ridge(formY, MLout$new)   ...generates "Error" because RSQUARE=1.
+  # effobj <- eff.ridge(formY, MLout$new)   ...generates "Error" because RSQUARE=1.
 }
 \keyword{regression}

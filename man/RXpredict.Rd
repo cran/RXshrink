@@ -11,7 +11,7 @@
 }
 \arguments{
   \item{x}{An object output by one of the 6 RXshrink estimation functions. Thus class(x) must
-    be "qm.ridge", "unr.ridge", "aug.lars", "uc.lars", "MLcalc" or "correct.signs".}
+    be "qm.ridge", "eff.ridge", "aug.lars", "uc.lars", "MLcalc" or "correct.signs".}
   \item{data}{Existing data.frame containing observations on all variables used by the RXshrink
     function for estimation of regression coefficients.}
   \item{m}{The m argument can be either [i] a single "numeric" value that is non-negative and
@@ -41,17 +41,17 @@
   Obenchain RL. (2005)
   \emph{Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein}.  Electronic
   book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{qm.ridge}}, \code{\link{unr.ridge}} and \code{\link{MLtrue}}.}
+\seealso{\code{\link{qm.ridge}}, \code{\link{eff.ridge}} and \code{\link{MLtrue}}.}
 \examples{
   data(tycobb)
   form <- batavg~atbats+seasons+CMspl
-  rxuobj <- unr.ridge(form, data=tycobb)
-  tycfit <- RXpredict(rxuobj, tycobb, m="minMSE")
+  rxefobj <- eff.ridge(form, data=tycobb)
+  tycfit <- RXpredict(rxefobj, tycobb, m="minMSE")
   plot(tycfit)
   tycobb$batavg[18]  # Ty Cobb's batavg = 0.401 in 1922
   abline(h=tycfit$cry[18], lty=2, lwd=3, col="red")

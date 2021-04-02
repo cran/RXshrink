@@ -125,7 +125,7 @@ function (x, ...)
 } 
   
 "MLcalc" <- 
-function (form, data, rscale = 1, delmax = 0.999999) 
+function (form, data, rscale = 1) 
 { 
     if (missing(form) || class(form) != "formula") 
         stop("First argument to MLcalc must be a valid linear regression formula.")
@@ -203,15 +203,15 @@ function (form, data, rscale = 1, delmax = 0.999999)
     dFact <- (n - p - 3)/(n - p - 1) 
     srat <- solve(diag(as.vector(sv), ncol = p)) %*% tstat 
     mobj <- mofk(p, kinc, dMSE) 
-    dinc <- dMSE	# The p Optimal Shrinkage-Factors...
+    dinc <- dMSE	         # Vector of p Optimal Shrinkage-Factors...
     diag( d ) <- dMSE 
-    omd <- pmax(1 - dinc, 1 - delmax)  # Strictly Positive values...
+    omd <- 1 - dinc          # Strictly Positive values...
     ddomd <- dinc/omd                  # Diagonal Elements...
     rxi <- sum(arho * sqrt(ddomd))
     slik <- 2/(rxi + sqrt(4 * n + rxi^2))
     clik <- 2 * n * log(slik) + sum(ddomd) - (rxi/slik) - 
         n * log((1 - r2)/n)
-    if (clik < 1 - delmax) clik <- 1 - delmax
+    if (clik < 0) clik <- 0
     minc <- p - sum(dinc)
     bstar <- sx$v %*% d %*% comp       # MLbeta
     vecr <- (idty - d) %*% srat
@@ -232,7 +232,7 @@ function (form, data, rscale = 1, delmax = 0.999999)
     einc <- sort(eign$values) * sfac   # Increasing order; negative values first...
     cinc <- matrix(0, p, 1)
     if (is.na(einc[1])) einc[1] <- 0
-    if (einc[1] + 1 - delmax < 0) {    # New Correction...	
+    if (einc[1] < 0) {  	
         eign$vectors <- sx$v %*% eign$vectors
         cinc <- eign$vectors[, p]
         if (rscale == 2) {

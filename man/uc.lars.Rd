@@ -55,9 +55,9 @@
 
   Obenchain RL. (1994-2005) Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein.
   \url{http://localcontrolstatistics.org}
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like file.
+  
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{aug.lars}}.}

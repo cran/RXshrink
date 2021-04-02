@@ -6,7 +6,7 @@
   of shrinkage along that path, most likely under Normal-distribution theory to yield optimal
   reducions in MSE Risk. When rank(X-matrix) = p > 2, the most likely solution on the qm.ridge()
   path will be less likely to have minimal MSE risk than the optimal solution on the p-parameter
-  unr.ridge() path. The Hoerl-Kennard "ordinary" ridge path has Shape q=0 within the qm.ridge()
+  eff.ridge() path. The Hoerl-Kennard "ordinary" ridge path has Shape q=0 within the qm.ridge()
   family.    
 }
 \usage{
@@ -82,12 +82,15 @@
   
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
-
-  Obenchain RL. (2020) \emph{RXshrink_in_R.PDF} \url{http://localcontrolstatistics.org}
-  RXshrink package vignette-like document.
+  
+  Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
+  Risk.} \url{https://arxiv.org/abs/2103.05161}  [Best q-Shape when p = 2.]
+  
+  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.0. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
-\seealso{\code{\link{unr.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
+\seealso{\code{\link{eff.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 
 and \code{\link{RXpredict}}.}
 \examples{
   data(longley2)

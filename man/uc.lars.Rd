@@ -50,14 +50,15 @@
   \item{minC}{Minimum Observed Value of Normal-theory -2*log(Likelihood).}
 }
 \references{
-  Efron B, Hastie T. (2005) Least Angle Regression, Lasso and Forward Stagewise.
-  \url{https://CRAN.R-project.org/package=lars}
+
+  Hastie T, Efron, B. (2013) lars: Least Angle Regression, Lasso and Forward Stagewise.
+  ver 1.2, \url{https://CRAN.R-project.org/package=lars}
 
   Obenchain RL. (1994-2005) Shrinkage Regression: ridge, BLUP, Bayes, spline and Stein.
   \url{http://localcontrolstatistics.org}
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{aug.lars}}.}

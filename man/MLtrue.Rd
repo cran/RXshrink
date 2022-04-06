@@ -6,7 +6,7 @@
   that usually are unknown, MLtrue() creates a new data.frame that contains variables
   "Yhat" (the vector of expected values) and "Yvec" (Yhat + IID Normal error-terms) as
   well as the p given X-variables. Thus, MLtrue() produces "correct" linear models that
-  are ideal for analysis and bootstraping via methods based on Normal-theory.
+  can be ideal for analysis and bootstraping via methods based on Normal-theory.
 }
 \usage{
   MLtrue(form, data, seed, go=TRUE, truv, trub, truc)

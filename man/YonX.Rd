@@ -3,11 +3,12 @@
 \title{Maximum Likelihood (ML) Shrinkage in Simple Linear Regression}
 \description{
   Compute and display Normal-theory ML Shrinkage statistics when a y-Outcome Variable
-  is regressed upon a SINGLE x-Variable (i.e. p = 1). Since the OLS (BLUE) estimate is
-  a scalar in this case, the MSE optimal Shrinkage factor, dMSE, is a Scalar value that
-  is both less than +1 as well as greater than 0. The m-Extent of overall Optimal
-  Shrinkage corresponding to this solution is marked by the "purple" vertical
-  dashed-line on all TRACE displays for YonX() Shrinkage.
+  is regressed upon a SINGLE x-Variable (i.e. p = 1). This illustration is usefull in
+  regression pedagogy. The OLS (BLUE) estimate is a scalar in these simple cases, so
+  the MSE optimal Shrinkage factor, dMSE, is also a scalar less than +1 and greater
+  than 0 when cor(y,x) differs from Zero. The corresponding m-Extent of Optimal
+  Shrinkage is marked by the "purple" vertical dashed-line on all YonX() TRACE
+  Diagnostics.
 }
 \usage{
   YonX(form, data, delmax = 0.999999)
@@ -19,9 +20,9 @@
    than 1. (default = 0.999999, which prints as 1 when rounded to fewer than 6 decimal
    places.)}
 }
-\details{Since only a single X-variable is being used, these "simple" models are
-  (technically) NOT "Ill-conditioned". Of course, the Y-variable may be nearly
-  multi-collinear with the given X-variable, but this simply means that the model
+\details{Since only a single x-Variable is being used, these "simple" models are
+  (technically) NOT "Ill-conditioned". Of course, the y-Outcome may be nearly
+  multi-collinear with the given x-Variable, but this simply means that the model
   then has low "lack-of-fit". In fact, the OLS estimate can never have the "wrong"
   numerical sign in these simple p = 1 models!  Furthermore, since "risk" estimates
   are scalar-valued, no "exev" TRACE is routinely displayed; its content duplicates
@@ -67,10 +68,13 @@
 
 \references{
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
+  \bold{6}, 1111-1121. \doi{10.1214/aos/1176344314}
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
+  \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
+  
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{correct.signs}} and \code{\link{MLtrue}}}

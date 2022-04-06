@@ -9,7 +9,7 @@
   dashed-line drawn on all 5-types of eff.ridge TRACE displays.
 }
 \usage{
-  eff.ridge(form, data, rscale = 1, steps = 8, \dots)
+  eff.ridge(form, data, rscale = 1, steps = 20, \dots)
 }
 \arguments{
   \item{form}{A regression formula [y~x1+x2+...+xp] suitable for use with lm().}
@@ -20,8 +20,8 @@
    in option 1 but re-express answers as in option 0.}
   \item{steps}{Number of equally spaced values per unit change along the horizontal
    M-extent-of-shrinkage axis for estimates to be calculated and displayed in TRACES
-   (default = 8.)}
-  \item{\dots}{Optional argument(s) ...possibly from the Deprecated unr.ridge() function.}
+   (default = 20.)}
+  \item{\dots}{Optional argument(s)}
 }
 \details{Ill-conditioned and/or nearly multi-collinear regression models are unlikely to
   produce Ordinary Least Squares (OLS) regression coefficient estimates that are very
@@ -62,13 +62,16 @@
   of the American Statistical Association} \bold{63}, 113-122. (The ``cubic'' estimator.)
   
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
+  \bold{6}, 1111-1121. \doi{10.1214/aos/1176344314}
   
   Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
   Risk.} \url{https://arxiv.org/abs/2103.05161}
+  
+  Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
+  \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
 
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}  
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}  
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{MLcalc}}, \code{\link{meff}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 

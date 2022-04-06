@@ -4,8 +4,8 @@
 \description{
   The meff() function computes the numerical Shrinkage delta-factors corresponding to any
   desired m-Extent of Shrinkage, meobj, along the "efficient" (shortest) Path used by
-  eff.ridge(). This Two-Piece Linear-Spline Path has its single "interior" Knot at the
-  Normal-theory Maximum Likelihood estimate of Optimal MSE Risk: d[j] = dMSE[j] for
+  eff.ridge(). This Two-Piece Linear Path has its single "interior" Knot at the
+  Normal-theory Maximum Likelihood estimate with Minimum MSE Risk: d[j] = dMSE[j] for
   j = 1, 2, ..., p.   
 }
 \usage{

@@ -34,11 +34,11 @@
 }
 \references{
   
-  Obenchain RL. (1977) Classical F-Tests and Confidence Regions for Ridge Regression.
-  \emph{Technometrics} 19, 429-439. http://doi.org/10.1080/00401706.1977.10489582
+  Obenchain RL. (1977) Classical F-tests and Confidence Regions for Ridge Regression.
+  \emph{Technometrics} \bold{19}, 429-439. \doi{10.1080/00401706.1977.10489582}
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
   
   Murdoch DJ. and Chow ED. (1996). A graphical display of large correlation matrices.
   \emph{The American Statistician} 50, 178-180.

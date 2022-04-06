@@ -3,8 +3,8 @@
 \docType{data}
 \title{Art Hoerl's update of the infamous Longley(1967) benchmark dataset}
 \description{Data from the "Employment and Training Report of the President, 1976"
- compiled by Art Hoerl, University of Delaware.  This data.frame contains some slightly
- different (corrected) numerical values from those used by Longley(1967) plus the added
+ compiled by Art Hoerl, University of Delaware.  This data.frame contains both [1] some
+ different (corrected) numerical values from those used by Longley(1967) and [2] the added
  years of 1963-1975. Longley(1967) used only data from the 16 years of 1947 through 1962.}
 \usage{data(longley2)}
 \format{

@@ -45,10 +45,10 @@
 }
 \references{
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
+  \bold{6}, 1111-1121. \doi{10.1214/aos/1176344314}
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{eff.ridge}}, \code{\link{qm.ridge}} and \code{\link{MLtrue}}.}

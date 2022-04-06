@@ -135,7 +135,7 @@ function (form, data, rscale = 1)
     dfname <- deparse(substitute(data))
     if (!is.element(yvar, dimnames(data)[[2]])) 
         stop("Response variable in the MLcalc formula must be an existing variable.")
-    if (rscale != 1) rscale <- 2  # just two rscale options from unr.ridge()
+    if (rscale != 1) rscale <- 2  # just two rscale options from eff.ridge()
     lmobj <- lm(form, data)
     yvec <- as.matrix(lmobj$model[, 1])
     xmat <- as.matrix(lmobj$model[, 2:length(lmobj$model)])
@@ -202,7 +202,7 @@ function (form, data, rscale = 1)
     kinc <- 1                          # kinc*dMSE values then have minimum MSE risk...
     dFact <- (n - p - 3)/(n - p - 1) 
     srat <- solve(diag(as.vector(sv), ncol = p)) %*% tstat 
-    mobj <- mofk(p, kinc, dMSE) 
+    mext <- p - sum(dMSE)    # Not needed or used below...                                 
     dinc <- dMSE	         # Vector of p Optimal Shrinkage-Factors...
     diag( d ) <- dMSE 
     omd <- 1 - dinc          # Strictly Positive values...

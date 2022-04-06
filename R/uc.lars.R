@@ -189,6 +189,7 @@ function (x, trace = "all", trkey = FALSE, ...)
     mV <- x$mClk    # m-extent with min Classical -2*log(Like) 
     opar <- par(no.readonly = TRUE) 
     on.exit(par(opar)) 
+    myty <- c(1,2,4,5,6,7,8,9,10,11,12,3)        # KEY CHANGE: lty == 3 (dotted line) is moved to 12th position...
     if (trace == "all") 
         par(mfrow=c(3,2)) 
     else 
@@ -197,8 +198,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         plot(mcalp, x$coef, ann = FALSE, type = "n") 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
         abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = i, 
-            lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("COEFFICIENT TRACE:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients") 
         if( trkey ) 
@@ -212,8 +212,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         plot(mcalp, x$rmse, ann = FALSE, type = "n") 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
         abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = i, 
-            lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("RELATIVE MSE:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Scaled MSE Risk") 
         if( trkey ) 
@@ -227,8 +226,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         plot(mcalp, x$exev, ann = FALSE, type = "n") 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
         abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = i, 
-            lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("EXCESS EIGENVALUES:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus uclars") 
         if( trkey ) 
@@ -242,7 +240,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1)) 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
         abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = i, lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("INFERIOR DIRECTION:", x$lars$type), 
             xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines") 
         if( trkey ) 
@@ -256,10 +254,9 @@ function (x, trace = "all", trkey = FALSE, ...)
         plot(mcalp, x$spat, ann = FALSE, type = "n") 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
         abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = i, 
-            lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("SHRINKAGE PATTERN:", x$lars$type), 
-            xlab = "m = Multicollinearity Allowance", ylab = "uclars Delta Factors") 
+            xlab = "m = Multicollinearity Allowance", ylab = "Shrinkage Delta-Factors") 
         if( trkey ) 
             legend("bottom",paste("Component",1:(x$p)), col=1:(x$p), lty=1:(x$p), lwd=2) 
     } 

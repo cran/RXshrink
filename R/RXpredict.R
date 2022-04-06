@@ -17,7 +17,7 @@
     if (rscale >=1) {rscale <- 1} else {rscale <- 0} 
     mMax <- as.numeric(x$p) 
     tsteps <- 1 
-    if (class(x) == "MLcalc") { 
+    if (inherits(x, "MLcalc")) { 
         mReq <- mMax - sum(x$dMSE) 
         if (is.numeric(m) && m != mReq) {        # Return Fitted values for OLS = BLUE. 
             bstar <- x$beta[1,]; mReq <- 0.0 
@@ -25,7 +25,7 @@
         } 
     if (m == "minMSE" || m == mReq) bstar <- x$beta[2,]   # Return Optimally Biased Fitted values. 
     } 
-    else if (class(x) == "correct.signs") { 
+    else if (inherits(x, "correct.signs")) { 
         bstar <- x$signs[,5]           # use the rescaled B(=) vector for prediction...
         mReq <- 1                      # m-Extent is > 0 but otherwise ill-defined here.
     } else { 
@@ -51,7 +51,7 @@
     yvec <- as.matrix(lmobj$model[, 1]) 
     n <- nrow(yvec) 
     xmat <- as.matrix(lmobj$model[,-1]) 
-    if (class(x) == "MLcalc" || class(x) == "correct.signs") {coef <- bstar} else {coef <- bstar[midx+1,]} 
+    if (inherits(x, "MLcalc") || inherits(x, "correct.signs")) {coef <- bstar} else {coef <- bstar[midx+1,]} 
     # bstar coefficients for specified m-extent
     mx <- matrix(apply(xmat, 2, "mean"), nrow = 1) 
     cx <- xmat - matrix(1, n, 1) %*% mx          # Centering is always applied (implicit intercept)...
@@ -66,13 +66,13 @@
         cry <- cry/yscale[1, 1] 
     } 
     cryprd <- crx %*% coef 
-    if (class(x) == "correct.signs" && 0 < m) { 
+    if (inherits(x, "correct.signs") && 0 < m) { 
         cryprd <- cryprd * (mMax - m) / mMax 
         mobs <- m 
     } 
     yvecprd <- matrix( mean(yvec), n, 1) + cryprd %*% sqrt(var(yvec)) 
-    if (class(x) == "MLcalc") mobs <- m 
-    if (class(x) == "aug.lars" || class(x) == "uc.lars") mobs <- x$mlik[mobs+1,1] 
+    if (inherits(x, "MLcalc")) mobs <- m 
+    if (inherits(x, "aug.lars") || inherits(x, "uc.lars")) mobs <- x$mlik[mobs+1,1] 
     RXolist <- list(class=class(x), cryprd = as.vector(cryprd), cry = as.vector(cry), 
                     yvecprd = as.vector(yvecprd), yvec = as.vector(yvec), m = m, 
                     mobs = mobs) 

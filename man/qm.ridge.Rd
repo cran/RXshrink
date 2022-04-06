@@ -10,7 +10,7 @@
   family.    
 }
 \usage{
-  qm.ridge(form, data, rscale = 1, Q = "qmse", steps = 8, nq = 21,
+  qm.ridge(form, data, rscale = 1, Q = "qmse", steps = 20, nq = 21,
               qmax = 5, qmin = -5, omdmin = 9.9e-13)
 }
 \arguments{
@@ -25,7 +25,7 @@
    most likely to be optimal.)  Use Q = 0 to specify Hoerl-Kennard "ordinary" ridge regression.}
   \item{steps}{Number of equally spaced values per unit change along the horizontal
    m-Extent-of-shrinkage axis for estimates to be calculated and displayed in TRACES
-   (default = 8.)}
+   (default = 20.)}
   \item{nq}{Number of equally spaced values on the lattice of all possible values for
    shrinkage q-Shape between the "qmin" and "qmax" parameter settings (default = 21.)}
   \item{qmax}{Maximum allowed q-Shape (default = +5.)}
@@ -77,17 +77,16 @@
   \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (The 2-parameter shrinkage family.)
   
   Obenchain RL. (1975) Ridge Analysis Following a Preliminary Test of the Shrunken
-  Hypothesis. \emph{Technometrics} \bold{17}, 431-441.
-  <doi:10.1080/00401706.1975.10489369>
+  Hypothesis. \emph{Technometrics} \bold{17}, 431-441. \doi{10.1080/00401706.1975.10489369}
   
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
   \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
   
-  Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
-  Risk.} \url{https://arxiv.org/abs/2103.05161}  [Best q-Shape when p = 2.]
+  Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
+  \bold{3}: 1-18. \doi{10.1515/stat-2022-0108} [Best q-Shape when p = 2.]
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{eff.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 

@@ -1,7 +1,7 @@
 \name{mpg}
 \alias{mpg}
 \docType{data}
-\title{Hocking(1976) Miles Per Gallon data and Multiple Regression Benchmark}
+\title{Hocking(1976) Miles Per Gallon data: a Multiple Regression Benchmark}
 \description{Performance data for the 1973-74 models of 32 autos from the Road Tests
  Section of \emph{Motor Trends} magazine. NOTE: data(mtcars) loads essentially the
  same data, but most variable names are then different and have fewer characters.}

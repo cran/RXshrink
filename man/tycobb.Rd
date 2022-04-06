@@ -25,7 +25,7 @@ executive.
     \item{\code{atbats}}{Total number of times at Bat that season.}
     \item{\code{CMspl}}{Carl Morris' Piecewise-Linear Spline term with "knot" in
       season 6 (1910).}
-    \item{\code{seasons}}{Linear "Trend" term: 1, 2, ..., 24.}
+    \item{\code{seasons}}{A linear "Trend" term: 1, 2, ..., 24.}
     \item{\code{batavg}}{Cobb's Seasonal Batting Average ... 7 decimal places.} 	
   }
 }

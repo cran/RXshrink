@@ -3,30 +3,31 @@
 \docType{package}
 \title{Maximum Likelihood (ML) Shrinkage using Generalized Ridge or Least Angle Regression}
 \description{The functions in this package augment basic calculations of Generalized Ridge and
-  Least Angle Regression with Visual Insights using five types of ridge TRACE display: [1] regression
+  Least Angle Regression plus Visual Insights from five types of ridge TRACE display: [1] regression
   coefficients, [2] relative MSE risk, [3] excess eigenvalues, [4] inferior direction cosines, and [5]
-  shrinkage delta-factors. TRACEs completely characterize the primary Effects of Shrinkage along
-  ridge Paths with 2 or more parameters: either m-Extent plus q-Shape of Shrinkage or the Efficient
-  PATH with as many parameters, p, as non-constant X-predictor variables. All Paths start at the Ordinary
-  Least-Squares estimate [m = 0] and end at the origin, (0, 0, ..., 0), where all coefficient estimates
-  have been shrunken to zero [m = p = rank(X).] Three different types of Likelihood of minimal MSE risk
-  (Classical Normal-Theory, Empirical Bayes, and Random Coefficients) can be monitored to suggest an
-  optimal m-Extent of shrinkage for the given matrix of x-Variables and the observed y-Outcome vector.  
+  shrinkage delta-factors. These TRACEs reveal the primary Effects of Shrinkage along ridge paths with
+  1, 2 or more parameters: shrinkage m-Extent, path q-Shape, and the p shrinkage delta-factors applied
+  to the uncorrelated components of the Ordinary Least Squares estimator. All paths start at the OLS
+  estimate [m = 0] and end at the shrinkage Terminous, (0, 0, ..., 0), where m = p = rank of the
+  centered and rescaled X-matrix. Three different measures of overall Likelihood of minimal MSE risk
+  (Classical Normal-Theory, Empirical Bayes, and Random Coefficients) are monitored to suggest an
+  optimal m-Extent of shrinkage for the given matrix of non-constant x-Variables and the observed
+  y-Outcome vector.  
 }
 \details{
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 2.0\cr
-  Date: \tab 2021-04-02\cr
+  Version: \tab 2.1\cr
+  Date: \tab 2022-04-02\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
   The eff.ridge() function calculates generalized ridge TRACE statistics for the Efficient Shrinkage
   PATH with p > 1 parameters. This PATH always passes through the Beta coefficient point-estimate that
   is most likely to achieve optimal MSE risk reductions under Normal distribution-theory. This PATH is
-  as Short as Possible; it consists of a Two-Piece Linear-Spline with its single "interior" KNOT at the
-  MSE Risk Optimal m-Extent of Shrinkage. 
+  as Short as Possible; it consists of a Two-Piece Linear function with its single "interior" Knot at
+  the MSE Risk Optimal m-Extent of Shrinkage. 
   
   MLboot(), MLcalc() and MLhist() support use of Bootstrap resampling to study the bias and MSE
   risk characeristics of non-linear (unrestricted) Generalized Ridge Regression (GRR) estimators.
@@ -65,9 +66,6 @@
   RXpredict() makes predictions (i.e. computes "fitted.values") for 6 types of RXshrink
   estimation ...either at a user-specified m-Extent of Shrinkage or at the Normal-theory "minMSE"
   m-Extent.
-  
-  The unr.ridge() function is currently Deprecated because it uses a somewhat longer and
-  more-complicated shrinkage-PATH than eff.ridge().
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \references{
@@ -78,16 +76,19 @@
   \emph{J. Roy. Stat. Soc. B} \bold{36}, 284-291. (The 2-parameter shrinkage family.)
 
   Obenchain RL. (1975) Ridge Analysis Following a Preliminary Test of the Shrunken
-  Hypothesis. \emph{Technometrics} \bold{17}, 431-441. <doi:10.1080/00401706.1975.10489369>
+  Hypothesis. \emph{Technometrics} \bold{17}, 431-441. \doi{10.1080/00401706.1975.10489369}
 
+  Obenchain RL. (1977) Classical F-tests and Confidence Regions for Ridge Regression.
+  \emph{Technometrics} \bold{19}, 429-439. \doi{10.1080/00401706.1977.10489582}
+  
   Obenchain RL. (1978) Good and Optimal Ridge Estimators. \emph{Annals of Statistics}
-  \bold{6}, 1111-1121. <doi:10.1214/aos/1176344314>
+  \bold{6}, 1111-1121. \doi{10.1214/aos/1176344314}
   
-  Obenchain RL. (2021) \emph{The Efficient Shrinkage Path: Maximum Likelihood of Minimum MSE
-  Risk.} \url{https://arxiv.org/abs/2103.05161}
+  Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
+  \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \keyword{package}
 \examples{

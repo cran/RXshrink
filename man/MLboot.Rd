@@ -43,8 +43,11 @@
   Thompson JR. (1968) Some shrinkage techniques for estimating the mean. \emph{Journal
   of the American Statistical Association} \bold{63}, 113-122. (The "cubic" estimator.)
   
-  Obenchain RL. (2021) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.0. \url{http://localcontrolstatistics.org}
+  Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
+  \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
+  
+  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Version 2.1. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{eff.ridge}}, \code{\link{correct.signs}}}

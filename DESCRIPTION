@@ -1,19 +1,19 @@
 Package: RXshrink
 Title: Maximum Likelihood Shrinkage using Generalized Ridge or Least
         Angle Regression
-Version: 2.0
-Date: 2021-04-02
+Version: 2.1
+Date: 2022-04-02
 Author: Bob Obenchain 
 Maintainer: Bob Obenchain <wizbob@att.net>
 Depends: R (>= 3.5.0), lars, ellipse
-Description: Functions are provided to calculate and display ridge TRACE diagnostics for a 
-  wide variety of alternative shrinkage Paths. While all methods focus on Maximum Likelihood 
+Description: Functions are provided to calculate and display ridge TRACE Diagnostics for a 
+  variety of alternative Shrinkage Paths. While all methods focus on Maximum Likelihood 
   estimation of unknown true effects under Normal-distribution theory, some estimates are 
   modified to be Unbiased or to have "Correct Range" when estimating either [1] the noncentrality 
   of the F-ratio for testing that true Beta coefficients are Zeros or [2] the "relative" MSE 
   Risk (i.e. MSE divided by true sigma-square, where the "relative" variance of OLS is known.) 
   The eff.ridge() function implements the "Efficient Shrinkage Path" introduced in Obenchain
-  (2021) <arXiv:2103.05161>. This new "p-Parameter" Shrinkage-Path always passes through the
+  (2022) <Open Statistics>. This new "p-Parameter" Shrinkage-Path always passes through the
   vector of regression coefficient estimates Most-Likely to achieve the overall Optimal
   Variance-Bias Trade-Off and is the shortest Path with this property. Functions eff.aug() and
   eff.biv() augment the calculations made by eff.ridge() to provide plots of the bivariate
@@ -22,6 +22,6 @@ Description: Functions are provided to calculate and display ridge TRACE diagnos
 License: GPL-2
 URL: https://www.R-project.org , http://localcontrolstatistics.org
 NeedsCompilation: no
-Packaged: 2021-03-25 21:01:58 UTC; bobo
+Packaged: 2022-04-06 16:57:39 UTC; bobo
 Repository: CRAN
-Date/Publication: 2021-04-02 06:50:02 UTC
+Date/Publication: 2022-04-06 20:22:32 UTC

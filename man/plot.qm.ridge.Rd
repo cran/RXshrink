@@ -1,8 +1,10 @@
 \name{plot.qm.ridge}
 \alias{plot.qm.ridge}
 \title{Plot method for qm.ridge objects}
-\description{Plot TRACE displays for 2-parameter (q, m) generalized ridge coefficients.  The
- default is to display all Five TRACEs on one page with no legends.
+\description{Plot TRACE displays for 2-parameter (q, m) generalized ridge estimators.  The
+ default is to display all Five Traces on one page with no legend. When the number, p, of
+ non-constant x-variables is less than 13, the lines [and curves] displayed on Traces avoid
+ use of lty = 3 [dotted].
 }
 \usage{
   \method{plot}{qm.ridge}(x, trace = "all", trkey = FALSE, \dots )
@@ -16,7 +18,7 @@
    "exev" to display only the estimated excess MSE eigenvalue (OLS minus larlso),
    "infd" to display only the estimated inferior direction cosine trace, or
    "spat" to display only the delta-factor pattern trace.}
-  \item{trkey}{If TRUE, display a crude legend at the bottom of each trace plot.}
+  \item{trkey}{If TRUE, display a crude legend at the bottomright of each trace plot.}
   \item{\dots}{Optional argument(s) passed on to plot().}
 }
 \value{NULL}

@@ -2,7 +2,7 @@
 \alias{plot.aug.lars}
 \title{Plot method for aug.lars objects}
 \description{Plot TRACE displays for aug.lars regression coefficients.  The default
- is to display all Five TRACEs on one page with no legends.
+ is to display all Five TRACEs on one page with no legend.
 }
 \usage{
   \method{plot}{aug.lars}(x, trace = "all", trkey = FALSE, \dots)

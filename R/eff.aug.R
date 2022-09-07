@@ -1,6 +1,6 @@
 "eff.aug" <- function (efobj) 
 { 
-    if (missing(efobj) || class(efobj) != "eff.ridge") 
+    if (missing(efobj) || !inherits(efobj, "eff.ridge"))
         stop("First argument to eff.aug() must be a valid eff.ridge() output object.") 
     p <- efobj$p 
     form <- efobj$form 
@@ -50,8 +50,8 @@
 } 
   
 "eff.biv" <- function (efaug, x1 = 1, x2 = 2, conf1 = 0.95, conf2 = 0.50) 
-{ 
-    if (missing(efaug) || class(efaug) != "eff.aug") { 
+{
+    if (missing(efaug) || !inherits(efaug, "eff.aug")) {
         cat("\nNOTE: Call eff.aug() and save its output list before making") 
         cat("\nAny calls to eff.biv().\n") 
         stop("First argument to eff.biv() must be a valid eff.aug() output object.") 

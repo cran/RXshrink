@@ -18,19 +18,19 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 2.1\cr
-  Date: \tab 2022-04-02\cr
+  Version: \tab 2.2\cr
+  Date: \tab 2022-09-11\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
   The eff.ridge() function calculates generalized ridge TRACE statistics for the Efficient Shrinkage
   PATH with p > 1 parameters. This PATH always passes through the Beta coefficient point-estimate that
-  is most likely to achieve optimal MSE risk reductions under Normal distribution-theory. This PATH is
+  is most likely to achieve optimal MSE risk reductions under normal distribution-theory. This PATH is
   as Short as Possible; it consists of a Two-Piece Linear function with its single "interior" Knot at
   the MSE Risk Optimal m-Extent of Shrinkage. 
   
-  MLboot(), MLcalc() and MLhist() support use of Bootstrap resampling to study the bias and MSE
-  risk characeristics of non-linear (unrestricted) Generalized Ridge Regression (GRR) estimators.
+  MLboot(), MLcalc() and MLhist() support use of Bootstrap resampling to study both the Bias and the
+  MSE Risk characeristics of non-linear (unrestricted) Generalized Ridge Regression (GRR) estimators.
   
   When true regression parameters have user-specified (KNOWN) numerical values, MLtrue() uses this
   information and generates a new data.frame that contains a y-Outcome vector of the expected form
@@ -44,8 +44,8 @@
   both q-Shape and m-Extent are easy to modify using the qmax, qmin, nq and steps arguments to qm.ridge().
   The "ordinary" ridge Path of Hoerl and Kennard always uses \bold{q}-Shape = 0, while "uniform" shrinkage
   corresponds to \bold{q}-Shape = +1. NONE of these qm-Paths generally achieve Overall Minimum MSE
-  Risk when p > 2 because they restrict attention to "monotome" (increasing or decreasing) "delta"
-  shrinkage-factors.  
+  Risk when p > 2 because they restrict attention to a "monotome" (increasing or decreasing) family of
+  "delta" shrinkage-factors.  
   
   aug.lars() augments the Efron-Hastie lars() R-function to perform Least Angle Regression with
   MSE risk calculations and Maximum Likelihood TRACE displays ...like those of eff.ridge() and
@@ -88,7 +88,7 @@
   \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
   
   Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.1. \url{http://localcontrolstatistics.org}
+  Version 2.3. \url{http://localcontrolstatistics.org}
 }
 \keyword{package}
 \examples{

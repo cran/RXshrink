@@ -43,7 +43,7 @@
   book-in-progress (185+ pages.) \url{http://localcontrolstatistics.org}
   
   Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.1. \url{http://localcontrolstatistics.org}
+  Version 2.2. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{qm.ridge}}, \code{\link{eff.ridge}} and \code{\link{MLtrue}}.}

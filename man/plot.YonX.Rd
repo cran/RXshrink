@@ -2,11 +2,11 @@
 \alias{plot.YonX}
 \title{Plot method for YonX objects}
 \description{Graphics for Shrinkage in "Simple" Linear Regression: Models with only p=1
- X-variable. The default is to first [1] display four TRACES in one plot and then to [2]
+ X-variable. The default is to [1] display four TRACES in one plot and then to [2]
  display the "Y on X" scatter-plot with Three Fitted Lines: the OLS fit is BLUE, the
- optimally Shrunken fit is "purple", and the most shrinkage with estimated relative risk
- not exceeding OLS is "red". Note: these 3 fitted lines can be quite close to each other
- whenever model lack-of-fit is small.
+ optimally Shrunken fit is "purple", and the largest m-Extent of shrinkage with Relative
+ MSE at most that of OLS is "red". Note: Whenever model lack-of-fit is small, these 3
+ m-Extents can be quite close to each other.
 }
 \usage{
   \method{plot}{YonX}(x, trace = "all", \dots )

@@ -86,7 +86,7 @@
   \bold{3}: 1-18. \doi{10.1515/stat-2022-0108} [Best q-Shape when p = 2.]
   
   Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
-  Version 2.1. \url{http://localcontrolstatistics.org}
+  Version 2.3. \url{http://localcontrolstatistics.org}
 }
 \author{Bob Obenchain <wizbob@att.net>}
 \seealso{\code{\link{eff.ridge}}, \code{\link{correct.signs}}, \code{\link{MLtrue}} 

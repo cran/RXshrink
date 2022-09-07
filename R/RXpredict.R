@@ -79,7 +79,7 @@
     class(RXolist) <- "RXpredict" 
     RXolist 
 } 
-  
+ 
 "print.RXpredict" <- 
 function (x, ...) 
 { 

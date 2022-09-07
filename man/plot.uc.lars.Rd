@@ -2,8 +2,9 @@
 \alias{plot.uc.lars}
 \title{Plot method for uc.lars objects}
 \description{
- Plot TRACE displays of lars regression coefficients for uncorrelated components.  The
- default is to display all Five TRACEs on one page with no legend.
+ Plot TRACE displays of lars regression coefficients for the uncorrelated components
+ of the X-matrix. The default option of trace = "all" displays all Five TRACEs on one
+ page.
 }
 \usage{
   \method{plot}{uc.lars}(x, trace = "all", trkey = FALSE, \dots)
@@ -17,7 +18,7 @@
    "exev" to display only the estimated excess MSE eigenvalue (OLS minus ridge) trace,
    "infd" to display only the estimated inferior direction cosine trace, or
    "spat" to display only the shrinkage (delta) factor pattern trace.}
-  \item{trkey}{If TRUE, display a crude legend at the bottom of each trace plot.}
+  \item{trkey}{If TRUE, display a crude legend at the bottom-right of each trace plot.}
   \item{\dots}{Optional argument(s) passed on to plot().}
 }
 \value{NULL}

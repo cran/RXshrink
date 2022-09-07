@@ -1,7 +1,7 @@
 "correct.signs" <- 
 function (form, data) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to correct.signs must be a valid linear regression formula.")
     if (missing(data) || !inherits(data, "data.frame")) 
         stop("Second argument to correct.signs must be an existing Data Frame.")

@@ -1,7 +1,7 @@
 "eff.ridge" <-
 function (form, data, rscale = 1, steps = 20, ...) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to eff.ridge must be a valid linear regression formula.") 
     yvar <- deparse(form[[2]])
     if (missing(data) || !inherits(data, "data.frame")) 
@@ -171,11 +171,12 @@ function (form, data, rscale = 1, steps = 20, ...)
 "print.eff.ridge" <-
 function (x, ...) 
 { 
-    cat("\neff.ridge Object: Shrinkage via a PATH of UNRestricted Shape\n" )
+    cat("\neff.ridge Object: Shrinkage via the Efficient PATH...\n" )
     cat("Data Frame:", x$dfname, "\n") 
     cat("Regression Equation:\n") 
     print(x$form) 
     cat("\n    Number of Regressor Variables, p =", x$p, "\n") 
+    if (x$p > 20) cat("    Traces for more that p = 30 variables cannot be plotted.\n")
     cat("    Number of Observations, n =", x$n, "\n") 
     cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n") 
     print.default(x$prinstat, quote = FALSE) 
@@ -200,19 +201,27 @@ function (x, ...)
 }
 
 "plot.eff.ridge" <-
-function (x, trace = "all", trkey = FALSE, ...) 
-{ 
+function (x, trace = "all", LP = 0, HH = 0, ...) 
+{
+    trkey <- FALSE
+    if (LP != 0) {
+        trkey <- TRUE
+        LT <- c("bottomright","bottom","bottomleft","left","topleft","top","topright","right","center")
+        LG <- LT[B19(LP)]
+    }
+    if (x$p > 30)
+	        stop("Number of x-variables exceeds 30; No Trace plots attempted...")
+    myty <- c(1,2,4,5,6,7,8,9,10,11,12,3,1,2,4,5,6,7,8,9,10,11,12,1,2,4,5,6,7,8)  # postpones use of lty=3 "dotted" assuming p <= 30			
     mcal <- x$sext[,2]    # MCAL values are in the 2nd column...  
     mcalp <- rep(mcal, times = x$p)  
     if (trace != "coef" && trace != "rmse" && trace != "exev" && 
-        trace != "infd" && trace != "spat" && trace != "seq") 
+        trace != "infd" && trace != "spat" && trace != "seq")
         trace <- "all" 
     mV <- x$mStar    # Optimal m-extent in eff.ridge()... 
-    opar <- par(no.readonly = TRUE) 
-    on.exit(par(opar)) 
-    myty <- c(1,2,4,5,6,7,8,9,10,11,12,3)        # KEY CHANGE: lty == 3 (dotted line) is moved to 12th position...
-    if (trace == "all") par(mfrow=c(3,2)) else 
-        par(mfrow=c(1,1)) 
+    opar <- par(no.readonly = TRUE)
+    if (HH == 0) on.exit(par(opar)) 
+    if (HH == 1) par(mfrow=c(2,1))  	
+    if (trace == "all") par(mfrow=c(3,2)) else if (HH < 1)  par(mfrow=c(1,1))
     if (trace == "all" || trace == "seq" || trace == "coef") { 
         plot(mcalp, x$coef, ann = FALSE, type = "n") 
         abline(v = mV, col = "gray", lty = 2, lwd = 2) 
@@ -220,7 +229,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         for (i in 1:x$p) lines(mcal, x$coef[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("COEFFICIENT TRACE"), 
             xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients") 
-        if(trkey) legend("bottomright", all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     } 
     if (trace == "seq") {
         cat("\nPress the Enter key to view the RMSE trace...") 
@@ -234,7 +243,7 @@ function (x, trace = "all", trkey = FALSE, ...)
             lwd = 2) 
         title(main = paste("RELATIVE MSE"), 
             xlab = "m = Multicollinearity Allowance", ylab = "Scaled MSE Risk") 
-        if (trkey) legend("bottomright", all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+        if (trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     } 
     if (trace == "seq") { 
         cat("\nPress the Enter key to view the EXEV trace...") 
@@ -247,7 +256,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         for (i in 1:x$p) lines(mcal, x$exev[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("EXCESS EIGENVALUES"), 
             xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus EffGRR") 
-        if (trkey) legend("bottomright", paste("Component", 1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+        if (trkey) legend(LG, paste("Component", 1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     } 
     if (trace == "seq") { 
         cat("\nPress the Enter key to view the INFD trace...") 
@@ -260,7 +269,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         for (i in 1:x$p) lines(mcal, x$infd[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("INFERIOR DIRECTION"), 
             xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines") 
-        if(trkey) legend("bottomright", all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     } 
     if (trace == "seq") { 
         cat("\nPress the Enter key to view the SPAT trace...") 
@@ -273,32 +282,7 @@ function (x, trace = "all", trkey = FALSE, ...)
         for (i in 1:x$p) lines(mcal, x$spat[, i], col = i, lty = myty[i], lwd = 2) 
         title(main = paste("SHRINKAGE PATTERN"), 
             xlab = "m = Multicollinearity Allowance", ylab = "Shrinkage Delta-Factors") 
-        if(trkey) legend("bottomright", paste("Component", 1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+        if(trkey) legend(LG, paste("Component", 1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     }
 }
 
-"meff" <-
-function (meobj, p, dMSE) 
-{ 
-    mStar <- p - sum(dMSE)             # Optimal m-Extent
-    if (meobj <= 0) { 
-        d <- diag(1, p)
-        meobj <- 0 
-        return(list(meobj = meobj, d = d)) 
-    } 
-    if (meobj >= p) {
-        d <- matrix(0, p, p) 
-        meobj <- p
-        return(list(meobj = meobj, d = d)) 
-    }
-    de <- rep(1, p)
-    if( meobj > mStar ) {              # Larger meobj values...
-        de <- dMSE * (p - meobj) / (p - mStar)
-        d <- diag(de) 
-        return(list(meobj = meobj, d = d)) 
-    } else {                           # Smaller meobj values...
-        de <- dMSE + (rep(1,p) - dMSE) * (mStar - meobj) / mStar
-        d <- diag(de) 
-        return(list(meobj = meobj, d = d)) 
-    } 
-}

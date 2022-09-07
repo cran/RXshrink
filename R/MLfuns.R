@@ -1,7 +1,7 @@
 "MLboot" <-  
 function (form, data, reps=100, seed, rscale=1) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula")) 
         stop("First argument to MLboot must be a valid linear regression formula.")
     yvar <- deparse(form[[2]])
     if (missing(data) || !inherits(data, "data.frame")) 
@@ -127,7 +127,7 @@ function (x, ...)
 "MLcalc" <- 
 function (form, data, rscale = 1) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula")) 
         stop("First argument to MLcalc must be a valid linear regression formula.")
     yvar <- deparse(form[[2]])
     if (missing(data) || !inherits(data, "data.frame")) 
@@ -274,7 +274,7 @@ function (x, ...)
 "MLtrue" <-  
 function (form, data, seed, go=TRUE, truv, trub, truc) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to MLtrue must be a valid linear model formula.")
     yvar <- deparse(form[[2]])
     if (missing(data) || !inherits(data, "data.frame")) 

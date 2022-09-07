@@ -17,10 +17,10 @@
 \format{
   A data frame with 13 observations on the following 6 variables.
   \describe{
-    \item{\code{p3ca}}{Positive Integer percentage of 3CaO.Al2O3 in the mixture.}
-    \item{\code{p3cs}}{Positive Integer percentage of 3CaO.SiO2 in the mixture.}
-    \item{\code{p4caf}}{Positive Integer percentage of 4CaO.Al2O3.Fe2O3 in the mixture.}
-    \item{\code{p2cs}}{Positive Integer percentage of 2CaO.SiO2 in the mixture.}
+    \item{\code{p3ca}}{Positive Integer percentage of 3CaO.Al2O3 [tricalcium aluminate] in the mixture.}
+    \item{\code{p3cs}}{Positive Integer percentage of 3CaO.SiO2 [tricalcium silicate] in the mixture.}
+    \item{\code{p4caf}}{Positive Integer percentage of 4CaO.Al2O3.Fe2O3 [tetracalcium aluminoferrite] in the mixture.}
+    \item{\code{p2cs}}{Positive Integer percentage of 2CaO.SiO2 [dicalcium silicate] in the mixture.}
     \item{\code{other}}{Positive Integer percentage of other ingredients in the mixture.} 	
     \item{\code{heat}}{Heat (cals/gm) evolved in setting, recorded to nearest tenth.}
   }

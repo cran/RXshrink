@@ -1,7 +1,7 @@
 "qm.ridge" <- function (form, data, rscale = 1, Q = "qmse", steps = 20, nq = 21, 
     qmax = 5, qmin = -5, omdmin = 9.9e-13) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to qm.ridge must be a valid linear regression formula.")
     yvar <- deparse(form[[2]])
     if (missing(data) || !inherits(data, "data.frame")) 
@@ -134,7 +134,7 @@
     IDhit <- 0               # Inferior Direction "hit" switch...
     for (inc in 1:maxinc) { 
         mobj <- inc/steps 
-        iter <- mstep(mobj, kinc, p, qp, eqm1) 
+        iter <- mstep(mobj, kinc, p, qp, eqm1)   # mstep() internal function...
         kinc <- iter$kinc 
         d <- matrix(iter$d, p, p) 
         dinc <- diag(d) 
@@ -226,99 +226,16 @@
     } 
     class(RXolist) <- "qm.ridge" 
     RXolist 
-} 
-  
-"plot.qm.ridge" <- function (x, trace = "all", trkey = FALSE, ...) 
-{ 
-    mcal <- x$sext[, 3] 
-    mcalp <- rep(mcal, times = x$p) 
-    if (trace != "coef" && trace != "rmse" && trace != "exev" && 
-        trace != "infd" && trace != "spat" && trace != "seq") 
-        trace <- "all" 
-    mV <- x$mClk    # m-extent with min Classical -2*log(Like) 
-    opar <- par(no.readonly = TRUE) 
-    on.exit(par(opar))
-    myty <- c(1,2,4,5,6,7,8,9,10,11,12,3)  # KEY CHANGE: 3 ==> "dotted" line is moved to 12th position...	
-    if (trace == "all") 
-        par(mfrow=c(3,2)) 
-    else 
-        par(mfrow=c(1,1)) 
-    if (trace == "all" || trace == "seq" || trace == "coef") { 
-        plot(mcalp, x$coef, ann = FALSE, type = "n") 
-        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
-        abline(h = 0, col = gray(0.9), lwd = 2 )
-        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i,  lty = myty[i], lwd = 2) 
-        title(main = paste("COEFFICIENT TRACE: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients") 
-        if( trkey ) 
-            legend("bottomright",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2)
-    }
-    if (trace == "seq") {
-        cat("\nPress the Enter key to view the RMSE trace...")
-        scan()
-    }
-    if (trace == "all" || trace == "seq" || trace == "rmse") {
-        plot(mcalp, x$rmse, ann = FALSE, type = "n")
-        abline(v = mV, col = "gray", lty = 2, lwd = 2)
-        abline(h = 0, col = gray(0.9), lwd = 2)
-        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i,  lty = myty[i], lwd = 2)
-        title(main = paste("RELATIVE MSE: Q-shape =", 
-            x$qp), xlab = "m = Multicollinearity Allowance", 
-            ylab = "Scaled MSE Risk") 
-        if( trkey ) 
-            legend("bottomright",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
-    } 
-    if (trace == "seq") { 
-        cat("\nPress the Enter key to view the EXEV trace...") 
-        scan() 
-    } 
-    if (trace == "all" || trace == "seq" || trace == "exev") { 
-        plot(mcalp, x$exev, ann = FALSE, type = "n") 
-        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
-        abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i,  lty = myty[i], lwd = 2) 
-        title(main = paste("EXCESS EIGENVALUES: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus Ridge") 
-        if( trkey ) 
-            legend("bottomright",paste("Component",1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
-    } 
-    if (trace == "seq") { 
-        cat("\nPress the Enter key to view the INFD trace...") 
-        scan() 
-    } 
-    if (trace == "all" || trace == "seq" || trace == "infd") { 
-        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1)) 
-        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
-        abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i,  lty = myty[i], lwd = 2) 
-        title(main = paste("INFERIOR DIRECTION: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines") 
-        if( trkey ) 
-            legend("bottomright",all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
-    } 
-    if (trace == "seq") { 
-        cat("\nPress the Enter key to view the SPAT trace...") 
-        scan() 
-    } 
-    if (trace == "all" || trace == "seq" || trace == "spat") {
-        plot(mcalp, x$spat, ann = FALSE, type = "n") 
-        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
-        abline(h = 0, col = gray(0.9), lwd = 2) 
-        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i,  lty = myty[i], lwd = 2) 
-        title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
-            xlab = "m = Multicollinearity Allowance", ylab = "Ridge Delta-Factors") 
-        if( trkey ) 
-            legend("bottomright",paste("Component",1:(x$p)), col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
-    } 
-} 
-  
+}
+
 "print.qm.ridge" <- function (x, ...) 
 { 
     cat("\nqm.ridge Object: Shrinkage-Ridge Regression Model Specification\n" )
     cat("Data Frame:", x$data, "\n") 
     cat("Regression Equation:\n") 
     print(x$form) 
-    cat("\n    Number of Regressor Variables, p =", x$p, "\n") 
+    cat("\n    Number of Regressor Variables, p =", x$p, "\n")
+    if (x$p > 20) cat("    Traces for more that p = 30 variables cannot be plotted.\n")	
     cat("    Number of Observations, n =", x$n, "\n") 
     cat("\nPrincipal Axis Summary Statistics of Ill-Conditioning...\n") 
     print.default(x$prinstat, quote = FALSE) 
@@ -350,32 +267,89 @@
     } 
     cat("\n    Most Likely m-Extent on the Lattice,       mClk =", x$mClk) 
     cat("\n    Smallest Observed -2*log(LikelihoodRatio), minC =", x$minC, "\n\n") 
-} 
+}
   
-"mstep" <- function (mobj, kinc, p, qp, eqm1) 
-{ 
-    if (mobj <= 0) { 
-        d <- diag(p) 
-        kinc <- 0 
-        return(list(kinc = kinc, d = d)) 
+"plot.qm.ridge" <- function (x, trace = "all", LP = 0, HH = 0, ...) 
+{
+    trkey <- FALSE
+    if (LP != 0) {
+        trkey <- TRUE
+        LT <- c("bottomright","bottom","bottomleft","left","topleft","top","topright","right","center")
+        LG <- LT[B19(LP)]
+    }
+    if (x$p > 30)
+	        stop("Number of x-variables exceeds 30; No Trace plots attempted...")
+    myty <- c(1,2,4,5,6,7,8,9,10,11,12,3,1,2,4,5,6,7,8,9,10,11,12,1,2,4,5,6,7,8)  # postpones use of lty=3 "dotted" assuming p <= 30 
+    mcal <- x$sext[,3]    # MCAL values are in the 3rd column...  
+    mcalp <- rep(mcal, times = x$p)  
+    if (trace != "coef" && trace != "rmse" && trace != "exev" && 
+        trace != "infd" && trace != "spat" && trace != "seq")
+        trace <- "all" 
+    if (x$p == 2) mV <- x$mML else mV <- x$mClk  # Best m-extent in qm.ridge() ... 
+    opar <- par(no.readonly = TRUE)
+    if (HH == 0) on.exit(par(opar)) 
+    if (HH == 1) par(mfrow=c(2,1))  	
+    if (trace == "all") par(mfrow=c(3,2)) else if (HH < 1)  par(mfrow=c(1,1))
+    if (trace == "all" || trace == "seq" || trace == "coef") { 
+        plot(mcalp, x$coef, ann = FALSE, type = "n") 
+        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
+        abline(h = 0, col = gray(0.9), lwd = 2 )
+        for (i in 1:x$p) lines(mcal, x$coef[, i], col = i,  lty = myty[i], lwd = 2) 
+        title(main = paste("COEFFICIENT TRACE: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Fitted Coefficients") 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+    }
+    if (trace == "seq") {
+        cat("\nPress the Enter key to view the RMSE trace...")
+        scan()
+    }
+    if (trace == "all" || trace == "seq" || trace == "rmse") {
+        plot(mcalp, x$rmse, ann = FALSE, type = "n")
+        abline(v = mV, col = "gray", lty = 2, lwd = 2)
+        abline(h = 0, col = gray(0.9), lwd = 2)
+        for (i in 1:x$p) lines(mcal, x$rmse[, i], col = i,  lty = myty[i], lwd = 2)
+        title(main = paste("RELATIVE MSE: Q-shape =", 
+            x$qp), xlab = "m = Multicollinearity Allowance", 
+            ylab = "Scaled MSE Risk") 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
     } 
-    if (mobj >= p) { 
-        d <- matrix(0, p, p) 
-        kinc <- Inf 
-        return(list(kinc = kinc, d = d)) 
+    if (trace == "seq") { 
+        cat("\nPress the Enter key to view the EXEV trace...") 
+        scan() 
     } 
-    funs <- mobj - p 
-    if (qp == 1) 
-        kinc <- (-1 * mobj)/funs 
-    else { 
-        while (abs(funs) > 1e-05) { 
-            funs <- mobj - p + sum((1 + kinc * eqm1)^-1) 
-            derivs <- sum(eqm1/(1 + kinc * eqm1)^2) 
-            kinc <- kinc + funs/derivs 
-        } 
+    if (trace == "all" || trace == "seq" || trace == "exev") { 
+        plot(mcalp, x$exev, ann = FALSE, type = "n") 
+        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
+        abline(h = 0, col = gray(0.9), lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$exev[, i], col = i,  lty = myty[i], lwd = 2) 
+        title(main = paste("EXCESS EIGENVALUES: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Least Squares minus Ridge") 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2)  
     } 
-    d <- diag(as.vector(1/(1 + kinc * eqm1)), p) 
-    iter <- list(kinc = kinc, d = d) 
-    iter 
+    if (trace == "seq") { 
+        cat("\nPress the Enter key to view the INFD trace...") 
+        scan() 
+    } 
+    if (trace == "all" || trace == "seq" || trace == "infd") { 
+        plot(mcalp, x$infd, ann = FALSE, type = "n", ylim = c(-1,1)) 
+        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
+        abline(h = 0, col = gray(0.9), lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$infd[, i], col = i,  lty = myty[i], lwd = 2) 
+        title(main = paste("INFERIOR DIRECTION: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Direction Cosines") 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2) 
+    } 
+    if (trace == "seq") { 
+        cat("\nPress the Enter key to view the SPAT trace...") 
+        scan() 
+    } 
+    if (trace == "all" || trace == "seq" || trace == "spat") {
+        plot(mcalp, x$spat, ann = FALSE, type = "n") 
+        abline(v = mV, col = "gray", lty = 2, lwd = 2) 
+        abline(h = 0, col = gray(0.9), lwd = 2) 
+        for (i in 1:x$p) lines(mcal, x$spat[, i], col = i,  lty = myty[i], lwd = 2) 
+        title(main = paste("SHRINKAGE PATTERN: Q-shape =", x$qp), 
+            xlab = "m = Multicollinearity Allowance", ylab = "Ridge Delta-Factors") 
+        if(trkey) legend(LG, all.vars(x$form)[2:(x$p+1)], col=1:(x$p), lty=myty[1:(x$p)], lwd=2)
+    } 
 } 
-  

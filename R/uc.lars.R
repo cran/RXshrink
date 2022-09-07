@@ -2,7 +2,7 @@
 function (form, data, rscale = 1, type = "lar", trace = FALSE, 
     eps = .Machine$double.eps, omdmin = 9.9e-13) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to uc.lars must be a valid linear regression formula.") 
     yvar <- deparse(form[[2]]) 
     if (missing(data) || !inherits(data, "data.frame")) 

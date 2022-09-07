@@ -1,6 +1,6 @@
 "YonX" <- function (form, data, delmax = 0.999999) 
 { 
-    if (missing(form) || class(form) != "formula") 
+    if (missing(form) || !inherits(form, "formula"))
         stop("First argument to YonX() must be a valid linear regression formula.") 
     yvar <- deparse(form[[2]]) 
     xvar <- deparse(form[[3]]) 

@@ -1,11 +1,12 @@
 Package: RXshrink
 Title: Maximum Likelihood Shrinkage using Generalized Ridge or Least
         Angle Regression
-Version: 2.2
-Date: 2022-09-11
+Version: 2.3
+Date: 2023-08-15
 Author: Bob Obenchain 
 Maintainer: Bob Obenchain <wizbob@att.net>
 Imports: lars, ellipse
+Suggests: mgcv
 Description: Functions are provided to calculate and display ridge TRACE Diagnostics for a 
   variety of alternative Shrinkage Paths. While all methods focus on Maximum Likelihood 
   estimation of unknown true effects under normal distribution-theory, some estimates are 
@@ -22,7 +23,7 @@ Description: Functions are provided to calculate and display ridge TRACE Diagnos
 License: GPL-2
 URL: https://www.R-project.org , http://localcontrolstatistics.org
 NeedsCompilation: no
-Packaged: 2022-09-07 17:08:04 UTC; bobo
+Packaged: 2023-08-06 16:37:58 UTC; bobo
 Depends: R (>= 3.5.0)
 Repository: CRAN
-Date/Publication: 2022-09-07 19:30:01 UTC
+Date/Publication: 2023-08-07 19:30:05 UTC

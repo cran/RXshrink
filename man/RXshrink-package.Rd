@@ -18,8 +18,8 @@
   \tabular{ll}{
   Package: \tab RXshrink\cr
   Type: \tab Package\cr
-  Version: \tab 2.2\cr
-  Date: \tab 2022-09-11\cr
+  Version: \tab 2.3\cr
+  Date: \tab 2023-08-15\cr
   License: \tab GNU GENERAL PUBLIC LICENSE, Version 2, June 1991\cr
   }
   
@@ -87,7 +87,7 @@
   Obenchain RL. (2022) Efficient Generalized Ridge Regression. \emph{Open Statistics}
   \bold{3}: 1-18. \doi{10.1515/stat-2022-0108}
   
-  Obenchain RL. (2022) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
+  Obenchain RL. (2023) \emph{RXshrink_in_R.PDF} RXshrink package vignette-like document,
   Version 2.3. \url{http://localcontrolstatistics.org}
 }
 \keyword{package}

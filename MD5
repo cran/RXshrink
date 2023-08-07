@@ -1,6 +1,6 @@
 0753802740a65d5fa28743e02812f3dc *COPYING
-5d51866d947fded2832054d4cc4fb69e *DESCRIPTION
-b9f5f49b78d71d0386f45d898c4c3d5d *NAMESPACE
+33882eb6b3294be9b64c3b3a83f4aaab *DESCRIPTION
+ec2de6762f3b2fd401f6bbc24d96291c *NAMESPACE
 a78c1049e8f76978c6ad0b2ab2011f76 *R/MLfuns.R
 b26cf1a22ae5277b5d22b1e7ffe83f9e *R/RXpredict.R
 4e28b2b517e36dac2a09491f550c9bd6 *R/YonX.R
@@ -10,6 +10,7 @@ b26cf1a22ae5277b5d22b1e7ffe83f9e *R/RXpredict.R
 ed1c6f861cbeb541b3aa6be3e327b327 *R/eff.ridge.R
 8e9c48bd036ba22d2ef1c81be0bba196 *R/internal.R
 f29fbfacdff0d34301e9760172fdb87f *R/qm.ridge.R
+57bd5ff196a8a98ab6e01326e3bb51d4 *R/syxi.R
 4d73516954bde577465bda91ddef5601 *R/uc.lars.R
 9ecb0bdfb906213cc54af05f9a8fb645 *build/partial.rdb
 0d5d169f58b1f03c6576a8d7ef65accc *data/haldport.rda
@@ -26,7 +27,7 @@ a33ec8370e08d69c0e4378ee4b7d4c2c *demo/mpg.R
 5bb45db73fb5e3cfb42d98c75c108fd3 *man/MLhist.Rd
 35d38a0bece4f33990824402949599ab *man/MLtrue.Rd
 51d2e938b13947a6ac457fdc8a6340f8 *man/RXpredict.Rd
-b2f007f67f1d0b29e01535bc442ae2ac *man/RXshrink-package.Rd
+b919d7b985555fedb829c3938ea48e74 *man/RXshrink-package.Rd
 e65b2fb58cf5d55c29a4a96a0886da1f *man/YonX.Rd
 3106a4559807e5777b950961a6e0628d *man/aug.lars.Rd
 6d630eb4478e6c933112318f6a8c0fda *man/correct.signs.Rd
@@ -44,7 +45,9 @@ decaeb546180ddf4b0dd0b881015eb90 *man/plot.RXpredict.Rd
 d07a97ac74c17387e6d60ef67423c0d7 *man/plot.eff.biv.Rd
 3c7f0a8a80a99cd92fa0815cdaab012d *man/plot.eff.ridge.Rd
 a81efa46d6b372a86d7bfd6b012c2857 *man/plot.qm.ridge.Rd
+32d015961c6ea2722112230dc1583d96 *man/plot.syxi.Rd
 c0ebbd8db76754974ce9cd3596589e89 *man/plot.uc.lars.Rd
 0c4e9f0ff311571edcdb2ba77e3ac809 *man/qm.ridge.Rd
+5487c83237437bcca1fd72e37b0f23b6 *man/syxi.Rd
 9fd512d074bbc78550f9a7670730d9ab *man/tycobb.Rd
 13993e376eee51e1a7225d50f0d8f419 *man/uc.lars.Rd

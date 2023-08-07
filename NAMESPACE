@@ -1,4 +1,4 @@
-importFrom("grDevices", "gray") 
+importFrom("grDevices", "gray")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot", 
            "points", "title", "hist") 
 importFrom("stats", "lm", "rnorm", "runif", "var", "cor") 
@@ -35,7 +35,10 @@ S3method(print, qm.ridge)
  
 export(RXpredict) 
 S3method(plot, RXpredict) 
-S3method(print, RXpredict) 
+S3method(print, RXpredict)
+
+export(syxi) 
+S3method(plot, syxi)
  
 export(uc.lars) 
 S3method(plot, uc.lars) 
